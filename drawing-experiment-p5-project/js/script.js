@@ -21,11 +21,16 @@ function preload() {
 face
 */
 function setup() {
-  createCanvas(500,500);
-  bckground(255,200,200);
-  fill(0);
-  ellipseMode(CENTER);
-  ellipse(250,250,200,200);
+  createCanvas(500, 500);
+  background(127, 255, 127);
+  rectMode(CENTER);
+  noStroke();
+  fill(200);
+  rect(250, 250, 300, 300);
+  ellipse(200, 200, 50, 50);
+  ellipse(300, 200, 50, 50);
+  rect(250, 200, 25, 200);
+  arc(250, 300, 200, 100, 0, PI / 2);
 }
 
 function draw() {
