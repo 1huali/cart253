@@ -29,19 +29,20 @@ function setup() {
   ellipse(320,480,350,200)
 // Drawing a head
   fill(139,139,139);
-  ellipse(320,240,230,440);
+  ellipse(320,240,290,440);
 // Drawing the eyes
   fill(0,0,0);
-  ellipse(270,160,50,200);
-  ellipse(365,160,50,200);
+  ellipse(270,190,100,250);
+  ellipse(375,190,100,250);
 // Drawing the nostrills
-  ellipse(315,260,6,9);
-  ellipse(330,260,6,9);
+  ellipse(315,330,6,9);
+  ellipse(330,330,6,9);
 // Drawing the mouth
   stroke(1);
   strokeWeight (2);
+  fill(101);
   rectMode(CENTER);
-  rect(320,350,60,30,15);
+  rect(320,376,90,15,15);
 
 }
 
