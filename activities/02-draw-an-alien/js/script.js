@@ -51,7 +51,7 @@ function setup() {
   noStroke();
   fill(217,80,101);
   rectMode(CENTER);
-  rect(320,376,90,15,15);
+  rect(320,376,110,15,15);
 
 }
 
