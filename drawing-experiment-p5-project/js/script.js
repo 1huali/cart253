@@ -8,6 +8,9 @@ author, and this description to match your project!
 
 "use strict";
 
+let rectWidth = 100;
+let rectHeight = 100;
+let rectCorner = 10;
 
 /**
 Description of preload
@@ -21,19 +24,7 @@ function preload() {
 face
 */
 function setup() {
-  createCanvas(500, 500);
-  background(127, 255, 127);
-  rectMode(CENTER);
-  noStroke();
-  fill(200);
-  rect(250, 250, 300, 300);
-  ellipse(200, 200, 50, 50);
-  ellipse(300, 200, 50, 50);
-  rect(250, 200, 25, 200);
-  arc(250, 300, 200, 100, 0, PI / 2);
-}
-
-function draw() {
+  createCanvas(windowWidth, windowHeight);
 }
 
 
@@ -41,5 +32,9 @@ function draw() {
 Description of draw()
 */
 function draw() {
-
+  // Make the background red
+  background(mouseX,200,mouseY);
+// Draw a square in the centre of the canvas
+  rectMode(CENTER);
+  rect(width/2,height/2,rectWidth,rectHeight,rectCorner);
 }
