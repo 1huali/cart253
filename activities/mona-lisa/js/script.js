@@ -1,9 +1,9 @@
 /**
-Title of Project
-Author Name
+Mona Lisa in less than 30 minutes.
+Wan Hua Li
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+This exercice is an attempt to create Mona Lisa
+in less than 30 minutes.
 */
 
 "use strict";
@@ -21,6 +21,10 @@ function preload() {
 Description of setup
 */
 function setup() {
+  createCanvas(400,600);
+  background();
+
+
 }
 
 
