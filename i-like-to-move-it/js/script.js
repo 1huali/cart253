@@ -9,7 +9,9 @@ author, and this description to match your project!
 */
 
 "use strict";
+// SETTING OBJECTS N STARSZSZSZSZSZSZSZSZSZS
 
+// dust/foam - moves quick like a heart-beat
 // ellipse(500,125,70);
 // ellipse(250,525,70);
 
@@ -32,43 +34,105 @@ let foam2={
 // novas, grow and shrinks. size of big circles r mapped with mouseX
 // ellipse(140,150,100);
 // ellipse(140,150,50);
-let nova1={
+//
+// ellipse(500,400,100);
+// ellipse(500,400,70);
 
+// ellipse(500,400,100);
+// ellipse(500,400,50);
+
+// ellipse(120,520,100);
+// ellipse(120,520,60);
+//
+// ellipse(810,350,100);
+// ellipse(810,350,50);
+let nova1={
+x:500,
+y:400,
+size:100,
+fill:0
 }
 let core1={
-
+  x:500,
+  y:400,
+  size:70,
+  alpha:200,
+  fill:255
 }
 
 let nova2={
-
+  x:120,
+  y:520,
+  size:100,
+  fill:1
 }
 let core2={
-
+  x:120,
+  y:520,
+  size:60,
+  alpha:200,
+  fill:255
 }
 let nova3={
-
+  x:810,
+  y:350,
+  size:100,
+  fill:1
 }
 let core3={
-
+  x:810,
+  y:350,
+  size:50,
+  fill:255,
+  alpha:200
 }
 let nova4={
-
+  x:500,
+  y:400,
+  size:100,
+  fill:1
 }
 let core4={
-
+  x:500,
+  y:400,
+  size:50,
+  fill:255,
+  alpha:200
 }
-ellipse(500,400,100);
-ellipse(500,400,70);
 
-ellipse(500,400,100);
-ellipse(500,400,50);
+// stars, turn. color variation mapped w mouseY
+// // stars, turn. color variation mapped w mouseY
+// ellipse(300,200,100);
+// ellipse(700,612,200);
+// ellipse(750,175,200);
+// ellipse(140,612,60);
+//
+// fill(247, 10, 210);
 
-ellipse(120,520,100);
-ellipse(120,520,60);
-
-ellipse(810,350,100);
-ellipse(810,350,50);
-
+let star1={
+  x:300,
+  y:200,
+  size:100,
+  fill:1
+}
+let star2={
+  x:700,
+  y:612,
+  size:200,
+  fill:1
+}
+let star3={
+  x:750,
+  y:175,
+  size:200,
+  fill:(252, 189, 227)
+}
+let star4={
+  x:140,
+  y:612,
+  size:60,
+  fill:1
+}
 /**
 Description of preload
 */
@@ -82,8 +146,7 @@ Description of setup
 */
 function setup() {
   createCanvas(1000,700);
-  background(0);
-
+  background(196, 181, 190);
 }
 
 
@@ -91,35 +154,44 @@ function setup() {
 Description of draw()
 */
 function draw() {
+// stars appears
+  ellipse(star1.x,star1.y,star1.size);
+  ellipse(star2.x,star2.y,star2.size);
+  ellipse(star3.x,star3.y,star3.size);
+  ellipse(star4.x,star4.y,star4.size);
+  noStroke();
+  ellipse(foam1.x,foam1.y,foam1.size);
+  ellipse(foam2.x,foam2.y,foam2.size);
+  ellipse(nova1.x,nova1.y,nova1.size);
+  ellipse(nova2.x,nova2.y,nova2.size);
+  ellipse(nova3.x,nova3.y,nova3.size);
+  ellipse(nova4.x,nova4.y,nova4.size);
+  ellipse(core1.x,core1.y,core1.size,core1.alpha);
+  ellipse(core2.x,core2.y,core2.size,core2.alpha);
+  ellipse(core3.x,core3.y,core3.size,core3.alpha);
+  ellipse(core4.x,core4.y,core4.size,core4.alpha);
+  // color appears
+  fill(star1.fill);
+  fill(star2.fill);
+  fill(star3.fill);
+  fill(star4.fill);
 
-// novas, grow and shrinks. size of big circles r mapped with mouseX
-ellipse(140,150,100);
-ellipse(140,150,50);
+  fill(core1.fill);
+  fill(core2.fill);
+  fill(core3.fill);
+  fill(core4.fill);
 
-ellipse(500,400,100);
-ellipse(500,400,70);
+  fill(nova1.fill);
+  fill(nova2.fill);
+  fill(nova3.fill);
+  fill(nova4.fill);
 
-ellipse(500,400,100);
-ellipse(500,400,50);
-
-ellipse(120,520,100);
-ellipse(120,520,60);
-
-ellipse(810,350,100);
-ellipse(810,350,50);
+  fill(foam1.fill);
+  fill(foam2.fill);
 
 
-fill(247, 163, 210)
-
-// stars, turn. color variation mapped w mouseY
-ellipse(300,200,100);
-ellipse(700,612,200);
-ellipse(750,175,200);
-ellipse(140,612,60);
-
-fill(247, 10, 210);
-
-// dust - moves quick like a heart-beat
 // code for heartbeat mvmt
+
+
 
 }
