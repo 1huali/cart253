@@ -8,33 +8,30 @@ author, and this description to match your project!
 
 "use strict";
 
-let rectWidth = 100;
-let rectHeight = 100;
-let rectCorner = 10;
-
-/**
-Description of preload
-*/
-function preload() {
-
+let backgroundShade = 0;
+let circle = {
+  x: 250,
+  y: 250,
+  size: 100,
+  fill: 100,
+  speed:1
 }
 
-
-/**
-face
-*/
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(1000, 700);
 }
 
-
-/**
-Description of draw()
-*/
 function draw() {
-  // Make the background red
-  background(mouseX,200,mouseY);
-// Draw a square in the centre of the canvas
-  rectMode(CENTER);
-  rect(width/2,height/2,rectWidth,rectHeight,rectCorner);
+  background(backgroundShade);
+  ellipse(circle.x, circle.y, circle.size);
+
+// fill setups
+  circle.fill = map(mouseY,0,width,100,255); // Set the circle size based on the mouse's y position
+  fill(circle.fill);
+// speed setups
+  circle.size += circle.speed;
+  circle.size = constrain(mouseX, 0,width);
+// size setups
+
+  console.log(`circleX: ${circle.x}, circleY: ${circle.y}, circleSize: ${circle.size}, circleSpeed: ${circle.speed}`);
 }
