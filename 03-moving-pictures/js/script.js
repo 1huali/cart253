@@ -30,7 +30,7 @@ let circle2= {
   y:350,
   size: 100,
   fill: 0,
-  alpha: 200,
+  alpha: 100,
   // speed: 1
 
 }
@@ -62,10 +62,12 @@ function draw() {
 
   // circle 1
   ellipse(circle1.x,circle1.y,circle1.size);
-  fill(circle1.fill);
+  fill(circle1.fill, circle1.alpha);
   noStroke();
   circle1.x= circle1.x+1;
-  circle1.x= constrain(circle1.x,0,400);
+  circle1.x= constrain(circle1.x,0,500);
+  circle1.size= circle1.size+0.25;
+  circle1.size= constrain(circle1.size,0,height);
   //
   // circle1.x= circle1.x+circle1.speed;
   // // circle1.speed=() //speed of x
@@ -74,9 +76,11 @@ function draw() {
   // circle 2
   ellipse(circle2.x,circle2.y,circle2.size);
   noStroke();
-  fill(circle2.fill, circle1.alpha);
+  fill(circle2.fill, circle2.alpha);
   circle2.x= circle2.x-1
-  circle2.x= constrain(circle2.x,600,1000);
+  circle2.x= constrain(circle2.x,500,1000);
+  circle2.size= circle2.size+0.25;
+  circle2.size= constrain(circle2.size,0,height);
 
   // fill(255, 183, 163);
 
