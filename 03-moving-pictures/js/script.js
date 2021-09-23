@@ -13,28 +13,26 @@ from black to red."
 "use strict";
 
   let bg = {
-  r:252,
-  g:3,
-  v: 44
+  r:0,
+  g:0,
+  b:0
   }
 let circle1= {
-  x:250,
+  x:0,
   y:350,
   size: 250,
-  // fill: (255,179,207),
+  fill: 0,
+  alpha: 200
   // speed:1
 }
 let circle2= {
-  x: 750,
+  x: 1000,
   y:350,
   size: 100,
-  // fill: (255, 183, 163),
-  // opacity: 0.5,
+  fill: 0,
+  alpha: 200,
   // speed: 1
 
-
-
-  // console.log(circle1X,circle1Y);
 }
 
 /**
@@ -52,29 +50,35 @@ function setup() {
   createCanvas(1000, 700);
   noStroke();
   // background(252,3,44); // can't work in setup cos it has to loop
-
 }
 
 /**
 Description of draw()
 */
 function draw() {
-  background();
+// bg
+  background(bg.r,bg.b,bg.g);
+  bg.r = bg.r+1;
 
   // circle 1
   ellipse(circle1.x,circle1.y,circle1.size);
+  fill(circle1.fill);
   noStroke();
-  fill(255,179,207);
-
-
-  circle1.x= circle1.x+circle1.speed;
-  // circle1.speed=() //speed of x
-  circle1.x= map(circle1.x,0,250,-5,250);// range of mvmt
+  circle1.x= circle1.x+1;
+  circle1.x= constrain(circle1.x,0,400);
+  //
+  // circle1.x= circle1.x+circle1.speed;
+  // // circle1.speed=() //speed of x
+  // circle1.x= map(circle1.x,0,250,-5,250);// range of mvmt
 
   // circle 2
   ellipse(circle2.x,circle2.y,circle2.size);
   noStroke();
-  fill(255, 183, 163);
+  fill(circle2.fill, circle1.alpha);
+  circle2.x= circle2.x-1
+  circle2.x= constrain(circle2.x,600,1000);
+
+  // fill(255, 183, 163);
 
 
 }
