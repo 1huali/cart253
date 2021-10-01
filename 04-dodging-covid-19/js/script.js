@@ -2,7 +2,7 @@
 Dodge'Em : Venus Fly
 Wan Hua Li
 
-Better dodge those bad thoughts cos then might as well catch covid-19 init??
+Dodge them baddies or die trying!!
 
 Exercice to put in practice mvmt variables, visuals, and conditionals.
 */
@@ -40,7 +40,8 @@ let user ={
 maybe medias???
 */
 function preload() {
-  sundewImage = loadImage("assets/images/sundew.jpeg");
+  sundewImage = loadImage("assets/images/carni.gif");
+  // sundewImage = loadImage("assets/images/sundew.jpeg");
   // sundewImage = loadImage("assets/images/sundews.gif.crdownload");
   butterflyImage= loadImage("assets/images/butterflies.gif");
 
