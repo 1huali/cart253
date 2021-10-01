@@ -22,7 +22,7 @@ let nrj ={
 }
 // danger to dodge
 let danger ={
-  x:0, y:0, size: 100,speed:1, fill: 150
+  x:0, y:0, size: 100,speed:0.05, fill: 150
 }
 
 /**
@@ -50,9 +50,25 @@ function draw() {
   // danger bouncing
   fill(danger.fill);
   danger.x= danger.x+danger.speed;
+  danger.y=danger.y+danger.speed;
 
-  danger.x = random(Width,danger.y);
-  danger.y= random(danger.x,Height);
+if (danger.x> width){
+  danger.speed=-danger.speed;
+}
+else if (danger.x<0){
+  danger.speed=danger.speed;
+}
+
+if (danger.y>width){
+  danger.speed=-danger.speed;
+}
+else if (danger.y<0){
+  danger.speed=danger.speed;
+}
+
+  danger.x = random(0,width);
+  danger.y= random(0,height);
+
 
   ellipse (danger.x, danger.y,danger.size);
 }
