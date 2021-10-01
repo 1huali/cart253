@@ -7,31 +7,39 @@ author, and this description to match your project!
 */
 
 "use strict";
-
-let backgroundShade = 0;
-let circle = {
-  x: 250,
+let rectangle = {
+  x: 0,
   y: 250,
   size: 100,
-  fill: 100,
-  speed:1
+  vx: 0,
+  vy: 0,
+  speed: 2,
+  scale: 1,
+  angle: 0
 }
 
 function setup() {
-  createCanvas(1000, 700);
+  createCanvas(500, 500);
+  rectangle.vx = rectangle.speed;
 }
 
 function draw() {
-  background(backgroundShade);
-  ellipse(circle.x, circle.y, circle.size);
+  background(0);
 
-// fill setups
-  circle.fill = map(mouseY,0,width,100,255); // Set the circle size based on the mouse's y position
-  fill(circle.fill);
-// speed setups
-  circle.size += circle.speed;
-  circle.size = constrain(mouseX, 0,width);
-// size setups
+  // Move the rectangle according to its velocirty
+  rectangle.x = rectangle.x + rectangle.vx;
+  rectangle.y = rectangle.y + rectangle.vy;
 
-  console.log(`circleX: ${circle.x}, circleY: ${circle.y}, circleSize: ${circle.size}, circleSpeed: ${circle.speed}`);
+  // Increase the rectangle's scale and angle
+  rectangle.scale = rectangle.scale + 0.01;
+  rectangle.angle = rectangle.angle + 0.05;
+
+  // Display the rectangle
+  push();
+  rectMode(CENTER); // Centered
+  translate(rectangle.x, rectangle.y); // Translate to rectangle position
+  scale(rectangle.scale); // Apply scale
+  rotate(rectangle.angle); // Apply rotation
+  rect(0, 0, rectangle.size, rectangle.size); // Draw rectangle at 0,0 because of translate()
+  pop();
 }
