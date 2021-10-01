@@ -48,6 +48,8 @@ function setup() {
 
   covid19.y = random(0,height);
   covid19.vx=covid19.speed;
+
+  noCursor();
 }
 
 
@@ -65,14 +67,27 @@ function draw() {
     point(x,y);
   }
 
-// covid19 mvmt
+// covid19 mvmt - would be lvl 1
+// if(covid19.x > width){
+//   covid19.x=-covid19.speed;
+//   covid19.y= random(0,height);
+// }
+
+// trying bounce back - would b lvl 2
 if(covid19.x > width){
-  covid19.x=-covid19.speed;
+  covid19.vx=-covid19.speed;
+  covid19.y=random(0,height);
+}
+
+if(covid19.x < 0){
+  covid19.vx=covid19.speed;
   covid19.y= random(0,height);
 }
 
+
   covid19.x=covid19.x+covid19.vx;
   covid19.y= covid19.y+covid19.vy;
+
 
 // user movement
   user.x=mouseX;
