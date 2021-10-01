@@ -12,14 +12,18 @@ Exercice to put in practice mvmt variables, visuals, and conditionals.
 let backgroundShade=0;
 let numStatic = 5000;
 
+let butterflyImage;
+let sundewImage;
+
 
 // called covid-19 - to dodge
 let covid19 ={
-  x:0, y:250, size: 100, vx:0, vy:0, speed:3,
+  x:0, y:250, size: 60, vx:0, vy:0, speed:3,
   fill: {
-    r:255,
-    g:0,
-    b:0
+    r:240,
+    g:29,
+    b:85
+// 240, 29, 85
   }
 };
 
@@ -27,7 +31,7 @@ let covid19 ={
 let user ={
   x:0, // will mouseX
   y:0, // will mouseY
-  size: 100,
+  size: 10,
   fill: 255
 }
 
@@ -36,8 +40,13 @@ let user ={
 maybe medias???
 */
 function preload() {
+  sundewImage = loadImage("assets/images/sundew.jpeg");
+  // sundewImage = loadImage("assets/images/sundews.gif.crdownload");
+  butterflyImage= loadImage("assets/images/butterflies.gif");
 
-}
+
+  }
+
 
 
 /**
@@ -57,15 +66,18 @@ function setup() {
 Description of draw()
 */
 function draw() {
-  background(backgroundShade);
+  background(sundewImage);
 
-  // pippin wanted 2add some static
-  for (let i=0 ; i < numStatic ; i++){
-    let x=random(0,width);
-    let y=random(0,height);
-    stroke(255);
-    point(x,y);
-  }
+imageMode(CENTER);
+image(butterflyImage,mouseX,mouseY);
+
+  // // pippin wanted 2add some static
+  // for (let i=0 ; i < numStatic ; i++){
+  //   let x=random(0,width);
+  //   let y=random(0,height);
+  //   stroke(255);
+  //   point(x,y);
+  // }
 
 // covid19 mvmt - would be lvl 1
 // if(covid19.x > width){
