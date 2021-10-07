@@ -26,6 +26,7 @@ let circle1={
   size:100,
   vx:1,
   vy:1,
+  fill:255,
   speed:0,
   acceleration:0
 }
@@ -33,12 +34,13 @@ let circle1={
 let circle2 ={
   x:480,
   y:320,
+  fill:255,
   size:100,
 }
 
 let state= `title`;
 
-let titleString= `remember what I told U`
+let titleString= `remember when I told U`
 let endingString= `I stickwitchu`
 
 /**
@@ -64,5 +66,61 @@ function draw() {
 background(0);
 
 
+if (state=== `title`){
+  title();
+}
 
+if (state=== `love`){
+  display();
+  u();
+  me();
+}
+
+}
+
+
+//components
+function display(){
+fill(circle1.fill);
+noStroke;
+ellipse(circle1.x,circle1.y,circle1.size);
+
+
+fill(circle2.fill);
+noStroke;
+ellipse(circle2.x,circle2.y,circle2.size);
+}
+
+function title(){
+  textSize(32);
+  fill(255);
+  text(titleString,70, 7*height/8)
+}
+
+function ending(){
+  textSize(32);
+  fill(255);
+  text(endingString,70, 7*height/8)
+}
+
+
+function u(){
+  circle.vx= circle2.speed;
+  circle.vy=circle2.speed;
+
+  circle2.x= circle2.x+circle2.vx;
+  circle2.y= circle2.y+circle2.vy;
+
+  circle2.x=random(0,width);
+  circle2.y=random(0,height);
+}
+
+function me(){
+  circle1.x=mouseX;
+  circle1.y=mouseY;
+}
+
+function keyPressed(){
+  if (state===`title`);
+  state===`love`;
 }
