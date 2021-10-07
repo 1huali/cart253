@@ -44,22 +44,18 @@ let circle2 ={
   acceleration:0
 }
 
-//Game State//
 let state= `title`;
 
-//String Variables//
 let titleString= `remember what I told U?`;
 let subtitleString= `PRESS '♡' TO START `;
 let endingString= `i stickwitchu`;
 let meString=`me`;
 let uString=`U`;
 
-//Preloaded assets//
 function preload() {
 
 }
 
-//Controls which section the game is currently in//
 function gameState() {
 
   if (state === `title`){
@@ -78,17 +74,14 @@ function gameState() {
   }
 }
 
-//Detects if player and enemy cicles collide//
 function collisionDetection() {
   let d = dist(circle1.x,circle1.y,circle2.x,circle2.y)
 
-  //If collision occurs, go to ending screen//
   if (d < circle2.size / 2){
     state = `ending`;
   }
 }
 
-//Title state visual assets//
 function title(){
 
   textSize(32);
@@ -103,7 +96,6 @@ function subtitle(){
   text(subtitleString,70, 600);
 }
 
-//Ending state visual assets//
 function ending(){
 
   textSize(32);
@@ -155,7 +147,6 @@ function player(){
   circle1.x=mouseX;
   circle1.y=mouseY;
 
-  //Draws player circle//
   push();
   fill(circle1.fill);
   noStroke();
@@ -164,7 +155,6 @@ function player(){
   pop();
 }
 
-//Checks to see if mousePressed//
 function mousePressed(){
   if (state===`title`){
       state=`love`;
@@ -174,12 +164,10 @@ function mousePressed(){
   }
 }
 
-//Called only once at beginning of program//
 function setup() {
   createCanvas(640,640);
 }
 
-//Called every frame//
 function draw() {
   background(0);
 
