@@ -1,6 +1,9 @@
 /**
-Title of Project
-Author Name
+Love, Actually
+Wawa Li
+
+Writing your own if-statements
+Working with loops for drawing
 
 - Allow the user to control one of the circles
 Anything goes, from clicking to position it, to having it follow the mouse, to using the arrow keys, to something else
@@ -17,6 +20,26 @@ Maybe it’s connected to the new function in the previous step?
 
 "use strict";
 
+let circle1={
+  x:160,
+  y:320,
+  size:100,
+  vx:1,
+  vy:1,
+  speed:0,
+  acceleration:0
+}
+
+let circle2 ={
+  x:480,
+  y:320,
+  size:100,
+}
+
+let state= `title`;
+
+let titleString= `remember what I told U`
+let endingString= `I stickwitchu`
 
 /**
 Description of preload
@@ -30,6 +53,7 @@ function preload() {
 Description of setup
 */
 function setup() {
+  createCanvas(640,640);
 }
 
 
@@ -37,5 +61,8 @@ function setup() {
 Description of draw()
 */
 function draw() {
+background(0);
+
+
 
 }
