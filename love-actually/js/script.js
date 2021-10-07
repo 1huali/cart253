@@ -20,6 +20,7 @@ Maybe it’s connected to the new function in the previous step?
 
 "use strict";
 
+//Player circle1//
 let circle1={
   x:160,
   y:320,
@@ -27,132 +28,160 @@ let circle1={
   vx:0.05,
   vy:0.05,
   fill:255,
+  // speed:0,
+  // acceleration:0
+}
+
+//Enemy circle2//
+let circle2 ={
+  x:0,
+  y:0,
+  fill:255,
+  size:100,
+  vx:5,
+  vy:5,
   speed:0,
   acceleration:0
 }
 
-let circle2 ={
-  x:480,
-  y:320,
-  fill:255,
-  size:100,
-}
-
+//Game State//
 let state= `title`;
 
-let titleString= `remember when I told U`
-let endingString= `I stickwitchu`
+//String Variables//
+let titleString= `remember what I told U?`;
+let subtitleString= `PRESS '♡' TO START `;
+let endingString= `i stickwitchu`;
+let meString=`me`;
+let uString=`U`;
 
-/**
-Description of preload
-*/
+//Preloaded assets//
 function preload() {
 
 }
 
+//Controls which section the game is currently in//
+function gameState() {
 
-/**
+  if (state === `title`){
+    title();
+    subtitle();
+  }
 
-*/
-function setup() {
-  createCanvas(640,640);
+  if (state === `love`){
+    enemy();
+    player();
+    collisionDetection();
+  }
 
-  circle2.x=random(0,width);
-  circle2.y=random(0,height);
+  if (state === `ending`) {
+    ending();
+  }
 }
 
+//Detects if player and enemy cicles collide//
+function collisionDetection() {
+  let d = dist(circle1.x,circle1.y,circle2.x,circle2.y)
 
-/**
-Description of draw()
-*/
-function draw() {
-background(0);
-
-
-if (state=== `title`){
-  title();
+  //If collision occurs, go to ending screen//
+  if (d < circle2.size / 2){
+    state = `ending`;
+  }
 }
 
-if (state=== `love`){
-  display();
-  u();
-  me();
-}
-
-let d= dist(circle1.x,circle1.y,circle2.x,circle2.y)
-
-if (d < circle2/2){
-  state=`ending`;
-}
-
-
-}
-
-
-//components
-function display(){
-fill(circle1.fill);
-noStroke;
-ellipse(circle1.x,circle1.y,circle1.size);
-
-
-fill(circle2.fill);
-noStroke;
-ellipse(circle2.x,circle2.y,circle2.size);
-}
-
+//Title state visual assets//
 function title(){
+
   textSize(32);
   fill(255);
   text(titleString,70, 7*height/8);
 }
 
+function subtitle(){
+
+  textSize(25);
+  fill(255);
+  text(subtitleString,70, 600);
+}
+
+//Ending state visual assets//
 function ending(){
+
   textSize(32);
   fill(255);
   text(endingString,70, 7*height/8);
 }
 
-// circle 2
-function u(){
-  // circle2.vx= circle2.vx+circle2.speed;
-  // circle2.vy=circle2.speed+circle2.vy;
+//Enemy Circle//
+function enemy(){
+
+  push();
+  fill(circle2.fill);
+  noStroke();
+  // ellipse(circle2.x,circle2.y,circle2.size);
+  text(uString,circle2.x,circle2.y);
+  pop();
+
+  circle2.x += circle2.vx;
+  circle2.y += circle2.vy;
 
 
-  circle2.x= circle2.x+circle2.vx;
-  circle2.y= circle2.y+circle2.vy;
 
-  //circle2 accelerates when touches the walls
-  // if (circle2.x>width){
-  //   circle2.speed+=circle2.acceleration;
-  //   circle2.speed= -circle2.speed
-  // }
-  //
-  // if (circle2.x<0) {
-  //     circle2.speed+=circle2.acceleration;
-  //     circle2.speed= circle2.speed
-  //   }
-  //
-  // if (circle2.y<0) {
-  //       circle2.speed+=circle2.acceleration;
-  //       circle2.speed= circle2.speed
-  //     }
-  //
-  // if (circle2.y>height) {
-  //           circle2.speed+=circle2.acceleration;
-  //           circle2.speed= -circle2.speed
-  //         }
+   if (circle2.x > width) {
+     circle2.x= random(0,width);
+    circle2.vx = -circle2.vx;
+    }
+
+    if (circle2.x < 0) {
+      circle2.x= random(0,width);
+      circle2.vx = -circle2.vx;
+    }
+
+  if (circle2.y > height) {
+    circle2.y= random(0,height);
+    circle2.vy = -circle2.vy;
+    }
+
+  if (circle2.y < 0) {
+    circle2.y= random(0,height);
+    circle2.vy = -circle2.vy;
+    }
+
 }
 
-// circle1
-function me(){
+//Player Circle//
+function player(){
+
+  //Draws circle at mouse//
   circle1.x=mouseX;
   circle1.y=mouseY;
+
+  //Draws player circle//
+  push();
+  fill(circle1.fill);
+  noStroke();
+  text(meString,circle1.x,circle1.y);
+  // ellipse(circle1.x,circle1.y,circle1.size);
+  pop();
 }
 
+//Checks to see if mousePressed//
 function mousePressed(){
   if (state===`title`){
       state=`love`;
   }
+  if (state===`ending`){
+    state=`title`
+  }
+}
 
+//Called only once at beginning of program//
+function setup() {
+  createCanvas(640,640);
+}
+
+//Called every frame//
+function draw() {
+  background(0);
+
+  gameState();
 }
