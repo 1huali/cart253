@@ -24,8 +24,8 @@ let circle1={
   x:160,
   y:320,
   size:100,
-  vx:1,
-  vy:1,
+  vx:0.05,
+  vy:0.05,
   fill:255,
   speed:0,
   acceleration:0
@@ -52,10 +52,13 @@ function preload() {
 
 
 /**
-Description of setup
+
 */
 function setup() {
   createCanvas(640,640);
+
+  circle2.x=random(0,width);
+  circle2.y=random(0,height);
 }
 
 
@@ -101,55 +104,55 @@ ellipse(circle2.x,circle2.y,circle2.size);
 function title(){
   textSize(32);
   fill(255);
-  text(titleString,70, 7*height/8)
+  text(titleString,70, 7*height/8);
 }
 
 function ending(){
   textSize(32);
   fill(255);
-  text(endingString,70, 7*height/8)
+  text(endingString,70, 7*height/8);
 }
 
-
+// circle 2
 function u(){
-  circle.vx= circle2.speed;
-  circle.vy=circle2.speed;
+  // circle2.vx= circle2.vx+circle2.speed;
+  // circle2.vy=circle2.speed+circle2.vy;
+
 
   circle2.x= circle2.x+circle2.vx;
   circle2.y= circle2.y+circle2.vy;
 
-  circle2.x=random(0,width);
-  circle2.y=random(0,height);
-
-
   //circle2 accelerates when touches the walls
-  if (circle2.x>width){
-    circle2.speed+=circle2.acceleration;
-    circle2.speed= -circle2.speed
-  }
-
-  if (circle2.x<0) {
-      circle2.speed+=circle2.acceleration;
-      circle2.speed= circle2.speed
-    }
-
-  if (circle2.y<0) {
-        circle2.speed+=circle2.acceleration;
-        circle2.speed= circle2.speed
-      }
-
-  if (circle2.y>height) {
-            circle2.speed+=circle2.acceleration;
-            circle2.speed= -circle2.speed
-          }
+  // if (circle2.x>width){
+  //   circle2.speed+=circle2.acceleration;
+  //   circle2.speed= -circle2.speed
+  // }
+  //
+  // if (circle2.x<0) {
+  //     circle2.speed+=circle2.acceleration;
+  //     circle2.speed= circle2.speed
+  //   }
+  //
+  // if (circle2.y<0) {
+  //       circle2.speed+=circle2.acceleration;
+  //       circle2.speed= circle2.speed
+  //     }
+  //
+  // if (circle2.y>height) {
+  //           circle2.speed+=circle2.acceleration;
+  //           circle2.speed= -circle2.speed
+  //         }
 }
 
+// circle1
 function me(){
   circle1.x=mouseX;
   circle1.y=mouseY;
 }
 
-function mouseIsPressed(){
-  if (state===`title`);
-  state=`love`;
+function mousePressed(){
+  if (state===`title`){
+      state=`love`;
+  }
+
 }
