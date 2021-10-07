@@ -76,6 +76,13 @@ if (state=== `love`){
   me();
 }
 
+let d= dist(circle1.x,circle1.y,circle2.x,circle2.y)
+
+if (d < circle2/2){
+  state=`ending`;
+}
+
+
 }
 
 
@@ -113,6 +120,28 @@ function u(){
 
   circle2.x=random(0,width);
   circle2.y=random(0,height);
+
+
+  //circle2 accelerates when touches the walls
+  if (circle2.x>width){
+    circle2.speed+=circle2.acceleration;
+    circle2.speed= -circle2.speed
+  }
+
+  if (circle2.x<0) {
+      circle2.speed+=circle2.acceleration;
+      circle2.speed= circle2.speed
+    }
+
+  if (circle2.y<0) {
+        circle2.speed+=circle2.acceleration;
+        circle2.speed= circle2.speed
+      }
+
+  if (circle2.y>height) {
+            circle2.speed+=circle2.acceleration;
+            circle2.speed= -circle2.speed
+          }
 }
 
 function me(){
@@ -120,7 +149,7 @@ function me(){
   circle1.y=mouseY;
 }
 
-function keyPressed(){
+function mouseIsPressed(){
   if (state===`title`);
-  state===`love`;
+  state=`love`;
 }
