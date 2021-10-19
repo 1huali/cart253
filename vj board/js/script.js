@@ -74,7 +74,6 @@ disk2.x= 3*width/4;
 disk2.y=height/2;
 disk2.size= 200;
 noStroke();
-
 }
 
 
@@ -100,16 +99,18 @@ function draw() {
   for (let x = 0; x <= width; x += disk1.size) {
       drawGradient(disk1.x, height / 2);
     }
+    // allows D.2 to have gradient
+    // for (let x = 0; x <= width; x += disk2.size) {
+    //     drawGradient1(disk2.x, height / 2);
+    //   }
 
-    for (let x = 0; x <= width; x += disk2.size) {
-        drawGradient1(disk2.x, height / 2);
-      }
-  // properties();
-  bright();
+
+  // display properties;
+  // bright();
   colorhue();
   sat();
 
-  bright1();
+  // bright1();
   colorhue1();
   sat1();
   // backgroundSlider();
@@ -139,10 +140,8 @@ function drawGradient1(x, y) {
 
 
 
-// VARIATIONS
-
-//DISK1
-// sound, color
+// // HUE (sound-color concept)
+// hue.D1
 function colorhue1(){
   if (keyIsDown(65)){
     disk1.h1+=1;
@@ -158,26 +157,8 @@ function colorhue1(){
 if (disk1.h1 === 0){
   disk1.h1=360;
 }
-
   }
-// volume, brightness ---- brightness kidna suck, should replace w speed, and saturation
-function bright1(){
-  disk1.b1= mouseX;
-  constrain(disk1.b1,0,360);
-}
-// saturation,volume??
-function sat1() {
-  if (keyIsDown(UP_ARROW)){
-    disk2.s1+=1;
-  }
-  else if (keyIsDown(DOWN_ARROW)) {
-    disk2.s1-=1;
-  }
-  constrain(disk2.s1,0,100);
-}
-
-// DISK2
-
+// hue.D2
 function colorhue(){
   if (keyIsDown(RIGHT_ARROW)){
     disk2.h+=1;
@@ -194,20 +175,33 @@ function colorhue(){
 if (disk2.h === 0){
   disk2.h=360;
 }
-
   }
 
-
-//
-
-
-// volume, brightness ---- brightness kidna suck, should replace w speed, and saturation
+// volume, brightness ---- brightness kinda suck, should replace w speed, and saturation
+// bright.D2
 function bright(){
   disk2.b= mouseY;
   constrain(disk2.b,0,360);
 }
+// bright.D1
+function bright1(){
+  disk1.b1= mouseX;
+  constrain(disk1.b1,0,360);
+}
 
-// saturation,volume??
+
+// // saturation (volume??)
+// sat.D1
+function sat1() {
+  if (keyIsDown(UP_ARROW)){
+    disk1.s1+=1;
+  }
+  else if (keyIsDown(DOWN_ARROW)) {
+    disk1.s1-=1;
+  }
+  constrain(disk1.s1,0,100);
+}
+// sat.D2
 function sat() {
   if (keyIsDown(UP_ARROW)){
     disk2.s+=1;
@@ -226,24 +220,28 @@ function sat() {
 // 		on = !on;
 // }
 
+// // BUTTONS functions
+// light
 function bgLight (){
   rect(lightButton.x, lightButton.y, lightButton.width, lightButton.height);
   // noStroke();
- fill(255,67,0);
+ fill(255,67,0,250);
 }
 
+
+// Display functions
 function displayLightsMode() {
 if (background === 255){
   push();
   textStyle (BOLD);
-  text('LIGHT MODE', 20,30)
+  text('LIGHT MODE', 30,40)
   fill(0);
   pop();
   }
   else if (background === 0){
     push();
     textStyle (BOLD);
-    text('DARK MODE', 20,30)
+    text('DARK MODE', 30,40)
     fill(255);
     pop();
   }
