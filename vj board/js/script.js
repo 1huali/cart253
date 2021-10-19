@@ -31,12 +31,16 @@ let disk2 = {
   rev:1,
 }
 
-// // properties
-// // sliders
-// let hueSlider;
-// let satSlider;
-// brightSlider;
-// reverbSlider;
+let lightButton = {
+  x:20,
+  y:20,
+  width:10,
+  height:4,
+}
+//LIGHT
+// let lightsOff = "Dark Mode";
+// let lightsOn = "Light Mode";
+// var on = false;
 
 /**
 Description of preload
@@ -52,25 +56,24 @@ Description of setup
 function setup() {
   createCanvas(1000, 600);
 
+  // bgSlider = createSlider(0, 255, 100);
+  // bgSlider.position(500, 500);
+  // bgSlider.style('width', '20px');
 
   disk1.x= width/4;
   disk1.y=height/2;
   disk1.size= 200;
-  background(bg);
   noStroke();
   ellipseMode(RADIUS);
   colorMode(HSB, 360, 100, 100);
   frameRate (60);
 
 
-push()
+
 disk2.x= 3*width/4;
 disk2.y=height/2;
 disk2.size= 200;
 noStroke();
-// ellipseMode(RADIUS);
-// colorMode(HSB, 360, 100, 100);
-pop();
 
 }
 
@@ -79,6 +82,18 @@ pop();
 Description of draw()
 */
 function draw() {
+//
+// if (on) {
+// 		background(255);
+// 	} else {
+		background(0);
+    displayLightsMode ();
+
+// 	}
+
+ // bgLight();
+
+
   displayDisk1();
   displayDisk2();
 
@@ -97,7 +112,7 @@ function draw() {
   bright1();
   colorhue1();
   sat1();
-
+  // backgroundSlider();
 }
 
 
@@ -203,10 +218,36 @@ function sat() {
   constrain(disk2.s,0,100);
 }
 
+// function mouseIsPressed (){
+// if (mouseX > 200 &&
+// 			mouseX < 300 &&
+// 			mouseY > 200 &&
+// 			mouseY < 300) {
+// 		on = !on;
+// }
 
+function bgLight (){
+  rect(lightButton.x, lightButton.y, lightButton.width, lightButton.height);
+  // noStroke();
+ fill(255,67,0);
+}
 
-
-
+function displayLightsMode() {
+if (background === 255){
+  push();
+  textStyle (BOLD);
+  text('LIGHT MODE', 20,30)
+  fill(0);
+  pop();
+  }
+  else if (background === 0){
+    push();
+    textStyle (BOLD);
+    text('DARK MODE', 20,30)
+    fill(255);
+    pop();
+  }
+}
 
 function displayDisk1() {
   fill(disk1.h,disk1.s,disk1.b);
