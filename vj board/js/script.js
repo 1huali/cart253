@@ -1,9 +1,9 @@
 /**
-Title of Project
-Author Name
+vj baby board
+Wawa Li
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+Proect 1
+Primitive visual joker board
 */
 
 "use strict";
@@ -136,6 +136,14 @@ function colorhue1(){
     disk1.h1-=1;
   }
   constrain(disk1.h1,0,360);
+  if (disk1.h1 === 360){
+    disk1.h1=0;
+}
+
+if (disk1.h1 === 0){
+  disk1.h1=360;
+}
+
   }
 // volume, brightness ---- brightness kidna suck, should replace w speed, and saturation
 function bright1(){
