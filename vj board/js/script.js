@@ -129,10 +129,10 @@ function drawGradient1(x, y) {
 //DISK1
 // sound, color
 function colorhue1(){
-  if (keyIsDown(RIGHT_ARROW)){
+  if (keyIsDown(65)){
     disk1.h1+=1;
   }
-  else if (keyIsDown(LEFT_ARROW)){
+  else if (keyIsDown(68)){
     disk1.h1-=1;
   }
   constrain(disk1.h1,0,360);
@@ -156,16 +156,28 @@ function sat1() {
 // DISK2
 
 function colorhue(){
-  if (keyIsDown(65)){
+  if (keyIsDown(RIGHT_ARROW)){
     disk2.h+=1;
   }
-  else if (keyIsDown(68)){
+  else if (keyIsDown(LEFT_ARROW)){
     disk2.h-=1;
   }
   constrain(disk2.h,0,360);
-//
+
+  if (disk2.h === 360){
+    disk2.h=0;
+}
+
+if (disk2.h === 0){
+  disk2.h=360;
+}
 
   }
+
+
+//
+
+
 // volume, brightness ---- brightness kidna suck, should replace w speed, and saturation
 function bright(){
   disk2.b= mouseY;
