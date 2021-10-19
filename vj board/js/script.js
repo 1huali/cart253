@@ -8,38 +8,40 @@ Primitive visual joker board
 
 "use strict";
 // board environment. eventually add instructions
-let bg= 0;
+// let bg= 0;
+let state = 'dark mode';
+let osc, playing, freq, amp;
 
-// disk1
+// queue
 let disk1 = {
-  x:undefined,
-  y:undefined,
-  size:undefined,
-  h1:100,
-  s1:100,
-  b1:100,
-  rev1:1,
+  x: undefined,
+  y: undefined,
+  size: undefined,
+  h1: 100,
+  s1: 100,
+  b1: 100,
+  rev1: 1,
 }
 
 let disk2 = {
-  x:undefined,
-  y:undefined,
-  size:undefined,
-  h:100,
-  s:100,
-  b:100,
-  rev:1,
+  x: undefined,
+  y: undefined,
+  size: undefined,
+  h: 100,
+  s: 100,
+  b: 100,
+  rev: 1,
 }
 
 let lightButton = {
-  x:20,
-  y:20,
-  width:10,
-  height:4,
+  x: 200,
+  y: 200,
+  width: 10,
+  height: 10,
 }
 //LIGHT
-// let lightsOff = "Dark Mode";
-// let lightsOn = "Light Mode";
+let lightsOffString = "Dark Mode";
+let lightsOnString = "Light Mode";
 // var on = false;
 
 /**
@@ -55,25 +57,29 @@ Description of setup
 */
 function setup() {
   createCanvas(1000, 600);
+  osc = new p5.Oscillator('sine');
+//   let disk = ellipse (disk2.x,disk2.y,disk2.size);
+// disk.mousePressed(playOscillator);
+// osc = new p5.Oscillator('sine');
+
 
   // bgSlider = createSlider(0, 255, 100);
   // bgSlider.position(500, 500);
   // bgSlider.style('width', '20px');
 
-  disk1.x= width/4;
-  disk1.y=height/2;
-  disk1.size= 200;
+  // QUEUE NEXT zone size
+  disk1.x = width / 12;
+  disk1.y = 2 * height / 10;
+  disk1.size = 200;
+  // HUE-MAIN DISK
+  disk2.x = 3 * width / 4;
+  disk2.y = height / 2;
+  disk2.size = 200;
+
   noStroke();
   ellipseMode(RADIUS);
   colorMode(HSB, 360, 100, 100);
-  frameRate (60);
-
-
-
-disk2.x= 3*width/4;
-disk2.y=height/2;
-disk2.size= 200;
-noStroke();
+  frameRate(60);
 }
 
 
@@ -81,41 +87,50 @@ noStroke();
 Description of draw()
 */
 function draw() {
-//
-// if (on) {
-// 		background(255);
-// 	} else {
-		background(0);
-    displayLightsMode ();
+  // background(bg)
+  if (state === 'dark mode') {
+    darkMode();
+  } else if (keyCode === 16) {
+    state === 'light mode';
+  }
 
-// 	}
+  switch (state) {
+    case 'dark mode':
+      darkMode();
+      break;
 
- // bgLight();
+    case 'light mode':
+      lightMode();
+      break;
+  }
 
+  // lightsMode ();
 
-  displayDisk1();
+  // careful for order
+  displayNextQueue(); // linked w disk1 presettings (to change) + this has to be called before bbLight
   displayDisk2();
+  displayNowColor(); // nothing before this cos then will fuck up
+  displayNextColor();
 
+  // Main Disk - gradient
   for (let x = 0; x <= width; x += disk1.size) {
-      drawGradient(disk1.x, height / 2);
-    }
-    // allows D.2 to have gradient
-    // for (let x = 0; x <= width; x += disk2.size) {
-    //     drawGradient1(disk2.x, height / 2);
-    //   }
+    drawGradient(disk1.x, height / 2);
+  }
+  // allows D.2 to have gradient. if u want this back you'll have to draw an ellipse.
+  // for (let x = 0; x <= width; x += disk2.size) {
+  //     drawGradient1(disk2.x, height / 2);
+  //   }
 
 
-  // display properties;
+  // DISPLAY properties;
   // bright();
   colorhue();
   sat();
-
   // bright1();
   colorhue1();
   sat1();
   // backgroundSlider();
 }
-
 
 
 function drawGradient1(x, y) {
@@ -128,131 +143,199 @@ function drawGradient1(x, y) {
   }
 }
 
-  function drawGradient(x, y) {
-    let radius = disk2.size;
-    let h = disk2.h;
-    for (let r = radius; r > 0; --r) {
-      fill(h, disk2.s, disk2.b);
-      ellipse(disk2.x, disk2.y, r);
-      h = (h + 0.6) % 360;
+function drawGradient(x, y) {
+  let radius = disk2.size;
+  let h = disk2.h;
+  for (let r = radius; r > 0; --r) {
+    fill(h, disk2.s, disk2.b);
+    ellipse(disk2.x, disk2.y, r);
+    h = (h + 0.6) % 360;
+  }
+
+  //  Oscillator settings
+    if (mouseIsPressed){
+      playOscillator();
     }
-}
+
+// calculators of values for amp freq hue bright
+bright = constrain(map(disk2.s,0, 100, 0,100),0,100);
+hue= map(disk2.h,0,360,0,360);
+freq = constrain(map(mouseX, 0, width,100,500),100, 500);
+amp = constrain(map(mouseY,0, height, 0, 1),0, 1);
+
+
+  displaySettingsTxt();
+
+
+  if (playing) {
+    // smooth the transitions by 0.1 seconds
+    osc.freq(freq, 0.1);
+    osc.amp(amp, 0.1);
+  }
+
+    //
+} //fin draw
 
 
 
 // // HUE (sound-color concept)
 // hue.D1
-function colorhue1(){
-  if (keyIsDown(65)){
-    disk1.h1+=1;
+function colorhue1() {
+  constrain(disk1.h1, 0, 360);
+  if (disk1.h1 === 360) {
+    disk1.h1 = 0;
   }
-  else if (keyIsDown(68)){
-    disk1.h1-=1;
-  }
-  constrain(disk1.h1,0,360);
-  if (disk1.h1 === 360){
-    disk1.h1=0;
-}
 
-if (disk1.h1 === 0){
-  disk1.h1=360;
-}
+  if (disk1.h1 === 0) {
+    disk1.h1 = 360;
   }
+}
 // hue.D2
-function colorhue(){
-  if (keyIsDown(RIGHT_ARROW)){
-    disk2.h+=1;
+function colorhue() {
+  if (keyIsDown(RIGHT_ARROW)) {
+    disk2.h += 1;
+  } else if (keyIsDown(LEFT_ARROW)) {
+    disk2.h -= 1;
   }
-  else if (keyIsDown(LEFT_ARROW)){
-    disk2.h-=1;
-  }
-  constrain(disk2.h,0,360);
+  constrain(disk2.h, 0, 360);
 
-  if (disk2.h === 360){
-    disk2.h=0;
-}
-
-if (disk2.h === 0){
-  disk2.h=360;
-}
+  if (disk2.h === 360) {
+    disk2.h = 0;
   }
+
+  if (disk2.h === 0) {
+    disk2.h = 360;
+  }
+}
 
 // volume, brightness ---- brightness kinda suck, should replace w speed, and saturation
 // bright.D2
-function bright(){
-  disk2.b= mouseY;
-  constrain(disk2.b,0,360);
+function bright() {
+  disk2.b = mouseY;
+  constrain(disk2.b, 0, 360);
 }
 // bright.D1
-function bright1(){
-  disk1.b1= mouseX;
-  constrain(disk1.b1,0,360);
+function bright1() {
+  disk1.b1 = mouseX;
+  constrain(disk1.b1, 0, 360);
 }
 
 
 // // saturation (volume??)
 // sat.D1
 function sat1() {
-  if (keyIsDown(UP_ARROW)){
-    disk1.s1+=1;
+  if (keyIsDown(UP_ARROW)) {
+    disk1.s1 += 1;
+  } else if (keyIsDown(DOWN_ARROW)) {
+    disk1.s1 -= 1;
   }
-  else if (keyIsDown(DOWN_ARROW)) {
-    disk1.s1-=1;
-  }
-  constrain(disk1.s1,0,100);
+  constrain(disk1.s1, 0, 100);
 }
 // sat.D2
 function sat() {
-  if (keyIsDown(UP_ARROW)){
-    disk2.s+=1;
+  if (keyIsDown(UP_ARROW)) {
+    disk2.s += 1;
+  } else if (keyIsDown(DOWN_ARROW)) {
+    disk2.s -= 1;
   }
-  else if (keyIsDown(DOWN_ARROW)) {
-    disk2.s-=1;
-  }
-  constrain(disk2.s,0,100);
+  constrain(disk2.s, 0, 100);
 }
 
-// function mouseIsPressed (){
-// if (mouseX > 200 &&
-// 			mouseX < 300 &&
-// 			mouseY > 200 &&
-// 			mouseY < 300) {
-// 		on = !on;
-// }
 
 // // BUTTONS functions
-// light
-function bgLight (){
-  rect(lightButton.x, lightButton.y, lightButton.width, lightButton.height);
-  // noStroke();
- fill(255,67,0,250);
-}
-
-
-// Display functions
-function displayLightsMode() {
-if (background === 255){
+// NEXT QUEUE
+function displayNextColor() {
   push();
-  textStyle (BOLD);
-  text('LIGHT MODE', 30,40)
+  ellipse(width / 12, 4 * height / 10, 20);
+  // noStroke();
   fill(0);
   pop();
-  }
-  else if (background === 0){
-    push();
-    textStyle (BOLD);
-    text('DARK MODE', 30,40)
-    fill(255);
-    pop();
-  }
 }
 
-function displayDisk1() {
-  fill(disk1.h,disk1.s,disk1.b);
-  ellipse(disk1.x, disk1.y, disk1.size);
+
+function playOscillator() {
+  osc.start();
+  playing = true;
 }
 
+function mouseReleased() {
+  // ramp amplitude to 0 over 0.5 seconds
+  osc.amp(0, 0.5);
+  playing = false;
+}
+//// Display functions
+
+// QUEUE : PLAYING NOW
+function displayNowColor() {
+  rect(width / 12, height / 10, 400, 30);
+  // noStroke();
+  fill(255);
+  text('PLAYING NOW', width / 12, height / 13)
+}
+
+// function lightsMode() {
+//   background(bg);
+// if (background === 255){
+//   push();
+//   textStyle (BOLD);
+//   textSize (20);
+//   text('LIGHT MODE', 300,40)
+//   fill(0);
+//   pop();
+//   }
+//   else if (background === 0){
+//     push();
+//     textStyle (BOLD);
+//     textSize(20);
+//     text('DARK MODE', 300,40)
+//     fill(255);
+//     pop();
+//   }
+// }
+
+// switch state lights
+function darkMode() {
+  background(0);
+  push();
+  textStyle (BOLD);
+  fill(255);
+  text('DARK MODE', 900, 40)
+  textSize(10);
+  pop();
+}
+
+function lightMode() {
+  background(255);
+  push();
+  textStyle (BOLD);
+  fill(0);
+  text('LIGHT MODE', 900, 40)
+  textSize(10);
+  pop();
+}
+
+function displaySettingsTxt() {
+  push();
+  fill(0);
+    text('tap to play', width/12*7, 250);
+    text('freq: ' + freq, width/12*7, 275);
+    text('amp: ' + amp,width/12*7, 300);
+    text('bright: ' + bright,width/12*7, 325);
+    text('hue: ' + hue,width/12*7, 350);
+  pop();
+}
+
+// upcoming : color queue
+function displayNextQueue() {
+  fill(disk1.h, disk1.s, disk1.b);
+  rect(disk1.x, disk1.y, 400, 30);
+  push();
+  fill(255);
+  text('NEXT UP', width / 12, 2.3 * height / 12)
+  pop();
+}
+// main disk
 function displayDisk2() {
-  fill(disk2.h,disk2.s,disk2.b);
+  fill(disk2.h, disk2.s, disk2.b);
   ellipse(disk2.x, disk2.y, disk2.size);
 }
