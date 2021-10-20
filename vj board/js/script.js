@@ -11,7 +11,6 @@ Primitive visual joker board
 // let bg= 0;
 let state = 'dark mode';
 let osc, playing, freq, amp;
-
 // queue
 let disk1 = {
   x: undefined,
@@ -56,11 +55,14 @@ function setup() {
 // disk.mousePressed(playOscillator);
 // osc = new p5.Oscillator('sine');
 
+
 // NOISE BUTTON learned from 2 parts videos https://www.youtube.com/watch?v=7_jNZLu_6H8
 let drawButton = createButton('noise');
 drawButton.mousePressed(noise(disk2.h));
 drawButton.position(2.1*width/12,300);
 drawButton.size();
+
+
   // bgSlider = createSlider(0, 255, 100);
   // bgSlider.position(500, 500);
   // bgSlider.style('width', '20px');
@@ -110,8 +112,6 @@ if (keyCode === 16) {
   displayDisk2();
   displayNowColor(); // nothing before this cos then will fuck up
   displayNextColor();
-  noiseButton();
-
   // Main Disk - gradient
   for (let x = 0; x <= width; x += disk1.size) {
     drawGradient(disk1.x, height / 2);
@@ -152,10 +152,7 @@ function drawGradient(x, y) {
     h = (h + 0.6) % 360;
   }
 
-  //  Oscillator settings
-    if (mouseIsPressed){
-      playOscillator();
-    }
+
 
 // calculators of values for amp freq hue bright
 bright = constrain(map(disk2.s,0, 100, 0,100),0,100);
@@ -166,17 +163,30 @@ amp = constrain(map(mouseY,0, height, 0, 1),0, 1);
 
   displaySettingsTxt();
 
+  //  action to trigger oscillator to play
+    if (mouseIsPressed){
+      playOscillator();
+    }
 
   if (playing) {
     // smooth the transitions by 0.1 seconds
     osc.freq(freq, 0.1);
     osc.amp(amp, 0.1);
   }
+noiseClicked ();
 
     //
 } //fin draw
 
-
+function noiseClicked (){
+  let d = dist(3 * width / 4,height / 2,mouseX,mouseY);
+  if (d > 100){
+    playOscillator();
+  }
+  if (d < 200){
+    playOscillator();
+  }
+}
 
 // // HUE (sound-color concept)
 // hue.D1
@@ -252,7 +262,7 @@ function displayNextColor() {
   pop();
 }
 
-
+// play oscillator
 function playOscillator() {
   osc.start();
   playing = true;
@@ -263,6 +273,8 @@ function mouseReleased() {
   osc.amp(0, 0.5);
   playing = false;
 }
+
+
 //// Display functions
 
 // QUEUE : PLAYING NOW
@@ -322,6 +334,10 @@ function displaySettingsTxt() {
     text('amp: ' + amp,width/12, 300);
     text('bright: ' + bright,width/12, 325);
     text('hue: ' + hue,width/12, 350);
+    text('amp/volume min', width / 4*2.9,20 )
+    text('amp/volume max', width / 4*2.9, 580)
+    text('+', 960,500)
+    text('-', 960,100)
   pop();
 }
 
@@ -341,7 +357,9 @@ function displayDisk2() {
 }
 
 function noiseHue (){
+  if (drawButton.mouseClicked) {
   noise(disk2.h)
+  }
 }
 
 function noiseButton(){
