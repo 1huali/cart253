@@ -7,6 +7,8 @@ Primitive visual joker board
 */
 
 "use strict";
+// sound elements
+let osc, playing, freq, amp;
 // board environment. eventually add instructions
 let mode = `DARK MODE`;
 let uiForeground = 255;
@@ -20,8 +22,6 @@ let modeButton = {
   // text: `DARK/LIGHT MODE`
 }
 
-// sound elements
-let osc, playing, freq, amp;
 // queue
 let disk1 = {
   x: undefined,
@@ -57,9 +57,6 @@ Description of setup
 function setup() {
   createCanvas(1000, 600);
   osc = new p5.Oscillator('sine');
-//   let disk = ellipse (disk2.x,disk2.y,disk2.size);
-// disk.mousePressed(playOscillator);
-// osc = new p5.Oscillator('sine');
 
 
 // NOISE BUTTON learned from 2 parts videos https://www.youtube.com/watch?v=7_jNZLu_6H8
@@ -70,10 +67,10 @@ drawButton.size();
 
 
 
-
+// input box
   let inp = createInput('');
-  inp.position(width/2,height/2);
-  inp.size(100);
+  inp.position(2.1*width/12,450);
+  inp.size(350,100);
   inp.input(myInputEvent);
 
 
@@ -102,6 +99,7 @@ drawButton.size();
 Description of draw()
 */
 function draw() {
+// bg settings
   background(uiBackground);
 
    push();
@@ -118,10 +116,6 @@ function draw() {
    text(mode, 100, 580);
    pop();
 
-
-
-  // lightsMode ();
-
   // careful for order
   displayNextQueue(); // linked w disk1 presettings (to change) + this has to be called before bbLight
   displayDisk2();
@@ -131,10 +125,6 @@ function draw() {
   for (let x = 0; x <= width; x += disk1.size) {
     drawGradient(disk1.x, height / 2);
   }
-  // allows D.2 to have gradient. if u want this back you'll have to draw an ellipse.
-  // for (let x = 0; x <= width; x += disk2.size) {
-  //     drawGradient1(disk2.x, height / 2);
-  //   }
 
 
   // DISPLAY properties;
@@ -183,8 +173,6 @@ amp = constrain(map(mouseY,disk2.y-disk2.size,disk2.y+disk2.size, 0, 1),0, 1);
     osc.freq(freq, 0.1);
     osc.amp(amp, 0.1);
   }
-
-    //
 }
 } //fin draw
 
@@ -295,15 +283,20 @@ function displayNowColor() {
 function displaySettingsTxt() {
   push();
   fill(uiForeground);
-    text('tap to play', width/12, 250);
+    text('TAP DISK TO PLAY', width/12, 250);
     text('freq: ' + freq, width/12, 275);
     text('amp: ' + amp,width/12, 300);
     text('bright: ' + bright,width/12, 325);
     text('hue: ' + hue,width/12, 350);
     text('amp/volume min', width / 4*2.9,20 )
     text('amp/volume max', width / 4*2.9, 580)
-    text('+', 960,500)
-    text('-', 960,100)
+  pop();
+
+  push();
+  fill(uiForeground);
+  textSize(20);
+  text('+', 960,500)
+  text('-', 960,100)
   pop();
 }
 
