@@ -9,7 +9,12 @@ Primitive visual joker board
 "use strict";
 // board environment. eventually add instructions
 // let bg= 0;
+let uiForeground = 255;
+let uiBackground = 0;
 let state = 'dark mode';
+
+
+// sound elements
 let osc, playing, freq, amp;
 // queue
 let disk1 = {
@@ -34,9 +39,13 @@ let disk2 = {
 
 
 //LIGHT
-let lightsOffString = "Dark Mode";
-let lightsOnString = "Light Mode";
-
+let lightButton = {
+  x: 100,
+  y: 100,
+  w: 100,
+  h: 50,
+  // text: `SWITCH MODE!`
+}
 /**
 Description of preload
 */
@@ -61,6 +70,15 @@ let drawButton = createButton('noise');
 drawButton.mousePressed(noise(disk2.h));
 drawButton.position(2.1*width/12,300);
 drawButton.size();
+
+
+
+
+  let inp = createInput('');
+  inp.position(width/2,height/2);
+  inp.size(100);
+  inp.input(myInputEvent);
+
 
 
   // bgSlider = createSlider(0, 255, 100);
@@ -88,6 +106,8 @@ Description of draw()
 */
 function draw() {
   // background(bg)
+  background(uiBackground);
+
   if (state === 'dark mode') {
     darkMode();
   }
@@ -111,7 +131,7 @@ if (keyCode === 16) {
   displayNextQueue(); // linked w disk1 presettings (to change) + this has to be called before bbLight
   displayDisk2();
   displayNowColor(); // nothing before this cos then will fuck up
-  displayNextColor();
+  // lilCirle();
   // Main Disk - gradient
   for (let x = 0; x <= width; x += disk1.size) {
     drawGradient(disk1.x, height / 2);
@@ -157,33 +177,25 @@ function drawGradient(x, y) {
 // calculators of values for amp freq hue bright
 bright = constrain(map(disk2.s,0, 100, 0,100),0,100);
 hue= map(disk2.h,0,360,0,360);
-freq = constrain(map(mouseX, 0, width,100,500),100, 500);
-amp = constrain(map(mouseY,0, height, 0, 1),0, 1);
+freq = constrain(map(mouseX, disk2.x-disk2.size,disk2.size+disk2.x,100,500),100,500);
+amp = constrain(map(mouseY,disk2.y-disk2.size,disk2.y+disk2.size, 0, 1),0, 1);
 
 
   displaySettingsTxt();
 
-  //  action to trigger oscillator to play
-    if (mouseIsPressed){
-      playOscillator();
-    }
 
   if (playing) {
     // smooth the transitions by 0.1 seconds
     osc.freq(freq, 0.1);
     osc.amp(amp, 0.1);
   }
-noiseClicked ();
 
     //
 } //fin draw
 
-function noiseClicked (){
-  let d = dist(3 * width / 4,height / 2,mouseX,mouseY);
-  if (d > 100){
-    playOscillator();
-  }
-  if (d < 200){
+function mousePressed (){
+  let d = dist(disk2.x,disk2.y,mouseX,mouseY);
+  if (d < disk2.size){
     playOscillator();
   }
 }
@@ -253,8 +265,8 @@ function sat() {
 
 
 // // BUTTONS functions
-// NEXT QUEUE
-function displayNextColor() {
+//
+function lilCirle() {
   push();
   ellipse(width / 12, 4 * height / 10, 20);
   // noStroke();
@@ -356,12 +368,13 @@ function displayDisk2() {
   ellipse(disk2.x, disk2.y, disk2.size);
 }
 
-function noiseHue (){
-  if (drawButton.mouseClicked) {
-  noise(disk2.h)
-  }
-}
+// function noiseHue (){
+//   if (drawButton.mouseClicked) {
+//   noise(disk2.h)
+//   }
+// }
 
+// rond blanc
 function noiseButton(){
 push();
   rect(1.7 * height / 12,2*width/12,30,30)
@@ -369,3 +382,22 @@ push();
   stroke(255);
   pop();
 }
+
+function myInputEvent() {
+  console.log('you are typing: ', this.value());
+}
+
+// function mousePressed() {
+//   if (mouseX > button.x && mouseX < button.x + button.w && mouseY > button.y && mouseY < button.y + button.h) {
+//     if (mode === `DARK MODE`) {
+//       mode = `LIGHT MODE`;
+//       uiForeground = 0;
+//       uiBackground = 255;
+//     }
+//     else if (mode === `LIGHT MODE`) {
+//       mode = `DARK MODE`;
+//       uiForeground = 255;
+//       uiBackground = 0;
+//     }
+//   }
+// }
