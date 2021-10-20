@@ -8,11 +8,17 @@ Primitive visual joker board
 
 "use strict";
 // board environment. eventually add instructions
-// let bg= 0;
+let mode = `DARK MODE`;
 let uiForeground = 255;
 let uiBackground = 0;
-let state = 'dark mode';
 
+let modeButton = {
+  x: 100,
+  y: 500,
+  w: 200,
+  h: 150,
+  // text: `DARK/LIGHT MODE`
+}
 
 // sound elements
 let osc, playing, freq, amp;
@@ -37,15 +43,6 @@ let disk2 = {
   rev: 1,
 }
 
-
-//LIGHT
-let lightButton = {
-  x: 100,
-  y: 100,
-  w: 100,
-  h: 50,
-  // text: `SWITCH MODE!`
-}
 /**
 Description of preload
 */
@@ -105,25 +102,23 @@ drawButton.size();
 Description of draw()
 */
 function draw() {
-  // background(bg)
   background(uiBackground);
 
-  if (state === 'dark mode') {
-    darkMode();
-  }
-if (keyCode === 16) {
-    state === 'light mode';
-  }
+   push();
+   noStroke();
+   stroke(uiForeground);
+   // rect(modeButton.x, modeButton.y, modeButton.w, modeButton.h);
+   // text(modeButton.text, modeButton.x, modeButton.y + modeButton.h/2);
+   pop();
 
-  switch (state) {
-    case 'dark mode':
-      darkMode();
-      break;
+   push();
+   fill(uiForeground);
+   textStyle(BOLD);
+// bouton DARK/LIGHT
+   text(mode, 100, 580);
+   pop();
 
-    case 'light mode':
-      lightMode();
-      break;
-  }
+
 
   // lightsMode ();
 
@@ -149,10 +144,9 @@ if (keyCode === 16) {
   // bright1();
   colorhue1();
   sat1();
-  // backgroundSlider();
-}
 
 
+//
 function drawGradient1(x, y) {
   let radius = disk1.size;
   let h = disk1.h1;
@@ -191,6 +185,7 @@ amp = constrain(map(mouseY,disk2.y-disk2.size,disk2.y+disk2.size, 0, 1),0, 1);
   }
 
     //
+}
 } //fin draw
 
 function mousePressed (){
@@ -293,54 +288,13 @@ function mouseReleased() {
 function displayNowColor() {
   rect(width / 12, height / 10, 400, 30);
   // noStroke();
-  fill(255);
+  fill(uiForeground);
   text('PLAYING NOW', width / 12, height / 13)
-}
-
-// function lightsMode() {
-//   background(bg);
-// if (background === 255){
-//   push();
-//   textStyle (BOLD);
-//   textSize (20);
-//   text('LIGHT MODE', 300,40)
-//   fill(0);
-//   pop();
-//   }
-//   else if (background === 0){
-//     push();
-//     textStyle (BOLD);
-//     textSize(20);
-//     text('DARK MODE', 300,40)
-//     fill(255);
-//     pop();
-//   }
-// }
-
-// switch state lights
-function darkMode() {
-  background(0);
-  push();
-  textStyle (BOLD);
-  fill(255);
-  text('DARK MODE', 900, 40)
-  textSize(10);
-  pop();
-}
-
-function lightMode() {
-  background(255);
-  push();
-  textStyle (BOLD);
-  fill(0);
-  text('LIGHT MODE', 900, 40)
-  textSize(10);
-  pop();
 }
 
 function displaySettingsTxt() {
   push();
-  fill(255);
+  fill(uiForeground);
     text('tap to play', width/12, 250);
     text('freq: ' + freq, width/12, 275);
     text('amp: ' + amp,width/12, 300);
@@ -358,7 +312,7 @@ function displayNextQueue() {
   fill(disk1.h, disk1.s, disk1.b);
   rect(disk1.x, disk1.y, 400, 30);
   push();
-  fill(255);
+  fill(uiForeground);
   text('NEXT UP', width / 12, 2.3 * height / 12)
   pop();
 }
@@ -376,28 +330,24 @@ function displayDisk2() {
 
 // rond blanc
 function noiseButton(){
-push();
-  rect(1.7 * height / 12,2*width/12,30,30)
-  fill(0);
-  stroke(255);
-  pop();
+
 }
 
 function myInputEvent() {
   console.log('you are typing: ', this.value());
 }
 
-// function mousePressed() {
-//   if (mouseX > button.x && mouseX < button.x + button.w && mouseY > button.y && mouseY < button.y + button.h) {
-//     if (mode === `DARK MODE`) {
-//       mode = `LIGHT MODE`;
-//       uiForeground = 0;
-//       uiBackground = 255;
-//     }
-//     else if (mode === `LIGHT MODE`) {
-//       mode = `DARK MODE`;
-//       uiForeground = 255;
-//       uiBackground = 0;
-//     }
-//   }
-// }
+function mousePressed() {
+  if (mouseX > modeButton.x && mouseX < modeButton.x + modeButton.w && mouseY > modeButton.y && mouseY < modeButton.y + modeButton.h) {
+    if (mode === `DARK MODE`) {
+      mode = `LIGHT MODE`;
+      uiForeground = 0;
+      uiBackground = 255;
+    }
+    else if (mode === `LIGHT MODE`) {
+      mode = `DARK MODE`;
+      uiForeground = 255;
+      uiBackground = 0;
+    }
+  }
+}
