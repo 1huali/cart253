@@ -33,16 +33,10 @@ let disk2 = {
   rev: 1,
 }
 
-let lightButton = {
-  x: 200,
-  y: 200,
-  width: 10,
-  height: 10,
-}
+
 //LIGHT
 let lightsOffString = "Dark Mode";
 let lightsOnString = "Light Mode";
-// var on = false;
 
 /**
 Description of preload
@@ -62,7 +56,11 @@ function setup() {
 // disk.mousePressed(playOscillator);
 // osc = new p5.Oscillator('sine');
 
-
+// NOISE BUTTON learned from 2 parts videos https://www.youtube.com/watch?v=7_jNZLu_6H8
+let drawButton = createButton('noise');
+drawButton.mousePressed(noise(disk2.h));
+drawButton.position(2.1*width/12,300);
+drawButton.size();
   // bgSlider = createSlider(0, 255, 100);
   // bgSlider.position(500, 500);
   // bgSlider.style('width', '20px');
@@ -90,7 +88,8 @@ function draw() {
   // background(bg)
   if (state === 'dark mode') {
     darkMode();
-  } else if (keyCode === 16) {
+  }
+if (keyCode === 16) {
     state === 'light mode';
   }
 
@@ -111,6 +110,7 @@ function draw() {
   displayDisk2();
   displayNowColor(); // nothing before this cos then will fuck up
   displayNextColor();
+  noiseButton();
 
   // Main Disk - gradient
   for (let x = 0; x <= width; x += disk1.size) {
@@ -316,12 +316,12 @@ function lightMode() {
 
 function displaySettingsTxt() {
   push();
-  fill(0);
-    text('tap to play', width/12*7, 250);
-    text('freq: ' + freq, width/12*7, 275);
-    text('amp: ' + amp,width/12*7, 300);
-    text('bright: ' + bright,width/12*7, 325);
-    text('hue: ' + hue,width/12*7, 350);
+  fill(255);
+    text('tap to play', width/12, 250);
+    text('freq: ' + freq, width/12, 275);
+    text('amp: ' + amp,width/12, 300);
+    text('bright: ' + bright,width/12, 325);
+    text('hue: ' + hue,width/12, 350);
   pop();
 }
 
@@ -338,4 +338,16 @@ function displayNextQueue() {
 function displayDisk2() {
   fill(disk2.h, disk2.s, disk2.b);
   ellipse(disk2.x, disk2.y, disk2.size);
+}
+
+function noiseHue (){
+  noise(disk2.h)
+}
+
+function noiseButton(){
+push();
+  rect(1.7 * height / 12,2*width/12,30,30)
+  fill(0);
+  stroke(255);
+  pop();
 }
