@@ -42,6 +42,7 @@ let disk = {
   s: 100,
   b: 100,
   rev: 1,
+
 }
 
 /**
@@ -59,7 +60,6 @@ function setup() {
   createCanvas(1000, 600);
   // code inspired from https://p5js.org/reference/#/p5.Oscillator
   osc = new p5.Oscillator('sine');
-
 
 // NOISE BUTTON learned from 2 parts videos https://www.youtube.com/watch?v=7_jNZLu_6H8
 let drawButton = createButton('release noise');
@@ -114,6 +114,8 @@ function draw() {
 // bouton DARK/LIGHT
    text(mode, 100, 580);
    pop();
+
+
 
   // careful for order
   displayNextQueue(); // this has to be called before bbLight
@@ -286,15 +288,19 @@ function displaySettingsTxt() {
   fill(uiForeground);
   text('BINAURAL SOUNDS', width/12, 175);
   text('Therapeutical project to dump and get ur mind away', width/12, 190);
-  text('Press Up/Down to adjust brightness', width/12, 205);
-  text('Press lKey/rKey to adjust hue', width/12, 220);
+  text('???', width/12, 205);
+  text('???', width/12, 220);
 
 
     text('TAP DISK TO PLAY', width/12, 250);
     text('Hz: ' + freq, width/12, 275);
     text('amp: ' + amp,width/12, 300);
     text('bright: ' + bright,width/12, 325);
+    text('press Up/Down to adjust',4*width/12, 325);
+
     text('hue: ' + hue,width/12, 350);
+    text('press lKey/rKey to adjust', 4*width/12, 350);
+
     text("x: "+mouseX, width/12, 375);
     text("y: "+mouseY, width/12, 400);
     text("Real-time Inputs : ", width/12, 425);
