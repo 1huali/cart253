@@ -3,13 +3,13 @@ vj baby board
 Wawa Li
 
 Proect 1
-Primitive binaural beat board board
-Therapeutical board
+visual sound toy prototype 1
 */
 
 "use strict";
 // sound elements
 let osc, playing, freq, amp;
+
 // board environment. eventually add instructions
 let mode = `DARK MODE`;
 let uiForeground = 255;
@@ -20,10 +20,8 @@ let modeButton = {
   y: 500,
   w: 200,
   h: 150,
-  // text: `DARK/LIGHT MODE`
 }
 
-// queue
 let queue = {
   x: undefined,
   y: undefined,
@@ -63,17 +61,15 @@ function setup() {
 
 // NOISE BUTTON learned from 2 parts videos https://www.youtube.com/watch?v=7_jNZLu_6H8
 let drawButton = createButton('release noise');
-// drawButton.mousePressed(noise(disk.h));
 drawButton.position(3.6*width/12,580);
 drawButton.size();
-
-
 
 
   // QUEUE NEXT zone size
   queue.x = width / 12;
   queue.y = 2 * height / 10;
   queue.size = 200;
+
   // HUE-MAIN DISK
   disk.x = 3 * width / 4;
   disk.y = height / 2;
@@ -85,11 +81,11 @@ drawButton.size();
   frameRate(60);
 
 
-  // input box
-    let inp = createInput('');
-    inp.position(180,530);
-    inp.size(380,40);
-    inp.input(myInputEvent);
+  // box
+    let textBox = createInput('');
+    textBox.position(180,530);
+    textBox.size(380,40);
+    textBox.input(myInputEvent);
 
 }
 
@@ -117,37 +113,23 @@ function draw() {
 
 
 
-  // careful for order
-  displayNextQueue(); // this has to be called before bbLight
+
+  displayNextQueue();
   displayDisk();
-  displayNowColor(); // nothing before this cos then will fuck up
-  // lilCirle();
+  displayNowColor();
+
   // Disk - gradient
   for (let x = 0; x <= width; x += queue.size) {
     drawGradient(queue.x, height / 2);
   }
 
-
-  // DISPLAY properties;
-  // bright();
   colorhue();
   sat();
-  // bright1();
-  colorhue1();
+  colorNext();
   sat1();
 
 
 // change for queue bar function
-function drawGradient1(x, y) {
-  let radius = queue.size;
-  let h = queue.h1;
-  for (let r = radius; r > 0; --r) {
-    fill(h, queue.s1, queue.b1);
-    ellipse(queue.x, queue.y, r);
-    h = (h + 0.6) % 360;
-  }
-}
-
 function drawGradient(x, y) {
   let radius = disk.size;
   let h = disk.h;
@@ -159,7 +141,7 @@ function drawGradient(x, y) {
 
 
 
-// calculators of values for amp freq hue bright
+//values for amp freq hue bright
 bright = constrain(map(disk.s,0, 100, 0,100),0,100);
 hue= map(disk.h,0,360,0,360);
 freq = constrain(map(mouseX, disk.x-disk.size,disk.size+disk.x,100,500),100,500);
@@ -176,7 +158,7 @@ amp = constrain(map(mouseY,disk.y-disk.size,disk.y+disk.size, 0, 1),0, 1);
   }
 }
 
-} //fin draw
+} //draw end
 
 function oscPressed (){
   let d = dist(disk.x,disk.y,mouseX,mouseY);
@@ -185,9 +167,8 @@ function oscPressed (){
   }
 }
 
-// // HUE (sound-color concept)
 // hue.queue bar
-function colorhue1() {
+function colorNext() {
   constrain(queue.h1, 0, 360);
   if (queue.h1 === 360) {
     queue.h1 = 0;
@@ -215,21 +196,19 @@ function colorhue() {
   }
 }
 
-// volume, brightness ---- brightness kinda suck, should replace w speed, and saturation
-// bright.Disk
+
+// lame functionality
 function bright() {
   disk.b = mouseY;
   constrain(disk.b, 0, 360);
 }
-// bright.bar
-function bright1() {
+ function bright1() {
   queue.b1 = mouseX;
   constrain(queue.b1, 0, 360);
 }
 
 
-// // saturation (volume??)
-// sat.queue bar
+// Adjust brightness
 function sat1() {
   if (keyIsDown(UP_ARROW)) {
     queue.s1 += 1;
@@ -246,17 +225,6 @@ function sat() {
     disk.s -= 1;
   }
   constrain(disk.s, 0, 100);
-}
-
-
-// // BUTTONS functions
-//
-function lilCirle() {
-  push();
-  ellipse(width / 12, 4 * height / 10, 20);
-  // noStroke();
-  fill(0);
-  pop();
 }
 
 // play oscillator
@@ -277,7 +245,6 @@ function mouseReleased() {
 // QUEUE : PLAYING NOW
 function displayNowColor() {
   rect(width / 12, height / 10, 400, 30);
-  // noStroke();
   fill(uiForeground);
   text('PLAYING NOW', width / 12, height / 13)
 }
@@ -303,10 +270,9 @@ function displaySettingsTxt() {
     text("x: "+mouseX, width/12, 375);
     text("y: "+mouseY, width/12, 400);
     text("Real-time Inputs : ", width/12, 425);
-    // text("Real-time Inputs : ", width/12, 500);
     text('amp/volume min', width / 4*2.9,20 )
     text('amp/volume max', width / 4*2.9, 580)
-    text("DON'T TAP", disk.x-29, disk.y)
+    text("SCRATCH", disk.x-29, disk.y)
   pop();
 
   push();
@@ -334,23 +300,11 @@ function displayDisk() {
   ellipse(disk.x, disk.y, disk.size);
 }
 
-// function noiseHue (){
-//   if (drawButton.mouseClicked) {
-//   noise(disk.h)
-//   }
-// }
-
-// rond blanc
-function noiseButton(){
-
-}
-
 function myInputEvent() {
   console.log('you are typing: ', this.value());
 }
 
 function mousePressed() {
-
   oscPressed ();
 
   if (mouseX > modeButton.x && mouseX < modeButton.x + modeButton.w && mouseY > modeButton.y && mouseY < modeButton.y + modeButton.h) {
