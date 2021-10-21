@@ -9,7 +9,7 @@ visual sound toy prototype 1
 "use strict";
 // sound elements
 let osc, playing, freq, amp;
-
+let metronome;
 // board environment. eventually add instructions
 let mode = `DARK MODE`;
 let uiForeground = 255;
@@ -47,7 +47,6 @@ let disk = {
 Description of preload
 */
 function preload() {
-
 }
 
 
@@ -82,11 +81,10 @@ drawButton.size();
 
 
   // box
-    let textBox = createInput('');
+    let textBox = createInput(``);
     textBox.position(180,530);
     textBox.size(380,40);
     textBox.input(myInputEvent);
-
 }
 
 
@@ -100,8 +98,6 @@ function draw() {
    push();
    noStroke();
    stroke(uiForeground);
-   // rect(modeButton.x, modeButton.y, modeButton.w, modeButton.h);
-   // text(modeButton.text, modeButton.x, modeButton.y + modeButton.h/2);
    pop();
 
    push();
@@ -112,6 +108,7 @@ function draw() {
    pop();
 
 
+   oscPressed ();
 
 
   displayNextQueue();
@@ -240,8 +237,6 @@ function mouseReleased() {
 }
 
 
-//// Display functions
-
 // QUEUE : PLAYING NOW
 function displayNowColor() {
   rect(width / 12, height / 10, 400, 30);
@@ -302,11 +297,10 @@ function displayDisk() {
 
 function myInputEvent() {
   console.log('you are typing: ', this.value());
+   textBox.position(30, 60)
 }
 
 function mousePressed() {
-  oscPressed ();
-
   if (mouseX > modeButton.x && mouseX < modeButton.x + modeButton.w && mouseY > modeButton.y && mouseY < modeButton.y + modeButton.h) {
     if (mode === `DARK MODE`) {
       mode = `LIGHT MODE`;
