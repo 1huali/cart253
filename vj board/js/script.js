@@ -3,7 +3,8 @@ vj baby board
 Wawa Li
 
 Proect 1
-Primitive visual joker board
+Primitive binaural beat board board
+Therapeutical board
 */
 
 "use strict";
@@ -23,7 +24,7 @@ let modeButton = {
 }
 
 // queue
-let disk1 = {
+let queue = {
   x: undefined,
   y: undefined,
   size: undefined,
@@ -33,7 +34,7 @@ let disk1 = {
   rev1: 1,
 }
 
-let disk2 = {
+let disk = {
   x: undefined,
   y: undefined,
   size: undefined,
@@ -56,13 +57,13 @@ Description of setup
 */
 function setup() {
   createCanvas(1000, 600);
-  // code inspired by p5 resources
+  // code inspired from https://p5js.org/reference/#/p5.Oscillator
   osc = new p5.Oscillator('sine');
 
 
 // NOISE BUTTON learned from 2 parts videos https://www.youtube.com/watch?v=7_jNZLu_6H8
 let drawButton = createButton('release noise');
-// drawButton.mousePressed(noise(disk2.h));
+// drawButton.mousePressed(noise(disk.h));
 drawButton.position(3.6*width/12,580);
 drawButton.size();
 
@@ -70,13 +71,13 @@ drawButton.size();
 
 
   // QUEUE NEXT zone size
-  disk1.x = width / 12;
-  disk1.y = 2 * height / 10;
-  disk1.size = 200;
+  queue.x = width / 12;
+  queue.y = 2 * height / 10;
+  queue.size = 200;
   // HUE-MAIN DISK
-  disk2.x = 3 * width / 4;
-  disk2.y = height / 2;
-  disk2.size = 200;
+  disk.x = 3 * width / 4;
+  disk.y = height / 2;
+  disk.size = 200;
 
   noStroke();
   ellipseMode(RADIUS);
@@ -90,7 +91,6 @@ drawButton.size();
     inp.size(380,40);
     inp.input(myInputEvent);
 
-oscPressed ()
 }
 
 
@@ -116,13 +116,13 @@ function draw() {
    pop();
 
   // careful for order
-  displayNextQueue(); // linked w disk1 presettings (to change) + this has to be called before bbLight
-  displayDisk2();
+  displayNextQueue(); // this has to be called before bbLight
+  displayDisk();
   displayNowColor(); // nothing before this cos then will fuck up
   // lilCirle();
-  // Main Disk - gradient
-  for (let x = 0; x <= width; x += disk1.size) {
-    drawGradient(disk1.x, height / 2);
+  // Disk - gradient
+  for (let x = 0; x <= width; x += queue.size) {
+    drawGradient(queue.x, height / 2);
   }
 
 
@@ -135,33 +135,33 @@ function draw() {
   sat1();
 
 
-//
+// change for queue bar function
 function drawGradient1(x, y) {
-  let radius = disk1.size;
-  let h = disk1.h1;
+  let radius = queue.size;
+  let h = queue.h1;
   for (let r = radius; r > 0; --r) {
-    fill(h, disk1.s1, disk1.b1);
-    ellipse(disk1.x, disk1.y, r);
+    fill(h, queue.s1, queue.b1);
+    ellipse(queue.x, queue.y, r);
     h = (h + 0.6) % 360;
   }
 }
 
 function drawGradient(x, y) {
-  let radius = disk2.size;
-  let h = disk2.h;
+  let radius = disk.size;
+  let h = disk.h;
   for (let r = radius; r > 0; --r) {
-    fill(h, disk2.s, disk2.b);
-    ellipse(disk2.x, disk2.y, r);
+    fill(h, disk.s, disk.b);
+    ellipse(disk.x, disk.y, r);
     h = (h + 0.6) % 360;
   }
 
 
 
 // calculators of values for amp freq hue bright
-bright = constrain(map(disk2.s,0, 100, 0,100),0,100);
-hue= map(disk2.h,0,360,0,360);
-freq = constrain(map(mouseX, disk2.x-disk2.size,disk2.size+disk2.x,100,500),100,500);
-amp = constrain(map(mouseY,disk2.y-disk2.size,disk2.y+disk2.size, 0, 1),0, 1);
+bright = constrain(map(disk.s,0, 100, 0,100),0,100);
+hue= map(disk.h,0,360,0,360);
+freq = constrain(map(mouseX, disk.x-disk.size,disk.size+disk.x,100,500),100,500);
+amp = constrain(map(mouseY,disk.y-disk.size,disk.y+disk.size, 0, 1),0, 1);
 
 
   displaySettingsTxt();
@@ -173,56 +173,56 @@ amp = constrain(map(mouseY,disk2.y-disk2.size,disk2.y+disk2.size, 0, 1),0, 1);
     osc.amp(amp, 0.1);
   }
 }
-
+oscPressed ();
 } //fin draw
 
 function oscPressed (){
-  let d = dist(disk2.x,disk2.y,mouseX,mouseY);
-  if (d < disk2.size){
+  let d = dist(disk.x,disk.y,mouseX,mouseY);
+  if (d < disk.size){
     playOscillator();
   }
 }
 
 // // HUE (sound-color concept)
-// hue.D1
+// hue.D1 // queue bar
 function colorhue1() {
-  constrain(disk1.h1, 0, 360);
-  if (disk1.h1 === 360) {
-    disk1.h1 = 0;
+  constrain(queue.h1, 0, 360);
+  if (queue.h1 === 360) {
+    queue.h1 = 0;
   }
 
-  if (disk1.h1 === 0) {
-    disk1.h1 = 360;
+  if (queue.h1 === 0) {
+    queue.h1 = 360;
   }
 }
 // hue.D2
 function colorhue() {
   if (keyIsDown(RIGHT_ARROW)) {
-    disk2.h += 1;
+    disk.h += 1;
   } else if (keyIsDown(LEFT_ARROW)) {
-    disk2.h -= 1;
+    disk.h -= 1;
   }
-  constrain(disk2.h, 0, 360);
+  constrain(disk.h, 0, 360);
 
-  if (disk2.h === 360) {
-    disk2.h = 0;
+  if (disk.h === 360) {
+    disk.h = 0;
   }
 
-  if (disk2.h === 0) {
-    disk2.h = 360;
+  if (disk.h === 0) {
+    disk.h = 360;
   }
 }
 
 // volume, brightness ---- brightness kinda suck, should replace w speed, and saturation
 // bright.D2
 function bright() {
-  disk2.b = mouseY;
-  constrain(disk2.b, 0, 360);
+  disk.b = mouseY;
+  constrain(disk.b, 0, 360);
 }
 // bright.D1
 function bright1() {
-  disk1.b1 = mouseX;
-  constrain(disk1.b1, 0, 360);
+  queue.b1 = mouseX;
+  constrain(queue.b1, 0, 360);
 }
 
 
@@ -230,20 +230,20 @@ function bright1() {
 // sat.D1
 function sat1() {
   if (keyIsDown(UP_ARROW)) {
-    disk1.s1 += 1;
+    queue.s1 += 1;
   } else if (keyIsDown(DOWN_ARROW)) {
-    disk1.s1 -= 1;
+    queue.s1 -= 1;
   }
-  constrain(disk1.s1, 0, 100);
+  constrain(queue.s1, 0, 100);
 }
 // sat.D2
 function sat() {
   if (keyIsDown(UP_ARROW)) {
-    disk2.s += 1;
+    disk.s += 1;
   } else if (keyIsDown(DOWN_ARROW)) {
-    disk2.s -= 1;
+    disk.s -= 1;
   }
-  constrain(disk2.s, 0, 100);
+  constrain(disk.s, 0, 100);
 }
 
 
@@ -312,22 +312,22 @@ function displaySettingsTxt() {
 
 // upcoming : color queue
 function displayNextQueue() {
-  fill(disk1.h, disk1.s, disk1.b);
-  rect(disk1.x, disk1.y, 400, 30);
+  fill(queue.h, queue.s, queue.b);
+  rect(queue.x, queue.y, 400, 30);
   push();
   fill(uiForeground);
   text('NEXT UP', width / 12, 2.3 * height / 12)
   pop();
 }
 // main disk
-function displayDisk2() {
-  fill(disk2.h, disk2.s, disk2.b);
-  ellipse(disk2.x, disk2.y, disk2.size);
+function displayDisk() {
+  fill(disk.h, disk.s, disk.b);
+  ellipse(disk.x, disk.y, disk.size);
 }
 
 // function noiseHue (){
 //   if (drawButton.mouseClicked) {
-//   noise(disk2.h)
+//   noise(disk.h)
 //   }
 // }
 
