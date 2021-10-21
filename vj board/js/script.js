@@ -174,6 +174,7 @@ amp = constrain(map(mouseY,disk.y-disk.size,disk.y+disk.size, 0, 1),0, 1);
   }
 }
 oscPressed ();
+
 } //fin draw
 
 function oscPressed (){
@@ -184,7 +185,7 @@ function oscPressed (){
 }
 
 // // HUE (sound-color concept)
-// hue.D1 // queue bar
+// hue.queue bar
 function colorhue1() {
   constrain(queue.h1, 0, 360);
   if (queue.h1 === 360) {
@@ -195,7 +196,7 @@ function colorhue1() {
     queue.h1 = 360;
   }
 }
-// hue.D2
+// hue.Disk
 function colorhue() {
   if (keyIsDown(RIGHT_ARROW)) {
     disk.h += 1;
@@ -214,12 +215,12 @@ function colorhue() {
 }
 
 // volume, brightness ---- brightness kinda suck, should replace w speed, and saturation
-// bright.D2
+// bright.Disk
 function bright() {
   disk.b = mouseY;
   constrain(disk.b, 0, 360);
 }
-// bright.D1
+// bright.bar
 function bright1() {
   queue.b1 = mouseX;
   constrain(queue.b1, 0, 360);
@@ -227,7 +228,7 @@ function bright1() {
 
 
 // // saturation (volume??)
-// sat.D1
+// sat.queue bar
 function sat1() {
   if (keyIsDown(UP_ARROW)) {
     queue.s1 += 1;
@@ -236,7 +237,7 @@ function sat1() {
   }
   constrain(queue.s1, 0, 100);
 }
-// sat.D2
+// sat.Disk
 function sat() {
   if (keyIsDown(UP_ARROW)) {
     disk.s += 1;
@@ -307,6 +308,8 @@ function displaySettingsTxt() {
   textSize(20);
   text('+', 960,500)
   text('-', 960,100)
+  text('0', 540,100)
+  text('1', 540,500)
   pop();
 }
 
