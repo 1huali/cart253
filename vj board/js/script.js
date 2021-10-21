@@ -87,7 +87,7 @@ drawButton.size();
 
   // input box
     let inp = createInput('');
-    inp.position(300,530);
+    inp.position(180,530);
     inp.size(380,40);
     inp.input(myInputEvent);
 
@@ -175,7 +175,6 @@ amp = constrain(map(mouseY,disk.y-disk.size,disk.y+disk.size, 0, 1),0, 1);
     osc.amp(amp, 0.1);
   }
 }
-oscPressed ();
 
 } //fin draw
 
@@ -286,13 +285,13 @@ function displayNowColor() {
 function displaySettingsTxt() {
   push();
   fill(uiForeground);
-  text('BINAURAL SOUNDS', width/12, 175);
-  text('Therapeutical project to dump and get ur mind away', width/12, 190);
-  text('???', width/12, 205);
-  text('???', width/12, 220);
+  text('STRESSFUL SOUNDS', width/12, 175);
+  text('This was supposed to be a therapeutic project', width/12, 190);
+  text('but as we all know what emerge when we chase', width/12, 205);
+  text('peace?                                           chaos.', width/12, 220);
 
 
-    text('TAP DISK TO PLAY', width/12, 250);
+    text('REAL-TIME STRESS DATA', width/12, 250);
     text('Hz: ' + freq, width/12, 275);
     text('amp: ' + amp,width/12, 300);
     text('bright: ' + bright,width/12, 325);
@@ -307,6 +306,7 @@ function displaySettingsTxt() {
     // text("Real-time Inputs : ", width/12, 500);
     text('amp/volume min', width / 4*2.9,20 )
     text('amp/volume max', width / 4*2.9, 580)
+    text("DON'T TAP", disk.x-29, disk.y)
   pop();
 
   push();
@@ -350,6 +350,9 @@ function myInputEvent() {
 }
 
 function mousePressed() {
+
+  oscPressed ();
+
   if (mouseX > modeButton.x && mouseX < modeButton.x + modeButton.w && mouseY > modeButton.y && mouseY < modeButton.y + modeButton.h) {
     if (mode === `DARK MODE`) {
       mode = `LIGHT MODE`;
