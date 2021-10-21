@@ -56,28 +56,18 @@ Description of setup
 */
 function setup() {
   createCanvas(1000, 600);
+  // code inspired by p5 resources
   osc = new p5.Oscillator('sine');
 
 
 // NOISE BUTTON learned from 2 parts videos https://www.youtube.com/watch?v=7_jNZLu_6H8
-let drawButton = createButton('noise');
-drawButton.mousePressed(noise(disk2.h));
-drawButton.position(2.1*width/12,300);
+let drawButton = createButton('release noise');
+// drawButton.mousePressed(noise(disk2.h));
+drawButton.position(3.6*width/12,580);
 drawButton.size();
 
 
 
-// input box
-  let inp = createInput('');
-  inp.position(2.1*width/12,450);
-  inp.size(350,100);
-  inp.input(myInputEvent);
-
-
-
-  // bgSlider = createSlider(0, 255, 100);
-  // bgSlider.position(500, 500);
-  // bgSlider.style('width', '20px');
 
   // QUEUE NEXT zone size
   disk1.x = width / 12;
@@ -92,6 +82,15 @@ drawButton.size();
   ellipseMode(RADIUS);
   colorMode(HSB, 360, 100, 100);
   frameRate(60);
+
+
+  // input box
+    let inp = createInput('');
+    inp.position(300,530);
+    inp.size(380,40);
+    inp.input(myInputEvent);
+
+oscPressed ()
 }
 
 
@@ -174,9 +173,10 @@ amp = constrain(map(mouseY,disk2.y-disk2.size,disk2.y+disk2.size, 0, 1),0, 1);
     osc.amp(amp, 0.1);
   }
 }
+
 } //fin draw
 
-function mousePressed (){
+function oscPressed (){
   let d = dist(disk2.x,disk2.y,mouseX,mouseY);
   if (d < disk2.size){
     playOscillator();
@@ -283,11 +283,21 @@ function displayNowColor() {
 function displaySettingsTxt() {
   push();
   fill(uiForeground);
+  text('BINAURAL SOUNDS', width/12, 175);
+  text('Therapeutical project to dump and get ur mind away', width/12, 190);
+  text('Press Up/Down to adjust brightness', width/12, 205);
+  text('Press lKey/rKey to adjust hue', width/12, 220);
+
+
     text('TAP DISK TO PLAY', width/12, 250);
-    text('freq: ' + freq, width/12, 275);
+    text('Hz: ' + freq, width/12, 275);
     text('amp: ' + amp,width/12, 300);
     text('bright: ' + bright,width/12, 325);
     text('hue: ' + hue,width/12, 350);
+    text("x: "+mouseX, width/12, 375);
+    text("y: "+mouseY, width/12, 400);
+    text("Real-time Inputs : ", width/12, 425);
+    // text("Real-time Inputs : ", width/12, 500);
     text('amp/volume min', width / 4*2.9,20 )
     text('amp/volume max', width / 4*2.9, 580)
   pop();
