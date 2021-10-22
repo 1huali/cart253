@@ -169,10 +169,10 @@ function colorhue() {
   }
   constrain(disk.h, 0, 360);
   if (disk.h === 360) {
-    disk.h === 0;
+    disk.h = 0;
   }
   if (disk.h === 0) {
-    disk.h === 360;
+    disk.h = 360;
   }
   if (queue.h1 > 360) {
     push();
