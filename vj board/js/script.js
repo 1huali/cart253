@@ -55,7 +55,7 @@ function setup() {
 
 
   let drawButton = createButton('ALTERNATIVE');
-  drawButton.position(310, 580);
+  drawButton.position(295, 580);
   drawButton.size();
 
 
@@ -77,7 +77,7 @@ function setup() {
 
   // BOX
   textBox = createInput(``);
-  textBox.position(295, 480);
+  textBox.position(295, 490);
   textBox.size(380, 40);
   textBox.input(displayText);
 }
@@ -300,7 +300,7 @@ function textInstructions() {
   fill(uiForeground);
   text('PROTOTYPE 01: attempt to simulate', 80, 175);
   text('visual hypersensibility', 80, 190);
-  text('(where light = sound)', 80, 205);
+  text('(light = sound)', 80, 205);
   // text('PROTOTYPE01', 80, 220);
   text('click anywhere around the disk to mute', width / 4 * 2.65, 570);
   text('press Left/Right Key', 4 * 80, 350);
