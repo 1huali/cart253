@@ -240,7 +240,7 @@ function displaySettingsTxt() {
   text('volume mute', width / 4 * 2.9, 20);
   text('volume max', width / 4 * 2.9, 580);
   text("OVERLOAD", disk.x - 32, disk.y);
-  text("TOUCH DISK TO START",  4*80, 300)
+  text("TAP DISK TO START",  4*80, 300)
 
   pop();
 
@@ -299,7 +299,7 @@ function textInstructions() {
   push();
   fill(uiForeground);
   text('PROTOTYPE 01: attempt to simulate', 80, 175);
-  text('visual hypersensibility', 80, 190);
+  text('the feeling of visual hypersensibility', 80, 190);
   text('(where light = sound)', 80, 205);
   // text('PROTOTYPE01', 80, 220);
   text('click anywhere around the disk to mute', width / 4 * 2.65, 570);
