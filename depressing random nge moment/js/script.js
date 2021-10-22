@@ -1,26 +1,35 @@
 /**
-Title of Project
+Depressing NGE moment generator
 Author Name
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+To practice arrays with images
 */
 
 "use strict";
-
-
+// index of 9 depressing mge moment
+let ngeMoment = [];
+let bg = 0;
+// variable to store the image we want to display
+let displayImage;
 /**
 Description of preload
 */
 function preload() {
-
+ngeMoment[0] = loadImage(`assets/images/nge-depress.png`);
+ngeMoment[1] = loadImage(`assets/images/nge-depress1.png`);
+ngeMoment[2] = loadImage(`assets/images/nge-depress2.png`);
+ngeMoment[3] = loadImage(`assets/images/nge-depress3.png`);
+ngeMoment[4] = loadImage(`assets/images/nge-depress4.png`);
+ngeMoment[5] = loadImage(`assets/images/nge-depress5.png`);
+ngeMoment[6] = loadImage(`assets/images/nge-depress6.png`);
+ngeMoment[7] = loadImage(`assets/images/nge-depress7.png`);
+ngeMoment[8] = loadImage(`assets/images/nge-depress8.png`);
 }
 
-
-/**
-Description of setup
-*/
 function setup() {
+  createCanvas(600,600);
+  imageFeatures ();
+displayImage = random(ngeMoment);
 }
 
 
@@ -28,5 +37,14 @@ function setup() {
 Description of draw()
 */
 function draw() {
+background(0);
+}
 
+function mousePressed(){
+displayImage = random(ngeMoment);
+}
+
+function imageFeatures (){
+  imageMode(CENTER);
+  ngeMoment(displayImage, width / 2, height / 2);
 }
