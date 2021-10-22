@@ -54,9 +54,9 @@ function setup() {
   osc = new p5.Oscillator('sine');
 
 
-let drawButton = createButton('SWITCH MODE');
-drawButton.position(2.3*80,590);
-drawButton.size();
+  let drawButton = createButton('ALTERNATIVE');
+  drawButton.position(295, 580);
+  drawButton.size();
 
 
   // QUEUE NEXT
@@ -76,10 +76,10 @@ drawButton.size();
 
 
   // BOX
-    textBox = createInput(``);
-    textBox.position(180,525);
-    textBox.size(380,40);
-    textBox.input(displayText);
+  textBox = createInput(``);
+  textBox.position(295, 480);
+  textBox.size(380, 40);
+  textBox.input(displayText);
 }
 
 
@@ -91,20 +91,20 @@ codes inspired by inspired by https://p5js.org/examples/color-radial-gradient.ht
 function draw() {
   background(uiBackground);
 
-   push();
-   noStroke();
-   stroke(uiForeground);
-   pop();
+  push();
+  noStroke();
+  stroke(uiForeground);
+  pop();
 
-   push();
-   fill(uiForeground);
-   textStyle(BOLD);
+  push();
+  fill(uiForeground);
+  textStyle(BOLD);
 
-// bouton QUIET/LOUD
-   text(mode, 100, 580);
-   pop();
+  // bouton QUIET/LOUD
+  text(mode, 100, 580);
+  pop();
 
-   oscPressed ();
+  oscPressed();
   displayNextQueue();
   displayDisk();
   displayNowColor();
@@ -118,33 +118,33 @@ function draw() {
   sat();
   colorNext();
   sat1();
-// change for queue bar function
-function drawGradient(x, y) {
-  let radius = disk.size;
-  let h = disk.h;
-  for (let r = radius; r > 0; --r) {
-    fill(h, disk.s, disk.b);
-    ellipse(disk.x, disk.y, r);
-    h = (h + 0.6) % 360;
-  }
+  // change for queue bar function
+  function drawGradient(x, y) {
+    let radius = disk.size;
+    let h = disk.h;
+    for (let r = radius; r > 0; --r) {
+      fill(h, disk.s, disk.b);
+      ellipse(disk.x, disk.y, r);
+      h = (h + 0.6) % 360;
+    }
 
-bright = constrain(map(disk.s,0, 100, 0,100),0,100);
-hue= map(disk.h,0,360,0,360);
-freq = map(mouseX, disk.x-disk.size,disk.size+disk.x,100,500);
-vol = constrain(map(mouseY,disk.y-disk.size,disk.y+disk.size, 0, 1),0, 1);
+    bright = constrain(map(disk.s, 0, 100, 0, 100), 0, 100);
+    hue = map(disk.h, 0, 360, 0, 360);
+    freq = map(mouseX, disk.x - disk.size, disk.size + disk.x, 100, 500);
+    vol = constrain(map(mouseY, disk.y - disk.size, disk.y + disk.size, 0, 1), 0, 1);
 
-  displaySettingsTxt();
-  displayText()
+    displaySettingsTxt();
+    displayText()
 
-  if (playing) {
-    osc.freq(freq, 0.1);
-    osc.amp(vol, 0.1);
+    if (playing) {
+      osc.freq(freq, 0.1);
+      osc.amp(vol, 0.1);
+    }
   }
 }
-}
 
-function oscPressed (){
-  let d = dist(disk.x,disk.y,mouseX,mouseY);
+function oscPressed() {
+  let d = dist(disk.x, disk.y, mouseX, mouseY);
   if (d < disk.size) {
     playOscillator();
   }
@@ -188,7 +188,8 @@ function bright() {
   disk.b = mouseY;
   constrain(disk.b, 0, 360);
 }
- function bright1() {
+
+function bright1() {
   queue.b1 = mouseX;
   constrain(queue.b1, 0, 360);
 }
@@ -203,6 +204,7 @@ function sat1() {
   }
   constrain(queue.s1, 0, 100);
 }
+
 function sat() {
   if (keyIsDown(UP_ARROW)) {
     disk.s += 1;
@@ -217,6 +219,7 @@ function playOscillator() {
   osc.start();
   playing = true;
 }
+
 function mouseReleased() {
   osc.amp(0, 0.5);
   playing = false;
@@ -234,18 +237,20 @@ function displaySettingsTxt() {
   textInstructions();
   textData();
 
-    text('volume mute', width / 4*2.9,20 )
-    text('volume max', width / 4*2.9, 580)
-    text("OVERLOAD", disk.x-32, disk.y)
+  text('volume mute', width / 4 * 2.9, 20);
+  text('volume max', width / 4 * 2.9, 580);
+  text("OVERLOAD", disk.x - 32, disk.y);
+  text("TOUCH DISK TO START",  4*80, 300)
+
   pop();
 
   push();
   fill(uiForeground);
   textSize(20);
-  text('+', 960,500)
-  text('-', 960,100)
-  text('0', 540,100)
-  text('1', 540,500)
+  text('+', 960, 500)
+  text('-', 960, 100)
+  text('0', 540, 100)
+  text('1', 540, 500)
   pop();
 }
 
@@ -268,13 +273,13 @@ function displayText() {
   console.log('you are typing: ', textBox.value());
 
   push();
-    // clear();
-    fill(uiForeground);
-    noStroke();
-    textSize(20);
-    text(textBox.value(), 600, 400);
+  // clear();
+  fill(uiForeground);
+  noStroke();
+  textSize(20);
+  text(textBox.value(), 600, 400);
   pop();
-  }
+}
 
 function mousePressed() {
   if (mouseX > modeButton.x && mouseX < modeButton.x + modeButton.w && mouseY > modeButton.y && mouseY < modeButton.y + modeButton.h) {
@@ -282,8 +287,7 @@ function mousePressed() {
       mode = `LOUD MODE`;
       uiForeground = 0;
       uiBackground = 255;
-    }
-    else if (mode === `LOUD MODE`) {
+    } else if (mode === `LOUD MODE`) {
       mode = `QUIET MODE`;
       uiForeground = 255;
       uiBackground = 0;
@@ -291,25 +295,25 @@ function mousePressed() {
   }
 }
 
-function textInstructions(){
+function textInstructions() {
   push();
   fill(uiForeground);
   text('PROTOTYPE 01: attempt to simulate', 80, 175);
   text('visual hypersensibility', 80, 190);
   text('(light = sound)', 80, 205);
   // text('PROTOTYPE01', 80, 220);
-  text('click anywhere around the disk to mute', width / 4*2.65, 570);
-  text('press Left/Right Key', 4*80, 350);
-  text('press Up/Down Key',4*80, 325);
+  text('click anywhere around the disk to mute', width / 4 * 2.65, 570);
+  text('press Left/Right Key', 4 * 80, 350);
+  text('press Up/Down Key', 4 * 80, 325);
   text("Input meta noise : ", 80, 425);
 }
 
-function textData(){
-text('REAL-TIME DATA', 80, 250);
-text('Hz: ' + freq, 80, 275);
-text('vol: ' + vol,80, 300);
-text('sat: ' + bright,80, 325);
-text('hue: ' + hue,80, 350);
-text("x: "+mouseX, 80, 375);
-text("y: "+mouseY, 80, 400);
+function textData() {
+  text('REAL-TIME DATA', 80, 250);
+  text('Hz: ' + freq, 80, 275);
+  text('vol: ' + vol, 80, 300);
+  text('sat: ' + bright, 80, 325);
+  text('hue: ' + hue, 80, 350);
+  text("x: " + mouseX, 80, 375);
+  text("y: " + mouseY, 80, 400);
 }
