@@ -1,6 +1,6 @@
 /**
 Depressing NGE moment generator
-Author Name
+Wawa Li
 
 To practice arrays with images
 */
@@ -27,8 +27,7 @@ ngeMoment[8] = loadImage(`assets/images/nge-depress8.png`);
 }
 
 function setup() {
-  createCanvas(600,600);
-  imageFeatures ();
+  createCanvas(1000,700);
 displayImage = random(ngeMoment);
 }
 
@@ -38,6 +37,8 @@ Description of draw()
 */
 function draw() {
 background(0);
+imageFeatures ();
+
 }
 
 function mousePressed(){
@@ -46,5 +47,5 @@ displayImage = random(ngeMoment);
 
 function imageFeatures (){
   imageMode(CENTER);
-  ngeMoment(displayImage, width / 2, height / 2);
+  image(displayImage, 300, 300);
 }
