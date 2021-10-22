@@ -49,3 +49,10 @@ function imageFeatures (){
   imageMode(CENTER);
   image(displayImage, 300, 300);
 }
+
+// not working
+function resizeImg(){
+// for (i=0; i<ngeMoment;i++){
+  ngeMoment[i].resize(100, 7)
+
+}
