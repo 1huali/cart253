@@ -1,26 +1,27 @@
 /**
-Title of Project
-Author Name
+Flowers
+Wawa Li
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+This started as an array exercice to end-up as a OOP exercice.
 */
 
 "use strict";
 
-
-/**
-Description of preload
-*/
-function preload() {
-
-}
-
-
+let garden = {
+  flowers : [],
+  numFlowers: 20,
+  grassColor={
+    r:120,
+    g:180,
+    b:120,
+  }
+};
 /**
 Description of setup
 */
 function setup() {
+createCanvas (600,600);
+
 }
 
 
@@ -28,5 +29,9 @@ function setup() {
 Description of draw()
 */
 function draw() {
+background(grassColor.r,grassColor.g,grassColor.b);
 
+for (i=0; i < numFlowers ; i ++){
+  random()
+}
 }
