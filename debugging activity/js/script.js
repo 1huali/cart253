@@ -16,11 +16,21 @@ let user = {
 
 // Food objects
 let foodGroup = [];
+  // A: Cos of return
+// foodGroup[0] = (50, 300);
+// foodGroup[1] = (100, -300);
+// foodGroup[2] = (250, 300);
+// foodGroup[3] = (350, 300);
+// foodGroup[4] = (450);
+// foodGroup[5] = (550, 300);
+
+
 
 function setup() {
   createCanvas(600, 600);
 
-  // Why a function to create food rather than defining it in presets?
+  // Q: Why a function to create food rather than defining it in presets?
+  // A: Cos its defining the list
   foodGroup[0] = createFood(50, 300);
   foodGroup[1] = createFood(100, -300);
   foodGroup[2] = createFood(250, 300);
@@ -28,8 +38,8 @@ function setup() {
   foodGroup[4] = createFood(450);
   foodGroup[5] = createFood(550, 300);
 }
+
 function createFood(x, y) {
-// what would be a good code to showcase if it's been created?
   console.log("food is created")
   let food = {
     x: x,
@@ -37,7 +47,8 @@ function createFood(x, y) {
     eaten: false,
     size: 50,
   }
-  // moved to check food, then moved back cos thats how it was written in the notes
+  // Q:what does Return means actually?
+  // A: It outputs the variable Food
     return food;
 }
 function draw() {
@@ -66,10 +77,13 @@ function draw() {
   }
 
 // Checks if the user overlaps the food object and eats it if so
+// Q: WHY NOT EATING EXTREMITIES
+// A:
 function checkFood(food) {
-  let d = dist(user.x, user.x, food.x, food.y);
+  let d = dist(user.x, user.y, food.x, food.y);
   if (d < user.userSize / 2 + food.size / 2) {
     food.eaten = true;
+  console.log("dist between food+user checked properly")
   }
 }
 
@@ -84,12 +98,10 @@ function displayUser() {
 
 // Draw the food as a circle
 function displayFood(food) {
-  // function displayFood(food) {
   if (!food.eaten) {
   // Display the food as its position and with its size
   push();
   fill(255, 100, 100);
-  // what's x?y? how to generate food w diff. number?
   ellipse(food.x, food.y, food.size);
   pop();
   console.log("food is displayed")
