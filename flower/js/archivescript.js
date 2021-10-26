@@ -2,7 +2,7 @@
 Flowers
 Wawa Li
 
-This started as an array exercice to end-up as a OOP exercice.
+questions to be answered
 */
 
 "use strict";
