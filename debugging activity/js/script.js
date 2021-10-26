@@ -15,27 +15,31 @@ let user = {
 }
 
 // Food objects
-let food1;
-let food2;
-let food3;
-let food4;
-let food5;
-let food6;
-let eaten;
-
+let foodGroup = [];
 
 function setup() {
   createCanvas(600, 600);
 
   // Why a function to create food rather than defining it in presets?
-  let food1 = createFood(50, 300);
-  let food2 = createFood(100, -300);
-  let food3 = createFood(250, 300);
-  let food4 = createFood(350, 300);
-  let food5 = createFood(450);
-  let food6 = createFood(550, 300);
+  foodGroup[0] = createFood(50, 300);
+  foodGroup[1] = createFood(100, -300);
+  foodGroup[2] = createFood(250, 300);
+  foodGroup[3] = createFood(350, 300);
+  foodGroup[4] = createFood(450);
+  foodGroup[5] = createFood(550, 300);
 }
-
+function createFood(x, y) {
+// what would be a good code to showcase if it's been created?
+  console.log("food is created")
+  let food = {
+    x: x,
+    y: y,
+    eaten: false,
+    size: 50,
+  }
+  // moved to check food, then moved back cos thats how it was written in the notes
+    return food;
+}
 function draw() {
   background(0);
 
@@ -48,45 +52,25 @@ function draw() {
 
   // Display the user and foods
   displayUser();
-  displayFood(food1);
-  displayFood(food2);
-  displayFood(food3);
-  displayFood(food4);
-  displayFood(food5);
-  displayFood(food6);
+
+  for (let i=0; i < foodGroup.length;i++){
+    displayFood(foodGroup[i]);
+  }
+
   // Move the user (with the mouse)
   moveUser();
 
   // Check whether the user has eaten either food
-  checkFood(food1);
-  checkFood(food2);
-  checkFood(food3);
-  checkFood(food4);
-  checkFood(food5);
-}
-
-
-function createFood(x, y) {
-  let food = {
-    x: x,
-    y: y,
-    size: 50,
+  for (let i=0; i < foodGroup.length;i++){
+    checkFood(foodGroup[i]);
   }
-  // moved to
-  // if food.eaten = false {
-  //     return food;
-}
 
 // Checks if the user overlaps the food object and eats it if so
 function checkFood(food) {
   let d = dist(user.x, user.x, food.x, food.y);
   if (d < user.userSize / 2 + food.size / 2) {
-    eaten = true;
+    food.eaten = true;
   }
-  if (eaten = false) {
-    return food;
-  }
-
 }
 
 
@@ -94,19 +78,21 @@ function checkFood(food) {
 function displayUser() {
   push();
   fill(255);
-  ellipse(user.x, user.y, user.size);
+  ellipse(user.x, user.y, user.userSize);
   pop();
 }
 
 // Draw the food as a circle
-function displayFood(x,y) {
-  // // Check if the food is still available to be eaten - wrong function
-  // if (eaten = false) {
+function displayFood(food) {
+  // function displayFood(food) {
+  if (!food.eaten) {
   // Display the food as its position and with its size
   push();
   fill(255, 100, 100);
   // what's x?y? how to generate food w diff. number?
   ellipse(food.x, food.y, food.size);
   pop();
-
+  console.log("food is displayed")
+}
+}
 }
