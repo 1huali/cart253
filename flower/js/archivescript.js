@@ -2,7 +2,7 @@
 Flowers
 Wawa Li
 
-questions to be answered
+OOP generating 20 similar flowers. Linked with flower.js
 */
 
 "use strict";
@@ -10,70 +10,58 @@ questions to be answered
 let garden = {
   flowers : [],
   numFlowers: 20,
-}
-let grassColor = {
+  grassColor: {
     r:120,
     g:180,
-    b:120,
+    b:120
   }
+}
+// let garden = {
+//   flowers : [],
+//   numFlowers: 20
+//   }
+//   // Q:why in the garden variable? and not by itself?
+//   // A: Couldn't be in setup because we need to push
+// let grassColor = {
+//     r:120,
+//     g:180,
+//     b:120,
+//   }
+
 /**
 Description of setup
 */
 function setup() {
-createCanvas (600,600);
+createCanvas(600,600);
+console.log("canvas created")
 
+// Here we are using numFlower cos we don't want to refer 2the whole list,
+// just the amount of flower in the garden.
+for (let i=0; i < garden.numFlowers ; i ++){
+  let flower= new Flower();
+  garden.flowers.push(flower);
+  console.log("flowers created")
+}
 }
 /**
 Description of draw()
 */
 function draw() {
-background(grassColor.r,grassColor.g,grassColor.b);
+  // Q: bg not creating
+  // A: missed at setup's closing bracket
+  background(garden.grassColor.r,garden.grassColor.g,garden.grassColor.b);
+  console.log("bg created");
 
-for (let i=0; i < garden.numFlowers ; i ++){
-  let flower= createFlower;
-  garden.flowers.push(flower);
-  displayFlower();
+// Loop thru all the array and display them
+
+// Q: why it wasn't respecting the max numFlower
+// A:cos U created flowers in draw whereas it should be in setup (created once, behaving multiple times)
+
+// Here we are refering to the list cos we,
+// want to refer to the objects in this list and its amount as maximum - we are creating.
+for (let i=0; i < garden.flowers.length ; i ++){
+  let flower = garden.flowers[i];
+  flower.display();
+  console.log("flower displayed");
 }
-}
-
-function createFlower(){
-  let flower ={
-    x: random(0,width),
-    y: random(0,height),
-    size:50,
-    petalThickness: 10,
-    stemLength:75,
-    stemThickness:10
-    // always shows an eror, is the syntax correct?
-    stemColor: {
-      r:50,
-      g:150,
-      b:50,
-    }
-    petalColor: {
-      r:200,
-      g:50,
-      b:50,
-    }
-    centerColor: {
-      r:50,
-      g:0,
-      b:0
-    }
-  };
-    return flower;
-  }
-
-function displayFlower(flower){
-  push();
-  //stem
-  strokeWeight(stemThickness);
-  stroke(flower.stemColor.r, flower.stemColor.g, flower.stemColor.b);
-  line(flower.x, flower.y,flower.x, flower.y+flower.stemLength);
-//flower
-  strokeWeight(flower.petalThickness);
-  stroke(flower.petalColor.r,flower.petalColor.g,flower.petalColor.b);
-  fill(flower.centerColor.r,flower.centerColor.g,flower.centerColor.b);
-  ellipse(flower.x,flower.y,flower.size);
-  pop();
 }
