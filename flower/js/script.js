@@ -48,7 +48,7 @@ Description of draw()
 */
 function draw() {
   // Q: bg not creating
-  // A:
+  // A: missed at setup's closing bracket
   background(garden.grassColor.r,garden.grassColor.g,garden.grassColor.b);
   console.log("bg created");
 
