@@ -35,28 +35,33 @@ function setup() {
 createCanvas(600,600);
 console.log("canvas created")
 
+// Here we are using numFlower cos we don't want to refer 2the whole list,
+// just the amount of flower in the garden.
 for (let i=0; i < garden.numFlowers ; i ++){
   let flower= new Flower();
   garden.flowers.push(flower);
   console.log("flowers created")
+}
 }
 /**
 Description of draw()
 */
 function draw() {
   // Q: bg not creating
-  // A: 
-  // background(garden.grassColor.r,garden.grassColor.g,garden.grassColor.b);
-  background(120,180,120);
+  // A:
+  background(garden.grassColor.r,garden.grassColor.g,garden.grassColor.b);
   console.log("bg created");
+
+// Loop thru all the array and display them
 
 // Q: why it wasn't respecting the max numFlower
 // A:cos U created flowers in draw whereas it should be in setup (created once, behaving multiple times)
-for (let i=0; i < garden.numFlowers ; i ++){
-  let flower= new Flower();
-  flower.display();
-  // garden.flowers.push(flower);
 
-}
+// Here we are refering to the list cos we,
+// want to refer to the objects in this list and its amount as maximum - we are creating.
+for (let i=0; i < garden.flowers.length ; i ++){
+  let flower = garden.flowers[i];
+  flower.display();
+  console.log("flower displayed");
 }
 }
