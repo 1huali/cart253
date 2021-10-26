@@ -13,7 +13,7 @@ let garden = {
   grassColor: {
     r:120,
     g:180,
-    b:120,
+    b:120
   }
 }
 // let garden = {
@@ -21,7 +21,7 @@ let garden = {
 //   numFlowers: 20
 //   }
 //   // Q:why in the garden variable? and not by itself?
-//   // A:
+//   // A: Couldn't be in setup because we need to push
 // let grassColor = {
 //     r:120,
 //     g:180,
@@ -32,29 +32,31 @@ let garden = {
 Description of setup
 */
 function setup() {
-createCanvas (600,600);
-// background(grassColor.r,grassColor.g,grassColor.b);
+createCanvas(600,600);
+console.log("canvas created")
 
 for (let i=0; i < garden.numFlowers ; i ++){
   let flower= new Flower();
-if (i<garden.numFlowers){
   garden.flowers.push(flower);
-}
-  // flower.display();
-
+  console.log("flowers created")
 }
 /**
 Description of draw()
 */
 function draw() {
-  background(garden.grassColor.r,garden.grassColor.g,garden.grassColor.b);
-  // background(grassColor.r,grassColor.g,grassColor.b);
+  // Q: bg not creating
+  // A: 
+  // background(garden.grassColor.r,garden.grassColor.g,garden.grassColor.b);
+  background(120,180,120);
+  console.log("bg created");
 
 // Q: why it wasn't respecting the max numFlower
-// A:
+// A:cos U created flowers in draw whereas it should be in setup (created once, behaving multiple times)
 for (let i=0; i < garden.numFlowers ; i ++){
   let flower= new Flower();
   flower.display();
+  // garden.flowers.push(flower);
+
 }
 }
 }
