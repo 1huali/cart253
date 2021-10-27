@@ -56,3 +56,10 @@ for (let i=0; i < garden.flowers.length ; i ++){
   console.log("flower displayed");
 }
 }
+function mousePressed(){
+for (let i=0; i<garden.flowers.length;i++){
+  let flower = garden.flowers[i]; //Q: What does this do? It defines flower as a unity element from the list? but wasn't it defined before?
+  flower.mousePressed();
+  console.log("flower growing")
+}
+}

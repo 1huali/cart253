@@ -21,7 +21,8 @@ class Flower {
     };
 
     display(){
-      // why do we push pop here?
+      // Q:why do we push pop here?
+      // A:
       push();
       // stem
       strokeWeight(this.stemThickness);
@@ -34,4 +35,14 @@ class Flower {
       ellipse(this.x,this.y,this.size);
       pop();
     }
+
+mousePressed(){
+  let d = dist(this.x,this.y,mouseX,mouseY);
+  if (d < this.size/2+this.petalThickness){
+    this.stemLength = this.stemLength +5 ;
+    this.y = this.y-5;
   }
+}
+
+
+  } //end of flower class
