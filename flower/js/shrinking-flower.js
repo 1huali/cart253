@@ -4,9 +4,12 @@ class Flower {
     this.x = x,
       this.y = y,
       this.size = size,
+      this.maxSize=size,
       this.petalThickness = 10,
       this.stemLength = stemLength,
       this.stemThickness = 10,
+      this.maxPetalThickness = 10,
+      this.growRate= 0.05,
       this.stemColor = {
         r: 50,
         g: 150,
@@ -45,5 +48,15 @@ class Flower {
     if (this.size <= 0 || this.petalThickness <= 0) {
       this.alive = false;
     }
+  }
+
+  pollinate(){
+    this.size= this.size + this.growRate;
+    this.petalThickness= this.petalThickness+ this.growRate;
+
+    let growth = random(0, this.growRate);
+    this.size = this.size + growth;
+    this.size= constrain(this.size,0,this.maxSize);
+    this.petalThickness= constrain(this.petalThickness, 0,this.maxPetalThickness);
   }
 } //end of flower class
