@@ -1,16 +1,16 @@
 class Bee {
   constructor(x,y){
-    this.x= x,
-    this.y= y,
-    this.size= 40,
-    this.minSize=10,
-    this.maxSize=40,
-    this.vx=0,
-    this.vy=0,
-    this.speed=5,
-    this.shrinkRate=0.05,
-    this.growRate=0.05,
-    this.jitteriness=0.1,
+    this.x= x;
+    this.y= y;
+    this.size= 40;
+    this.minSize=10;
+    this.maxSize=40;
+    this.vx=0;
+    this.vy=0;
+    this.speed=5;
+    this.shrinkRate=0.05;
+    this.growRate=0.05;
+    this.jitteriness=0.1;
     this.alive = true;
   }
 
@@ -33,16 +33,16 @@ class Bee {
       this.x= this.vx+this.x;
       this.y=this.y+this.vy;
 
-      this.x=constrain(0,width);
-      this.y=constrain(0,height);
+      this.x=constrain(this.x,0,width);
+      this.y=constrain(this.y,0,height);
     }
 
     tryToPollinate(flower){
-      // x is not working
       let d = dist(this.x, this.y, flower.x, flower.y);
-      if (d< this.size/ + flower.size/2+ flower.petalThickness);
-      this.grow();
-      flower.pollinate();
+      if (d < this.size/2 + flower.size/2+ flower.petalThickness){
+        this.grow();
+        flower.pollinate();
+      }
     }
 
     grow(){
@@ -57,6 +57,7 @@ class Bee {
       fill(255,255,255);
       noStroke();
       ellipse(this.x - this.size/2, this.y, this.size/2);
+      console.log(this.x,this.y,this.size);
       ellipse(this.x + this.size/2, this.y, this.size/2);
       pop();
 

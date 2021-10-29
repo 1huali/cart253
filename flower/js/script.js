@@ -73,7 +73,7 @@ function draw() {
             let flower = garden.flowers[j];
                 if (flower.alive){
             bee.tryToPollinate(flower);
-            console.log("bees pollinating");
+            // console.log("bees pollinating");
           }
           }
       }
@@ -84,9 +84,9 @@ for (let i=0; i < garden.flowers.length ; i ++){
   console.log("flower update");
       if (flower.alive){
         flower.shrink(); // nothing shrinks anymore, weird
-        console.log("flower shrinking");
+        // console.log("flower shrinking");
         flower.display();
-        console.log("flower displayed");
+        // console.log("flower displayed");
     }
   }
 } //end of draw
