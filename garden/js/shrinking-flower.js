@@ -59,4 +59,5 @@ class Flower {
     this.size= constrain(this.size,0,this.maxSize);
     this.petalThickness= constrain(this.petalThickness, 0,this.maxPetalThickness);
   }
+
 } //end of flower class

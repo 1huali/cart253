@@ -10,6 +10,8 @@ OOP generating 20 random variating flowers. Linked with multiflower.js
 let garden = {
   flowers : [],
   numFlowers: 20,
+  plants: [],
+  numPlants:0,
   bees: [],
   numBees:7,
   grassColor: {
@@ -89,4 +91,15 @@ for (let i=0; i < garden.flowers.length ; i ++){
         // console.log("flower displayed");
     }
   }
+
+for (let i=0; i < garden.plants.length ; i ++){
+  let plant = new Plant(mouseX,mouseY);
+  // plant.move();
+  if (mousePressed){
+    plant.toPLant();
+    garden.plants.push(plants);
+    console.log("plants created");
+  }
+}
+
 } //end of draw
