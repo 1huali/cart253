@@ -1,3 +1,4 @@
+// program where flowers are generated inspect random colors
 class Flower {
 
   constructor(x, y,size,stemLength,petalColor){

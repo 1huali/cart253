@@ -1,3 +1,4 @@
+// archived idea: user planting plants
 class Plant {
 
   constructor(x,y){

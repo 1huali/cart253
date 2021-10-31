@@ -10,8 +10,8 @@ OOP generating 20 random variating flowers. Linked with multiflower.js
 let garden = {
   flowers : [],
   numFlowers: 20,
-  plants: [],
-  numPlants:0,
+  fly: [],
+  numFlies:100,
   bees: [],
   numBees:7,
   grassColor: {
@@ -53,6 +53,15 @@ for (let i=0; i < garden.numBees ; i ++) {
   console.log("bees created");
 }
 
+for (let i=0; i < garden.numPlants ; i ++){
+  let plant = new Plant(mouseX,mouseY);
+  // plant.move();
+  if (mousePressed){
+    plant.toPLant();
+    garden.plants.push(plant);
+    console.log("plants created");
+  }
+}
 } //end setup
 /**
 Draw wasn't affected in the new feature change cos the way it is displayed+the bg display are still the same.
@@ -92,14 +101,5 @@ for (let i=0; i < garden.flowers.length ; i ++){
     }
   }
 
-for (let i=0; i < garden.plants.length ; i ++){
-  let plant = new Plant(mouseX,mouseY);
-  // plant.move();
-  if (mousePressed){
-    plant.toPLant();
-    garden.plants.push(plants);
-    console.log("plants created");
-  }
-}
 
 } //end of draw

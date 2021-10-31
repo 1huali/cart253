@@ -1,4 +1,4 @@
-// bees that saves shrinking flowers and moves randomly
+// bees that saves shrinking flowers, moves randomly, grows when they touch flies
 class Bee {
   constructor(x,y){
     this.x= x;
