@@ -38,11 +38,19 @@ class Bee {
       this.y=constrain(this.y,0,height);
     }
 
-    tryToPollinate(flower){
+    tryToPollinate(flower){ //grows flower at contact (set)
       let d = dist(this.x, this.y, flower.x, flower.y);
       if (d < this.size/2 + flower.size/2+ flower.petalThickness){
         this.grow();
         flower.pollinate();
+      }
+    }
+
+    killNsuck(fly){ //grows at contact with fly, while killing fly (set)
+      let d = dist(this.x, this.y, fly.x, fly.y);
+      if (d < this.size/2 + fly.size/2) {
+        this.grow();
+        fly.shrink();
       }
     }
 

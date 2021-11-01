@@ -52,9 +52,6 @@ class Flower {
     }
   }
 
-  destroyed() {
-
-  }
 
   pollinate() {
     this.size = this.size + this.growRate;

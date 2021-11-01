@@ -15,20 +15,23 @@ class Fly {
     this.jitteriness=0.2;
     this.alive = true;
   }
-    };
 
 
-    move (){ //how it moves (all set)
+//how it moves (all set)
+    move (){
+
+      this.x= this.x+this.vx;
+      this.y= this.y+this.vy;
+
+      this.x=constrain(this.x,0,width);
+      this.y=constrain(this.y,0,height);
+
         let r = random(0,1);
           if (r < this.jitteriness){
             this.vx= random(-this.speed,this.speed);
             this.vy= random(-this.speed, this.speed);
         }
-        this.x= this.vx+this.x;
-        this.y=this.y+this.vy;
 
-        this.x=constrain(this.x,0,width);
-        this.y=constrain(this.y,0,height);
     }
 
     shrink(){ //what happens when bees fly over flies - fly dies (all set)
@@ -39,21 +42,29 @@ class Fly {
       }
       }
 
-    destroys(flower){ // what happens when fly run over flowers
+    destroys(flower){ // what happens fly do when they run over flowers (all set)
       let d = dist(this.x, this.y, flower.x, flower.y);
       if (d < this.size/2 + flower.size/2+ flower.petalThickness){
         this.grow();
-        flower.destroyed();
+        flower.shrink();
       }
     }
 
-    grow() {
+    grow() { //fly grows when they touch a flower
       this.size = this.size + this.growRate;
       this.size = this.size + this.growRate;
 
       let growth = random(0, this.growRate);
       this.size = this.size + growth;
       this.size = constrain(this.size, 0, this.maxSize);
+    }
+
+    destroyNsuck(flower){ //flower shrink and fly grows at contact
+      let d = dist (this.x, this.y, flower.x, flower.y);
+      if (d < this.size/2 + flower.size/2+ flower.petalThickness){
+        this.grow();
+        flower.shrink();
+      }
     }
 
     display(){

@@ -9,11 +9,11 @@ OOP generating 20 random variating flowers. Linked with multiflower.js
 
 let garden = {
   flowers : [],
-  numFlowers: 20,
-  fly: [],
-  numFlies:100,
+  numFlowers: 35,
+  flies: [],
+  numFly:100,
   bees: [],
-  numBees:7,
+  numBees:10,
   grassColor: {
     r:120,
     g:180,
@@ -30,7 +30,7 @@ function setup() {
 createCanvas(600,600);
 console.log("canvas created")
 
-// It's "=" signs, not ":" after variable definition.
+// definition of flowers
 for (let i=0; i < garden.numFlowers ; i ++){
   let x= random(0,width);
   let y= random(0,height);
@@ -41,28 +41,26 @@ for (let i=0; i < garden.numFlowers ; i ++){
     g: random(100,255),
     b:random(100,255)
   }
-// create new flower w variating arguments
+// create new obj (flower, fly,bees) w variating arguments
   let flower= new Flower(x, y,size,stemLength,petalColor);
   garden.flowers.push(flower);
   console.log("flowers created")
 }
 
+// definition of bees
 for (let i=0; i < garden.numBees ; i ++) {
-  let bee = new Bee(random(0,width), random(0,height));
+  let bee = new Bee (random(0,width), random(0,height));
   garden.bees.push(bee);
   console.log("bees created");
 }
-
-for (let i=0; i < garden.numPlants ; i ++){
-  let plant = new Plant(mouseX,mouseY);
-  // plant.move();
-  if (mousePressed){
-    plant.toPLant();
-    garden.plants.push(plant);
-    console.log("plants created");
+// definition of flies
+for (let i=0; i < garden.numFly ; i ++){
+  let fly = new Fly(random(0,width), random(0,height));
+    garden.flies.push(fly);
+    console.log("flies created");
   }
-}
 } //end setup
+
 /**
 Draw wasn't affected in the new feature change cos the way it is displayed+the bg display are still the same.
 */
@@ -71,6 +69,7 @@ function draw() {
   console.log("bg created");
 
   // Loop thru all the array and display them
+  // Bees naturally displayed, shrinking and moving
   for (let i=0; i < garden.bees.length ; i ++){
     let bee = garden.bees[i];
     console.log("bees update");
@@ -79,7 +78,7 @@ function draw() {
           bee.move();
           bee.display();
           console.log("bees displayed and moving");
-
+// bees can pollinate flowers cos atm they be shrinking
           for (let j=0; j< garden.flowers.length; j++){
             let flower = garden.flowers[j];
                 if (flower.alive){
@@ -87,18 +86,38 @@ function draw() {
             // console.log("bees pollinating");
           }
           }
+// bees can grow when they eat flies
+          for (let j=0; j< garden.flies.length; j++){
+            let fly = garden.flies[j];
+                if (fly.alive){
+            bee.killNsuck(fly);
+            bee.grow();
+            // console.log("bees killing flies");
+          }
+          }
       }
     }
 // Loop thru all the array and display them
+// Flowers naturally shrinking, moving and displaying
 for (let i=0; i < garden.flowers.length ; i ++){
   let flower = garden.flowers[i];
   console.log("flower update");
       if (flower.alive){
-        flower.shrink(); // nothing shrinks anymore, weird
+        flower.shrink();
         // console.log("flower shrinking");
         flower.display();
         // console.log("flower displayed");
     }
+  // fly destroys when in contact with flowers
+              for (let j=0; j< garden.flowers.length; j++){
+                let fly = new Fly(random(0,width), random(0,height));
+                let flower = garden.flowers[j];
+                    if (flower.alive){
+                fly.shrink(flower);
+                fly.destroyNsuck(flower);
+                // console.log("fly killing flowers");
+              }
+              }
   }
 
 
