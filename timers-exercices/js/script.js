@@ -20,10 +20,12 @@ Description of setup
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  for (let i = circle; i < numCircle; i++) {
+  for (let i = 0; i < numCircle; i++) {
     let circle = createCircle();
     circles.push(circle);
   }
+  console.log(circles);
+}
 
   function createCircle() {
     let circle = {
@@ -33,7 +35,6 @@ function setup() {
   };
   return circle;
   // what does return means?
-}
 }
 
 /**
@@ -61,18 +62,22 @@ function title(){
 
 // dont understand this for loop here, and the display purpose
 function game(){
-for (let i=0; i < numCircle; i++) {
+for (let i=0; i < circles.length; i++) {
+// calling circles individually to be "circle" temporarly
   let circle = circles[i];
+  // display them called-temporarly "circle"
+  displayCircle(circle);
 }
-displayCircle(circle)
 }
 
 // where in the program did we assign circle to be a circle in the array?
+// A: line 68. the variable is teleported and can change name but still hold properties.
 function displayCircle(circle){
   push();
   fill(255,0,0);
   noStroke();
-  ellipse(circle.x,circle.y,circle.size);
+  ellipse(circle.x, circle.y, circle.size);
+  console.log(circle.x)
   pop();
 }
 

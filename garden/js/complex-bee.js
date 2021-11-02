@@ -57,6 +57,10 @@ class Bee {
     grow(){
       this.size= this.size + this.growRate;
       this.size= constrain(this.size, this.minSize,this.maxSize);
+
+      let growth = random(0, this.growRate);
+      this.size = this.size + growth;
+      this.size = constrain(this.size, 0, this.maxSize);
       }
 
 
@@ -66,7 +70,6 @@ class Bee {
       fill(255,255,255);
       noStroke();
       ellipse(this.x - this.size/2, this.y, this.size/2);
-      console.log(this.x,this.y,this.size);
       ellipse(this.x + this.size/2, this.y, this.size/2);
       pop();
 
@@ -84,5 +87,13 @@ class Bee {
       ellipse(this.x - this.size/10, this.y, this.size/10);
       ellipse(this.x + this.size/10, this.y, this.size/10);
       pop();
+    }
+
+    mousePressed(){
+      let d = dist (mouseX, mouseY,this.x, this.y);
+      if (d < this.size/2+this.size/4){
+    this.alive=false;
+      }
+          // console.log("U killed Bee");
     }
 } //end of class

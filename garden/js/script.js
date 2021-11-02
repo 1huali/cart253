@@ -93,11 +93,13 @@ function draw() {
       let fly = garden.flies[k];
       if (fly.alive) {
         bee.killNsuck(fly);
+        console.log("bees sucking flies")
         bee.grow();
         // console.log("bees killing flies");
       }
     }
   }
+
   // Loop thru all the array and display them
   // Flowers naturally shrinking, moving and displaying
   for (let i = 0; i < garden.flowers.length; i++) {
@@ -120,6 +122,7 @@ function draw() {
       }
     }
   }
+
   // Loop thru all the array and display them
   // Flies naturally displayed, shrinking and moving
   for (let j = 0; j < garden.flies.length; j++) {
@@ -130,3 +133,15 @@ function draw() {
   }
 
 } //end of draw
+
+// Q: why fly invincible?
+function mousePressed(){
+  for (let j = 0; j < garden.flies.length; j++) {
+    let fly = garden.flies[j];
+    fly.mousePressed();
+  }
+    for (let i = 0; i < garden.bees.length; i++) {
+      let bee = garden.bees[i];
+      bee.mousePressed();
+}
+}
