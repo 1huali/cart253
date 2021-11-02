@@ -26,14 +26,15 @@ function setup() {
   }
 
   function createCircle() {
-    let x=random(0,width);
-    let y= random(0, height);
-    let size= random(50,100);
+    let circle = {
+    x:random(0,width),
+    y: random(0, height),
+    size: random(50,100),
   };
   return circle;
   // what does return means?
 }
-
+}
 
 /**
 Call all the states
@@ -46,7 +47,6 @@ if (state === `title`){
 else if (state === `game`){
   game();
 }
-
 else if (state === `win`){
   win();
 }
@@ -59,11 +59,16 @@ function title(){
   displayText(`Title`);
 }
 
+// dont understand this for loop here, and the display purpose
 function game(){
-  displayCircle()
+for (let i=0; i < numCircle; i++) {
+  let circle = circles[i];
+}
+displayCircle(circle)
 }
 
-function displayCircle(){
+// where in the program did we assign circle to be a circle in the array?
+function displayCircle(circle){
   push();
   fill(255,0,0);
   noStroke();
@@ -76,16 +81,19 @@ if (state=== `title`){
   state = `game`;
 }
 if (state=== `game`){
-  displayCircle();
   checkCircleClick();
 }
 }
 
 function checkCircleClick(){
-  for (let circle = i; i < circles.lenght ; i ++){
-    let d = dist (circle.x, circle.y, mouseX,mouseY)
+  for (let i = 0; i < circles.length ; i ++){
+    //Q:what does that do? Do we need this part to make splice work?
+    let circle = circles[i];
+    // Q: order matters or not?
+    let d = dist ( mouseX,mouseY,circle.x, circle.y)
     if (d < circle.size/2){
       circle.splice(i,1);
+      // Q: breaks what?
       break;
     }
   }

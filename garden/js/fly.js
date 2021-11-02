@@ -4,6 +4,7 @@ class Fly {
   constructor(x,y){
     this.x= x;
     this.y= y;
+    console.log(`flies`);
     this.size= 35;
     this.minSize=15;
     this.maxSize=35;
@@ -62,7 +63,7 @@ class Fly {
       fill(255,255,255);
       noStroke();
       ellipse(this.x - this.size/2, this.y, this.size/2);
-      console.log(this.x,this.y,this.size);
+      console.log(`Fly display: ${this.x}, ${this.y}, ${this.size}`);
       ellipse(this.x + this.size/2, this.y, this.size/2);
       pop();
 
