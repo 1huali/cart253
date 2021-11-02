@@ -115,7 +115,8 @@ function end() {
         pop();
       }
     }
-  } //end of end();
+  }
+} //end of end();
 
   function game() {
     // OBJECTS BELOW
@@ -182,9 +183,8 @@ function end() {
         fly.display();
       }
     }
-  }
 }
-  // Q: why fly invincible?
+
   function mousePressed() {
     for (let j = 0; j < garden.flies.length; j++) {
       let fly = garden.flies[j];
