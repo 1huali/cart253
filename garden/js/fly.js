@@ -11,7 +11,7 @@ class Fly {
     this.vx = 0;
     this.vy = 0;
     this.speed = 6;
-    this.shrinkRate = 0.1;
+    this.shrinkRate = 0.05;
     this.growRate = 0.05;
     this.jitteriness = 0.2;
     this.alive = true;

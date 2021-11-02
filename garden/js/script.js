@@ -6,6 +6,7 @@ OOP generating 20 random variating flowers. Linked with multiflower.js
 */
 
 "use strict";
+let state = `start`;
 
 let garden = {
   flowers: [],
@@ -62,6 +63,139 @@ function setup() {
   }
 } //end setup
 
+
+function displayText(message) {
+  push();
+  fill(0);
+  textAlign(CENTER, CENTER);
+  textSize(24);
+  text(message, width / 2, height / 2)
+  pop();
+}
+
+
+function start() {
+  // why???? error at line 87
+  displayText(`Hey there`);
+}
+
+function keyPressed() {
+  if (keyCode === 13) {
+    state = `game`;
+  }
+}
+
+function end() {
+  for (let i = 0; i < garden.bees.length; i++) {
+    let bee = garden.bees[i];
+    if (i < 1) {
+      displayText(`Bee's mass extinction`);
+      push();
+      fill(255, 0, 0);
+      pop();
+    }
+
+    for (let j = 0; j < garden.flowers.length; j++) {
+      let flower = garden.flowers[j];
+      if (j < 1) {
+        displayText(`Fauna decimated`);
+        push();
+        fill(255, 0, 0);
+        pop();
+      }
+    }
+
+    for (let k = 0; k < garden.flies.length; k++) {
+      let fly = garden.flies[k];
+      if (fly.size > 130) {
+        push();
+        displayText(`Parasite takeover`);
+        push();
+        fill(255, 0, 0);
+        pop();
+      }
+    }
+  } //end of end();
+
+  function game() {
+    // OBJECTS BELOW
+    // Loop thru all the array and display them
+    // Bees naturally displayed, shrinking and moving
+    for (let i = 0; i < garden.bees.length; i++) {
+      let bee = garden.bees[i];
+      console.log("bees update");
+      if (bee.alive) {
+        bee.shrink();
+        bee.move();
+        bee.display();
+        console.log("bees displayed and moving");
+      }
+      // bees can pollinate flowers cos atm they be shrinking
+      for (let j = 0; j < garden.flowers.length; j++) {
+        let flower = garden.flowers[j];
+        if (flower.alive) {
+          bee.tryToPollinate(flower);
+          // console.log("bees pollinating");
+        }
+      }
+      // bees can grow when they eat flies
+      for (let k = 0; k < garden.flies.length; k++) {
+        let fly = garden.flies[k];
+        if (fly.alive) {
+          bee.killNsuck(fly);
+          console.log("bees sucking flies")
+          // bee.grow();
+          // console.log("bees killing flies");
+        }
+      }
+    }
+
+    // Loop thru all the array and display them
+    // Flowers naturally shrinking, moving and displaying
+    for (let i = 0; i < garden.flowers.length; i++) {
+      let flower = garden.flowers[i];
+      console.log("flower update");
+      if (flower.alive) {
+        flower.shrink();
+        // console.log("flower shrinking");
+        flower.display();
+        // console.log("flower displayed");
+      }
+      // fly destroys when in contact with flowers
+      for (let j = 0; j < garden.flies.length; j++) {
+        let fly = garden.flies[j];
+        let flower = garden.flowers[j];
+        if (flower.alive) {
+          // fly.shrink(flower);
+          fly.destroy(flower);
+          // console.log("fly killing flowers");
+        }
+      }
+    }
+    // Loop thru all the array and display them
+    // Flies naturally displayed, shrinking and moving
+    for (let j = 0; j < garden.flies.length; j++) {
+      let fly = garden.flies[j];
+      if (fly.alive) {
+        fly.move();
+        fly.shrink();
+        fly.display();
+      }
+    }
+  }
+}
+  // Q: why fly invincible?
+  function mousePressed() {
+    for (let j = 0; j < garden.flies.length; j++) {
+      let fly = garden.flies[j];
+      fly.mousePressed();
+    }
+    for (let i = 0; i < garden.bees.length; i++) {
+      let bee = garden.bees[i];
+      bee.mousePressed();
+    }
+  }
+
 /**
 Draw wasn't affected in the new feature change cos the way it is displayed+the bg display are still the same.
 */
@@ -69,79 +203,13 @@ function draw() {
   background(garden.grassColor.r, garden.grassColor.g, garden.grassColor.b);
   console.log("bg created");
 
-  // Loop thru all the array and display them
-  // Bees naturally displayed, shrinking and moving
-  for (let i = 0; i < garden.bees.length; i++) {
-    let bee = garden.bees[i];
-    console.log("bees update");
-    if (bee.alive) {
-      bee.shrink();
-      bee.move();
-      bee.display();
-      console.log("bees displayed and moving");
-    }
-    // bees can pollinate flowers cos atm they be shrinking
-    for (let j = 0; j < garden.flowers.length; j++) {
-      let flower = garden.flowers[j];
-      if (flower.alive) {
-        bee.tryToPollinate(flower);
-        // console.log("bees pollinating");
-      }
-    }
-    // bees can grow when they eat flies
-    for (let k = 0; k < garden.flies.length; k++) {
-      let fly = garden.flies[k];
-      if (fly.alive) {
-        bee.killNsuck(fly);
-        console.log("bees sucking flies")
-        bee.grow();
-        // console.log("bees killing flies");
-      }
-    }
+  if (state === `start`) {
+    start();
   }
-
-  // Loop thru all the array and display them
-  // Flowers naturally shrinking, moving and displaying
-  for (let i = 0; i < garden.flowers.length; i++) {
-    let flower = garden.flowers[i];
-    console.log("flower update");
-    if (flower.alive) {
-      flower.shrink();
-      // console.log("flower shrinking");
-      flower.display();
-      // console.log("flower displayed");
-    }
-    // fly destroys when in contact with flowers
-    for (let j = 0; j < garden.flies.length; j++) {
-      let fly = garden.flies[j];
-      let flower = garden.flowers[j];
-      if (flower.alive) {
-        // fly.shrink(flower);
-        fly.destroy(flower);
-        // console.log("fly killing flowers");
-      }
-    }
+  else if (state === `game`) {
+    game();
   }
-
-  // Loop thru all the array and display them
-  // Flies naturally displayed, shrinking and moving
-  for (let j = 0; j < garden.flies.length; j++) {
-    let fly = garden.flies[j];
-    fly.move();
-    fly.shrink();
-    fly.display();
+  else if (state === `end`) {
+    end();
   }
-
 } //end of draw
-
-// Q: why fly invincible?
-function mousePressed(){
-  for (let j = 0; j < garden.flies.length; j++) {
-    let fly = garden.flies[j];
-    fly.mousePressed();
-  }
-    for (let i = 0; i < garden.bees.length; i++) {
-      let bee = garden.bees[i];
-      bee.mousePressed();
-}
-}
