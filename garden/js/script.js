@@ -11,9 +11,9 @@ let garden = {
   flowers : [],
   numFlowers: 35,
   flies: [],
-  numFly:100,
+  numFly:10,
   bees: [],
-  numBees:10,
+  numBees:1,
   grassColor: {
     r:120,
     g:180,
@@ -48,11 +48,12 @@ for (let i=0; i < garden.numFlowers ; i ++){
 }
 
 // definition of bees
-for (let i=0; i < garden.numBees ; i ++) {
+for (let i=0; i < garden.numBees ; i ++){
   let bee = new Bee (random(0,width), random(0,height));
   garden.bees.push(bee);
   console.log("bees created");
 }
+
 // definition of flies
 for (let i=0; i < garden.numFly ; i ++){
   let fly = new Fly(random(0,width), random(0,height));
@@ -78,8 +79,9 @@ function draw() {
           bee.move();
           bee.display();
           console.log("bees displayed and moving");
+          }
 // bees can pollinate flowers cos atm they be shrinking
-          for (let j=0; j< garden.flowers.length; j++){
+          for (let j=0; j < garden.flowers.length; j++){
             let flower = garden.flowers[j];
                 if (flower.alive){
             bee.tryToPollinate(flower);
@@ -87,13 +89,12 @@ function draw() {
           }
           }
 // bees can grow when they eat flies
-          for (let j=0; j< garden.flies.length; j++){
-            let fly = garden.flies[j];
+          for (let k=0; k < garden.flies.length; k++){
+            let fly = garden.flies[k];
                 if (fly.alive){
             bee.killNsuck(fly);
             bee.grow();
             // console.log("bees killing flies");
-          }
           }
       }
     }
@@ -113,8 +114,8 @@ for (let i=0; i < garden.flowers.length ; i ++){
                 let fly = new Fly(random(0,width), random(0,height));
                 let flower = garden.flowers[j];
                     if (flower.alive){
-                fly.shrink(flower);
-                fly.destroyNsuck(flower);
+                // fly.shrink(flower);
+                fly.destroy(flower);
                 // console.log("fly killing flowers");
               }
               }

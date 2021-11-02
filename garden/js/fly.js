@@ -5,7 +5,7 @@ class Fly {
     this.x= x;
     this.y= y;
     this.size= 35;
-    this.minSize=10;
+    this.minSize=15;
     this.maxSize=35;
     this.vx=0;
     this.vy=0;
@@ -16,34 +16,30 @@ class Fly {
     this.alive = true;
   }
 
+  shrink(){ //what happens when bees fly over flies - fly dies (all set)
+    this.size= this.size - this.shrinkRate;
 
-//how it moves (all set)
+    if (this.size<this.minSize){
+      this.alive= false;
+    }
+    }
+
     move (){
-
+//how it moves (all set)
+      let r = random(0,1);
+        if (r < this.jitteriness){
+          this.vx= random(-this.speed,this.speed);
+          this.vy= random(-this.speed, this.speed);
+      }
       this.x= this.x+this.vx;
       this.y= this.y+this.vy;
 
       this.x=constrain(this.x,0,width);
       this.y=constrain(this.y,0,height);
-
-        let r = random(0,1);
-          if (r < this.jitteriness){
-            this.vx= random(-this.speed,this.speed);
-            this.vy= random(-this.speed, this.speed);
-        }
-
     }
 
-    shrink(){ //what happens when bees fly over flies - fly dies (all set)
-      this.size= this.size - this.shrinkRate;
-
-      if (this.size<this.minSize){
-        this.alive= false;
-      }
-      }
-
-    destroys(flower){ // what happens fly do when they run over flowers (all set)
-      let d = dist(this.x, this.y, flower.x, flower.y);
+    destroy(flower){ //flower shrink and fly grows at contact
+      let d = dist (this.x, this.y, flower.x, flower.y);
       if (d < this.size/2 + flower.size/2+ flower.petalThickness){
         this.grow();
         flower.shrink();
@@ -59,13 +55,6 @@ class Fly {
       this.size = constrain(this.size, 0, this.maxSize);
     }
 
-    destroyNsuck(flower){ //flower shrink and fly grows at contact
-      let d = dist (this.x, this.y, flower.x, flower.y);
-      if (d < this.size/2 + flower.size/2+ flower.petalThickness){
-        this.grow();
-        flower.shrink();
-      }
-    }
 
     display(){
       // wings
@@ -79,7 +68,7 @@ class Fly {
 
       // body
       push();
-      fill(0);
+      fill(0,0,0);
       noStroke();
       ellipse(this.x, this.y,this.size);
       pop();
