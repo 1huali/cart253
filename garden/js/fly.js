@@ -46,7 +46,7 @@ class Fly {
       }
     }
 
-    grow() { //fly grows when they touch a flower
+    grow() { //fly grows, link with when they touch a flower
       this.size = this.size + this.growRate;
       this.size = this.size + this.growRate;
 
