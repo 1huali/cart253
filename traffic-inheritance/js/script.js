@@ -8,12 +8,10 @@ author, and this description to match your project!
 
 "use strict";
 
-let cars = [];
+let vehicules = [];
 let numCars = 10;
-
-let motocycles = [];
 let numMoto = 10;
-
+let numSportsCar = 3;
 /**
 Description of setup
 */
@@ -24,14 +22,20 @@ function setup() {
     let x = random(0, width);
     let y = random(0, height);
     let car = new Car(x, y);
-    cars.push(car);
+    vehicules.push(car);
   }
 
   for (let j = 0; j < numMoto; j++) {
     let x = random(0, width);
     let y = random(0, height);
     let moto = new Motocycle(x, y);
-    motocycles.push(moto);
+    vehicules.push(moto);
+  }
+  for (let l = 0; l < numSportsCar; l++) {
+    let x = random(0, width);
+    let y = random(0, height);
+    let sportsCar = new SportsCar(x, y);
+    vehicules.push(sportsCar);
   }
 }
 
@@ -42,17 +46,11 @@ Description of draw()
 function draw() {
   background(0);
 
-  for (let i = 0; i < cars.length; i++) {
-    let car = cars[i];
-    car.move();
-    car.wrap();
-    car.display();
+  for (let i = 0; i < vehicules.length; i++) {
+    let vehicule = vehicules[i];
+    vehicule.move();
+    vehicule.wrap();
+    vehicule.display();
   }
 
-  for (let k = 0; k < motocycles.length; k++) {
-  let motorcycle = motocycles[k];
-  motorcycle.move();
-  motorcycle.wrap();
-  motorcycle.display();
-}
 }
