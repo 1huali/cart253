@@ -13,8 +13,12 @@ let state = `title`;
 let circles = [];
 let numCircle = 10;
 let alive = true; // added on?
-let gameOverTimer=0;
-let gameLenght= 10*60; //10 secondes by 60 franes per second
+
+let gameOverTimer = 0;
+let gameLenght = 10 * 60; //10 secondes by 60 frames per second
+
+let newCircleTimer = 0;
+let newCircleDelay = 2 * 60;
 
 /**
 Description of setup
@@ -48,14 +52,11 @@ function draw() {
   background(0);
   if (state === `title`) {
     title();
-  }
-  else if (state === `game`) {
+  } else if (state === `game`) {
     game();
-  }
-  else if (state === `win`) {
+  } else if (state === `win`) {
     win();
-  }
-  else if (state === `lose`) {
+  } else if (state === `lose`) {
     lose();
   }
 }
@@ -67,33 +68,41 @@ function title() {
 // dont understand this for loop here, and the display purpose
 function game() {
   for (let i = 0; i < circles.length; i++) {
-    console.log(`cicle#: `, i, circles.alive);
+    // console.log(`circle#: `, i, circles.alive);
     // calling circles individually to be "circle" temporarly
     let circle = circles[i];
     // display them called-temporarly "circle"
     displayCircle(circle);
   }
   gameOverTimer++;
-  if (gameOverTimer>= gameLenght){
+  if (gameOverTimer >= gameLenght) {
     gameOver();
     // how can I console.log the gameLenght?
   }
-  if (circles.length===0){
+  if (circles.length === 0) {
     win();
   }
-}
+
+  newCircleTimer++;
+  if (newCircleTimer >= newCircleDelay) {
+    let circle = createCircle();
+    circles.push(circle);
+    // console.log(`circle#: `, circle, circles.alive);
+    newCircleTimer = 0;
+  }
+} //end game function
 
 // where in the program did we assign circle to be a circle in the array?
 // A: line 68. the variable is teleported and can change name but still hold properties.
 function displayCircle(circle) {
-if (circles.alive=true){
-  push();
-  fill(255, 0, 0);
-  noStroke();
-  ellipse(circle.x, circle.y, circle.size);
-  // console.log(circle.x)
-  pop();
-}
+  if (circles.alive = true) {
+    push();
+    fill(255, 0, 0);
+    noStroke();
+    ellipse(circle.x, circle.y, circle.size);
+    // console.log(circle.x)
+    pop();
+  }
 }
 
 function mousePressed() {
@@ -114,7 +123,7 @@ function checkCircleClick() {
     if (d < circle.size / 2) {
       // how can I console log if the circles are clicked/left or not?
       circles.splice(i, 1);
-      circles.alive= false;  // added on?
+      circles.alive = false; // added on?
       // Q: breaks what?
       // A: the loop
       break;
@@ -130,11 +139,10 @@ function lose() {
   displayText(`U lose`);
 }
 
-function gameOver(){
-  if (circles.lenght === 0){
-    state =`win`
-  }
-  else {
+function gameOver() {
+  if (circles.lenght === 0) {
+    state = `win`
+  } else {
     state = `lose`;
   }
 }
@@ -144,6 +152,6 @@ function displayText(message) {
   fill(255);
   textAlign(CENTER, CENTER);
   textSize(32);
-  text(message, width/2, height/2);
+  text(message, width / 2, height / 2);
   pop();
 }
