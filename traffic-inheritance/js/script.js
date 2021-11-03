@@ -7,7 +7,6 @@ author, and this description to match your project!
 */
 
 "use strict";
-let bgCOlor = 0;
 
 let cars = [];
 let numCars = 10;
@@ -34,7 +33,6 @@ function setup() {
     let moto = new Motocycle(x, y);
     motocycles.push(moto);
   }
-
 }
 
 
@@ -42,7 +40,7 @@ function setup() {
 Description of draw()
 */
 function draw() {
-  background(bgColor);
+  background(0);
 
   for (let i = 0; i < cars.length; i++) {
     let car = cars[i];
@@ -51,12 +49,10 @@ function draw() {
     car.display();
   }
 
-  for (let i = 0; i < motorcycles.length; i++) {
-  let motorcycle = motorcycles[i];
+  for (let k = 0; k < motocycles.length; k++) {
+  let motorcycle = motocycles[k];
   motorcycle.move();
   motorcycle.wrap();
   motorcycle.display();
 }
-
-
 }

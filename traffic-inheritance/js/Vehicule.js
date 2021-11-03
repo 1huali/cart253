@@ -5,7 +5,7 @@ class Vehicule {
     this.y = y;
     this.width = undefined;
     this.height = undefined;
-    this.vx = 0;
+    this.vx = undefined;
     this.vy = 0;
   }
 
