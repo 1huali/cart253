@@ -10,11 +10,11 @@ let state = `start`;
 
 let garden = {
   flowers: [],
-  numFlowers: 35,
+  numFlowers: 20,
   flies: [],
-  numFly: 30,
+  numFly: 40,
   bees: [],
-  numBees: 20,
+  numBees: 35,
   grassColor: {
     r: 120,
     g: 180,
@@ -45,21 +45,21 @@ function setup() {
     // create new obj (flower, fly,bees) w variating arguments
     let flower = new Flower(x, y, size, stemLength, petalColor);
     garden.flowers.push(flower);
-    console.log("flowers created")
+    // console.log("flowers created")
   }
 
   // definition of bees
   for (let i = 0; i < garden.numBees; i++) {
     let bee = new Bee(random(0, width), random(0, height));
     garden.bees.push(bee);
-    console.log("bees created");
+    // console.log("bees created");
   }
 
   // definition of flies
   for (let i = 0; i < garden.numFly; i++) {
     let fly = new Fly(random(0, width), random(0, height));
     garden.flies.push(fly);
-    console.log("flies created");
+    // console.log("flies created");
   }
 } //end setup
 
@@ -75,48 +75,25 @@ function displayText(message) {
 
 
 function start() {
-  // why???? error at line 87
-  displayText(`Hey there`);
+  displayText(`Flies kill flowers, Bees kill flies, Human kills insects.
+    What are U gonna save? Use mouse to kill.
+    Press Enter to start`);
 }
 
 function keyPressed() {
   if (keyCode === 13) {
     state = `game`;
+    console.log(`set game state`);
   }
 }
-
-function end() {
-  for (let i = 0; i < garden.bees.length; i++) {
-    let bee = garden.bees[i];
-    if (i < 1) {
-      displayText(`Bee's mass extinction`);
-      push();
-      fill(255, 0, 0);
-      pop();
-    }
-
-    for (let j = 0; j < garden.flowers.length; j++) {
-      let flower = garden.flowers[j];
-      if (j < 1) {
-        displayText(`Fauna decimated`);
-        push();
-        fill(255, 0, 0);
-        pop();
-      }
-    }
-
-    for (let k = 0; k < garden.flies.length; k++) {
-      let fly = garden.flies[k];
-      if (fly.size > 130) {
-        push();
-        displayText(`Parasite takeover`);
-        push();
-        fill(255, 0, 0);
-        pop();
-      }
-    }
-  }
-} //end of end();
+function checkEnd(){
+  console.log(`checking end state`);
+console.log("flowers: ",garden.flowers.length)
+if (garden.bees.length < 1 || garden.flowers.length == 1 || garden.flies.length < 1){
+console.log(`condition met`);
+  state = `end`;
+}
+}
 
   function game() {
     // OBJECTS BELOW
@@ -124,12 +101,12 @@ function end() {
     // Bees naturally displayed, shrinking and moving
     for (let i = 0; i < garden.bees.length; i++) {
       let bee = garden.bees[i];
-      console.log("bees update");
+      // console.log("bees update");
       if (bee.alive) {
         bee.shrink();
         bee.move();
         bee.display();
-        console.log("bees displayed and moving");
+        // console.log("bees displayed and moving");
       }
       // bees can pollinate flowers cos atm they be shrinking
       for (let j = 0; j < garden.flowers.length; j++) {
@@ -144,9 +121,12 @@ function end() {
         let fly = garden.flies[k];
         if (fly.alive) {
           bee.killNsuck(fly);
-          console.log("bees sucking flies")
+          // console.log("bees sucking flies")
           // bee.grow();
           // console.log("bees killing flies");
+        }
+        if (bee.size < 0){
+          garden.bees.splice(k, 1);
         }
       }
     }
@@ -155,7 +135,7 @@ function end() {
     // Flowers naturally shrinking, moving and displaying
     for (let i = 0; i < garden.flowers.length; i++) {
       let flower = garden.flowers[i];
-      console.log("flower update");
+      // console.log("flower update");
       if (flower.alive) {
         flower.shrink();
         // console.log("flower shrinking");
@@ -164,12 +144,16 @@ function end() {
       }
       // fly destroys when in contact with flowers
       for (let j = 0; j < garden.flies.length; j++) {
+        // console.log(`flower#: `, j, flower.alive);
         let fly = garden.flies[j];
-        let flower = garden.flowers[j];
+        // let flower = garden.flowers[j];
         if (flower.alive) {
           // fly.shrink(flower);
           fly.destroy(flower);
           // console.log("fly killing flowers");
+        }
+        if (flower.size < 0){
+          garden.flowers.splice(i, 1);
         }
       }
     }
@@ -182,9 +166,27 @@ function end() {
         fly.shrink();
         fly.display();
       }
+      if (fly.size < 0){
+        garden.flies.splice(j, 1);
+      }
     }
+    checkEnd();
 }
 
+function end() {
+console.log(`in end state`)
+    for (let j = 0; j < garden.flowers.length; j++) {
+      let flower = garden.flowers[j];
+      if (garden.flowers.length === 1) {
+        displayText(`Humans won't save anyone.
+        Ecosystem decimated: the End`);
+        console.log(`Fauna decimated`);
+        push();
+        fill(255, 0, 0);
+        pop();
+      }
+    }
+  } //end of end();
   function mousePressed() {
     for (let j = 0; j < garden.flies.length; j++) {
       let fly = garden.flies[j];
@@ -201,13 +203,14 @@ Draw wasn't affected in the new feature change cos the way it is displayed+the b
 */
 function draw() {
   background(garden.grassColor.r, garden.grassColor.g, garden.grassColor.b);
-  console.log("bg created");
+  // console.log("bg created");
 
   if (state === `start`) {
     start();
   }
   else if (state === `game`) {
     game();
+    console.log(state)
   }
   else if (state === `end`) {
     end();

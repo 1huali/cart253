@@ -44,6 +44,9 @@ class Fly {
     if (d < this.size / 2 + flower.size / 2 + flower.petalThickness) {
       this.grow();
       flower.shrink();
+      // if (flower.size < 0){
+      //
+      // }
     }
   }
 
