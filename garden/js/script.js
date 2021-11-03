@@ -22,8 +22,6 @@ let garden = {
   }
 }
 
-
-
 /**
 the variation changes the Creation variables
 */
