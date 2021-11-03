@@ -20,6 +20,9 @@ let gameLenght = 10 * 60; //10 secondes by 60 frames per second
 let newCircleTimer = 0;
 let newCircleDelay = 2 * 60;
 
+let gameOverStartTime = 0;
+let newCircleStartTime = 0;
+
 /**
 Description of setup
 */
@@ -31,8 +34,6 @@ function setup() {
     circles.push(circle);
   }
   console.log(circles);
-
-
 }
 
 function createCircle() {
@@ -62,7 +63,8 @@ function draw() {
 }
 
 function title() {
-  displayText(`Title`);
+  displayText(`PS: ADULT ACNE IS A THING!
+    Pop them zits - it's pandemic!!!`);
 }
 
 // dont understand this for loop here, and the display purpose
@@ -76,8 +78,9 @@ function game() {
   }
   gameOverTimer++;
   if (gameOverTimer >= gameLenght) {
+  // if (frameCount - gameOverTimer >= gameLenght) {
     gameOver();
-    // how can I console.log the gameLenght?
+    // how can I console.log the gameLength?
   }
   if (circles.length === 0) {
     win();
@@ -85,6 +88,7 @@ function game() {
 
   newCircleTimer++;
   if (newCircleTimer >= newCircleDelay) {
+  // if (frameCount - newCircleStartTime >= newCircleDelay) {
     let circle = createCircle();
     circles.push(circle);
     // console.log(`circle#: `, circle, circles.alive);
@@ -95,9 +99,9 @@ function game() {
 // where in the program did we assign circle to be a circle in the array?
 // A: line 68. the variable is teleported and can change name but still hold properties.
 function displayCircle(circle) {
-  if (circles.alive = true) {
+  if ((circles.alive = true)) {
     push();
-    fill(255, 0, 0);
+    fill(255);
     noStroke();
     ellipse(circle.x, circle.y, circle.size);
     // console.log(circle.x)
@@ -107,6 +111,8 @@ function displayCircle(circle) {
 
 function mousePressed() {
   if (state === `title`) {
+    gameOverStartTime = frameCount;
+    newCircleStartTime = frameCount;
     state = `game`;
   }
   if (state === `game`) {
@@ -119,7 +125,7 @@ function checkCircleClick() {
     let circle = circles[i];
     // Q: order matters in dist or not?
     // A: non
-    let d = dist(mouseX, mouseY, circle.x, circle.y)
+    let d = dist(mouseX, mouseY, circle.x, circle.y);
     if (d < circle.size / 2) {
       // how can I console log if the circles are clicked/left or not?
       circles.splice(i, 1);
@@ -141,7 +147,7 @@ function lose() {
 
 function gameOver() {
   if (circles.lenght === 0) {
-    state = `win`
+    state = `win`;
   } else {
     state = `lose`;
   }
