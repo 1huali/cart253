@@ -88,7 +88,7 @@ if (circles.alive=true){
   fill(255, 0, 0);
   noStroke();
   ellipse(circle.x, circle.y, circle.size);
-  console.log(circle.x)
+  // console.log(circle.x)
   pop();
 }
 }
@@ -104,15 +104,14 @@ function mousePressed() {
 
 function checkCircleClick() {
   for (let i = 0; i < circles.length; i++) {
-    //Q:what does that do? Do we need this part to make splice work?
     let circle = circles[i];
     // Q: order matters in dist or not?
     // A: non
     let d = dist(mouseX, mouseY, circle.x, circle.y)
     if (d < circle.size / 2) {
       // how can I console log if the circles are clicked/left or not?
-      circle.splice(i, 1);
-      circle.alive= false;  // added on?
+      circles.splice(i, 1);
+      circles.alive= false;  // added on?
       // Q: breaks what?
       // A: the loop
       break;
