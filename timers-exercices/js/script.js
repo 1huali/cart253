@@ -67,6 +67,7 @@ function title() {
 // dont understand this for loop here, and the display purpose
 function game() {
   for (let i = 0; i < circles.length; i++) {
+    console.log(`cicle#: `, i, circles.alive);
     // calling circles individually to be "circle" temporarly
     let circle = circles[i];
     // display them called-temporarly "circle"
@@ -76,7 +77,9 @@ function game() {
   if (gameOverTimer>= gameLenght){
     gameOver();
     // how can I console.log the gameLenght?
-
+  }
+  if (circles.length===0){
+    win();
   }
 }
 
@@ -116,7 +119,6 @@ function checkCircleClick() {
       // A: the loop
       break;
     }
-    // how can I console.log the array?
   }
 }
 
