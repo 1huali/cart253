@@ -11,7 +11,7 @@ author, and this description to match your project!
 let vehicules = [];
 let numCars = 10;
 let numMoto = 10;
-let numSportsCar = 1;
+let numSportsCar = 3;
 /**
 Description of setup
 */
@@ -51,11 +51,6 @@ function draw() {
     vehicule.move();
     vehicule.wrap();
     vehicule.display();
-  }
-
-  for (let w = 0; w < vehicules.length; w++) {
-    let sportsCar = vehicules[w];
-    sportsCar.handleInput();
   }
 
 }

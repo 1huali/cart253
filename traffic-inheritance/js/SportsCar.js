@@ -5,6 +5,28 @@ class SportsCar extends Car {
     this.vx = 15;
     }
 
+handleInput(){
+    if (keyIsDown(LEFT_ARROW)) {
+       this.vx = -this.speed;
+     }
+     else if (keyIsDown(RIGHT_ARROW)) {
+       this.vx = this.speed;
+     }
+     else {
+       this.vx = 0;
+     }
+
+     if (keyIsDown(UP_ARROW)) {
+       this.vy = -this.speed;
+     }
+     else if (keyIsDown(DOWN_ARROW)) {
+       this.vy = this.speed;
+     }
+     else {
+       this.vy = 0;
+     }
+   }
+
   display() {
     super.display();
     push();

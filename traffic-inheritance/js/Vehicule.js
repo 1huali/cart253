@@ -17,6 +17,14 @@ class Vehicule {
   wrap() {
     if (this.x > width) {
       this.x -= width;
+    } else if (circle.x < 0) {
+      circle.x += width;
+    }
+
+    if (circle.y > height) {
+      circle.y -= height;
+    } else if (circle.y < 0) {
+      circle.y += height;
     }
   }
   display() {
