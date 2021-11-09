@@ -3,13 +3,13 @@ class Hair1 extends Hairstyles
 
   constructor(x,y,r,g,b) {
     super(x,y,rg,b)
-    this.x=600;
-    this.y=200;
+    this.x=900;
+    this.y=100;
     this.width=150;
     this.height=50;
     this.fill ={
-      this.r=255;
-      this.g=0;
+      this.r=0;
+      this.g=250;
       this.b=0;
     }
 

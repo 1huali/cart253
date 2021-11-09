@@ -19,44 +19,38 @@ let hipBox ={
   height:50
 }
 
-let hair1 ={
-  x:900,
-  y:200,
-  width:150,
-  height:50,
-  fill: {
-    r:255,
-    g:0,
-    b:0
-  }
-}
-
-let hair2 ={
-  x:900,
-  y:100,
-  width:150,
-  height:50,
-  fill: {
-    r:255,
-    g:0,
-    b:0
-  }
-}
+let hairstyles = [];
+let hairstylesNum=2;
+let hair1 = new Hair1(x,y,r,g,b);
+let hair2 = new Hair2(x,y,r,g,b);
+// let hair3 = new Hair3(x,y,r,g,b);
+// let hair4 = new Hair4(x,y,r,g,b);
+// let hair5 = new Hair5(x,y,r,g,b);
 
 
 /**
 Description of preload
 */
 function preload() {
-
+  for (let i=0; i< hairstylesNum; i++){
+// how to assign an image to a hairstyle? do we call it in the class or script?
+hair1img = loadImage('assets/images/hair1.jpg');
+hair2img = loadImage('assets/images/hair2.jpeg');
+hair3img = loadImage('assets/images/hair3.png');
+hair4img = loadImage('assets/images/hair4.png');
+hair5img = loadImage('assets/images/hair5.png');
 }
-
+}
 
 /**
 Description of setup
 */
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+for (let i=0; i< hairstylesNum; i++){
+}
+
 }
 
 
@@ -67,6 +61,7 @@ function draw() {
   background(0);
 displayModel();
 displayHipBox();
+// then how do we activate the functions like display, etc?
 displayHair();
 displayHair2();
 // mousePressed();
@@ -104,45 +99,4 @@ function displayHipBox(){
   strokeWeight(4)
   rect(hipBox.x,hipBox.y,hipBox.width,hipBox.height);
   pop();
-}
-
-function displayHair (){
-  push();
-  fill(hair1.fill.r,hair1.fill.g,hair1.fill.b);
-  strokeWeight(4)
-  rectMode(CENTER);
-  rect(hair1.x,hair1.y,hair1.width,hair1.height);
-  pop();
-}
-
-function displayHair2 (){
-  push();
-  fill(hair2.fill.r,hair2.fill.g,hair2.fill.b);
-  strokeWeight(4)
-  rectMode(CENTER);
-  rect(hair2.x,hair2.y,hair2.width,hair2.height);
-  pop();
-}
-
-//
-// function mousePressed() {
-//   let d= dist(mouseX, mouseY, hair.x,hair.y)
-//   if (d < hair.size){
-//     hair.x= mouseX;
-//     hair.y= mouseY;
-//   }
-// }
-
-/*function mouseReleased() {
-  let d= dist(mouseX, mouseY, hair.x,hair.y)
-  console.log("mouse is being pressed")
-  if (d < hair.width){
-  console.log("hair is being pressed")
-    hair.x= mouseX;
-    hair.y= mouseY;
-  }
-}*/
-
-function checkHairPosition(){
-
 }
