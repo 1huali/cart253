@@ -1,9 +1,4 @@
-/**
-Title of Project
-Wawa Li
-
-Dressing-up simulator
-*/
+class Hairstyles
 
 "use strict";
 let doll ={
@@ -89,40 +84,15 @@ if(mouseIsPressed){
 
 } //end draw
 
-function displayModel (){
-  push();
-  fill(255);
-  ellipse(doll.x,doll.y,doll.size);
-  pop();
-}
-
 function displayHipBox(){
-  push();
-  rectMode(CENTER);
-  noFill();
-  stroke(255,0,0);
-  strokeWeight(4)
-  rect(hipBox.x,hipBox.y,hipBox.width,hipBox.height);
-  pop();
+// tbd
 }
 
 function displayHair (){
-  push();
-  fill(hair1.fill.r,hair1.fill.g,hair1.fill.b);
-  strokeWeight(4)
-  rectMode(CENTER);
-  rect(hair1.x,hair1.y,hair1.width,hair1.height);
-  pop();
+// tbd
 }
 
-function displayHair2 (){
-  push();
-  fill(hair2.fill.r,hair2.fill.g,hair2.fill.b);
-  strokeWeight(4)
-  rectMode(CENTER);
-  rect(hair2.x,hair2.y,hair2.width,hair2.height);
-  pop();
-}
+
 
 //
 // function mousePressed() {
@@ -146,3 +116,4 @@ function displayHair2 (){
 function checkHairPosition(){
 
 }
+} //end superclass
