@@ -8,20 +8,26 @@ Best of both world:  帝女花, the 2021 Remix
 
 "use strict";
 let state = 'start';
-let doll ={
-  x:600,
-  y:200,
-  size:200,
+let doll = {
+  x: 600,
+  y: 200,
+  size: 200,
 }
 
-let nextButton ={
+let nextButton = {
   x: 1150,
-  y:350,
-  size:30,
+  y: 350,
+  w: 65,
+}
+
+let musicButton ={
+  x: 200,
+  y: 350,
+  w: 65,
 }
 
 let hairstyles = [];
-let hairImg =[];
+let hairImg = [];
 let hairClicked = false;
 
 /**
@@ -29,13 +35,13 @@ Description of preload
 */
 function preload() {
   // for (let i=0; i< hairstylesNum; i++){
-// how to assign an image to a hairstyle? do we call it in the class or script?
-hairImg.push (loadImage('assets/images/hair1.png'));
-hairImg.push (loadImage('assets/images/hair2.png'));
-hairImg.push (loadImage('assets/images/hair3.png'));
-hairImg.push (loadImage('assets/images/hair4.png'));
-hairImg.push (loadImage('assets/images/hair5.png'));
-
+  // how to assign an image to a hairstyle? do we call it in the class or script?
+  hairImg.push(loadImage('assets/images/hair1.png'));
+  hairImg.push(loadImage('assets/images/hair2.png'));
+  hairImg.push(loadImage('assets/images/hair3.png'));
+  hairImg.push(loadImage('assets/images/hair4.png'));
+  hairImg.push(loadImage('assets/images/hair5.png'));
+song = loadSound('assets/sounds/Nightcore - Angel With A Shotgun.mp3');
 }
 
 /**
@@ -44,53 +50,55 @@ Description of setup
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-// for (let i=0; i< hairstylesNum; i++){
-// }
+  // for (let i=0; i< hairstylesNum; i++){
+  // }
 
-// calling the img
-hairstyles.push (new Hairstyles(900,100,hairImg[0]));
-hairstyles.push (new Hairstyles(900,200,hairImg[1]));
-hairstyles.push (new Hairstyles(900,300,hairImg[2]));
-hairstyles.push (new Hairstyles(900,400,hairImg[3]));
-hairstyles.push (new Hairstyles(900,500,hairImg[4]));
-
+  // calling the img
+  hairstyles.push(new Hairstyles(900, 100, hairImg[0]));
+  hairstyles.push(new Hairstyles(900, 200, hairImg[1]));
+  hairstyles.push(new Hairstyles(900, 300, hairImg[2]));
+  hairstyles.push(new Hairstyles(900, 400, hairImg[3]));
+  hairstyles.push(new Hairstyles(900, 500, hairImg[4]));
 }
 
-function displayModel (){
+function displayModel() {
   push();
   fill(255);
-  ellipse(doll.x,doll.y,doll.size);
+  ellipse(doll.x, doll.y, doll.size);
   pop();
 }
 
-function displayNextButt(){
-  push();
-  rectMode(CENTER);
-  fill(255,0,0);
-  strokeWeight(4)
-  ellipse(nextButton.x,nextButton.y,nextButton.size);
-  pop();
+function displayMusicButt(){
+
 }
 
-function mouseReleased (){
+function displayNextButt() {
+  let button = createButton('Next : The fit');
+  button.position(nextButton.x, nextButton.y, nextButton.w);
+  // button.mousePressed(`next`);
+  //      state=`next`
+}
+// }
+
+function mouseReleased() {
   console.log(this.monoClick);
-    for (let i=0; i< hairstyles.length; i++){
-      console.log(i,hairstyles[i].monoClick);
-      hairstyles[i].monoClick = false;
-}
+  for (let i = 0; i < hairstyles.length; i++) {
+    console.log(i, hairstyles[i].monoClick);
+    hairstyles[i].monoClick = false;
+  }
   hairClicked = false;
 }
 
-function reset(){
-  hairstyles=[];
-  hairstyles.push (new Hairstyles(600,100,hairImg[0]));
-  hairstyles.push (new Hairstyles(600,200,hairImg[1]));
-  hairstyles.push (new Hairstyles(600,300,hairImg[2]));
-  hairstyles.push (new Hairstyles(600,400,hairImg[3]));
-  hairstyles.push (new Hairstyles(600,500,hairImg[4]));
+function reset() {
+  hairstyles = [];
+  hairstyles.push(new Hairstyles(600, 100, hairImg[0]));
+  hairstyles.push(new Hairstyles(600, 200, hairImg[1]));
+  hairstyles.push(new Hairstyles(600, 300, hairImg[2]));
+  hairstyles.push(new Hairstyles(600, 400, hairImg[3]));
+  hairstyles.push(new Hairstyles(600, 500, hairImg[4]));
 }
 
-function resetButton(){
+function resetButton() {
   push();
   fill(0);
   noStroke();
@@ -100,13 +108,13 @@ function resetButton(){
 
 // https://library.superhi.com/posts/how-to-paint-with-code-creating-paintbrushes
 // why the line is not drawing
-function brush(){
+function brush() {
   // set the color and weight of the stroke
-stroke(0, 0, 0, 255)
-strokeWeight(2)
+  stroke(0, 0, 0, 255)
+  strokeWeight(2)
 
-// draw a line from current mouse point to previous mouse point
-line(mouseX, mouseY, pmouseX, pmouseY)
+  // draw a line from current mouse point to previous mouse point
+  line(mouseX, mouseY, pmouseX, pmouseY)
 }
 
 
@@ -114,55 +122,60 @@ function displayText(message) {
   push();
   fill(250, 142, 193);
   textSize(24);
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER, CENTER);
   textSize(24);
-  text(message,width/2,height/2);
+  text(message, width / 2, height / 2);
   stroke(2);
   pop();
 }
 
-function start(){
-displayText("BEST WAWA EVER! PRESS SPACE TO START");
+function start() {
+  displayText("Dont cry princess, u get the best of both world while he is away. PRESS SPACE TO START");
 }
 
-function keyPressed(){
+function keyPressed() {
   if (keyCode === 32) {
     state = `game`;
-    console.log(`set game state`);
+  }
 }
 
-function next(){
+function checkNext() {
   // should be mouseIsPressed but now there are too many
   //user press Next button)
-  console.log(`checking end state`);
-  let d = dist(mouseX, mouseY,nextButton.x,nextButton.y);
-if (d < nextButton.size/2) {
-  state = `next`;
-}
-}
+  displayNextButt();
+  // let d = dist(mouseX, mouseY, nextButton.x, nextButton.y);
+  function mousePressed() {
+    // if mousePressed() {
+    // if (d < nextButton.size / 2) {
+      console.log(`transition  end state`);
+      state === `next`;
+    // end();
+    }
+  }
+// }
 
-function end(){
+function end() {
   displayText(`Sorry princess, low funding. Come back after few gigs`);
   push();
   fill(255, 0, 0);
   pop();
   if (keyCode === 32) {
-    state = `start`;
+    state = `next`;
+  }
 }
 
-function game(){
+function game() {
   displayModel();
-  displayNextButt();
-
-  for (let i=0; i< hairstyles.length; i++){
+  console.log(`game state`)
+  for (let i = 0; i < hairstyles.length; i++) {
     hairstyles[i].displayHair();
-  hairstyles[i].drag();
+    hairstyles[i].drag();
   }
 
   // 2 times mouseIsPressed is acting up
   if (mouseIsPressed) {
-      brush()
-    }
+    brush()
+  }
 }
 
 /**
@@ -173,12 +186,11 @@ function draw() {
 
   if (state === `start`) {
     start();
-  }
-  else if (state === `game`) {
+  } else if (state === `game`) {
     game();
-  }
-  else if (state === `next`) {
-    next();
+    checkNext();
+
+  } else if (state === `next`) {
     end();
   }
 } //end draw
