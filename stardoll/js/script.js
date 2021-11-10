@@ -2,22 +2,23 @@
 Title of Project
 Wawa Li
 
-Dressing-up simulator
+Best of both world:  帝女花, the 2021 Remix
+
 */
 
 "use strict";
+let state = 'start';
 let doll ={
   x:600,
   y:200,
-  size:150,
+  size:200,
 }
 
-// let hipBox ={
-//   x: 600,
-//   y:120,
-//   width:150,
-//   height:50
-// }
+let nextButton ={
+  x: 1150,
+  y:350,
+  size:30,
+}
 
 let hairstyles = [];
 let hairImg =[];
@@ -47,29 +48,13 @@ function setup() {
 // }
 
 // calling the img
-hairstyles.push (new Hairstyles(600,100,hairImg[0]));
-hairstyles.push (new Hairstyles(600,200,hairImg[1]));
-hairstyles.push (new Hairstyles(600,300,hairImg[2]));
-hairstyles.push (new Hairstyles(600,400,hairImg[3]));
-hairstyles.push (new Hairstyles(600,500,hairImg[4]));
+hairstyles.push (new Hairstyles(900,100,hairImg[0]));
+hairstyles.push (new Hairstyles(900,200,hairImg[1]));
+hairstyles.push (new Hairstyles(900,300,hairImg[2]));
+hairstyles.push (new Hairstyles(900,400,hairImg[3]));
+hairstyles.push (new Hairstyles(900,500,hairImg[4]));
 
 }
-
-
-/**
-Description of draw()
-*/
-function draw() {
-  background(0);
-displayModel();
-// displayHipBox();
-
-for (let i=0; i< hairstyles.length; i++){
-  hairstyles[i].displayHair();
-hairstyles[i].drag();
-}
-
-} //end draw
 
 function displayModel (){
   push();
@@ -78,13 +63,12 @@ function displayModel (){
   pop();
 }
 
-function displayHipBox(){
+function displayNextButt(){
   push();
   rectMode(CENTER);
-  noFill();
-  stroke(255,0,0);
+  fill(255,0,0);
   strokeWeight(4)
-  rect(hipBox.x,hipBox.y,hipBox.width,hipBox.height);
+  ellipse(nextButton.x,nextButton.y,nextButton.size);
   pop();
 }
 
@@ -113,3 +97,88 @@ function resetButton(){
   ellipse()
   pop();
 }
+
+// https://library.superhi.com/posts/how-to-paint-with-code-creating-paintbrushes
+// why the line is not drawing
+function brush(){
+  // set the color and weight of the stroke
+stroke(0, 0, 0, 255)
+strokeWeight(2)
+
+// draw a line from current mouse point to previous mouse point
+line(mouseX, mouseY, pmouseX, pmouseY)
+}
+
+
+function displayText(message) {
+  push();
+  fill(250, 142, 193);
+  textSize(24);
+  textAlign(CENTER,CENTER);
+  textSize(24);
+  text(message,width/2,height/2);
+  stroke(2);
+  pop();
+}
+
+function start(){
+displayText("BEST WAWA EVER! PRESS SPACE TO START");
+}
+
+function keyPressed(){
+  if (keyCode === 32) {
+    state = `game`;
+    console.log(`set game state`);
+}
+
+function next(){
+  // should be mouseIsPressed but now there are too many
+  //user press Next button)
+  console.log(`checking end state`);
+  let d = dist(mouseX, mouseY,nextButton.x,nextButton.y);
+if (d < nextButton.size/2) {
+  state = `next`;
+}
+}
+
+function end(){
+  displayText(`Sorry princess, low funding. Come back after few gigs`);
+  push();
+  fill(255, 0, 0);
+  pop();
+  if (keyCode === 32) {
+    state = `start`;
+}
+
+function game(){
+  displayModel();
+  displayNextButt();
+
+  for (let i=0; i< hairstyles.length; i++){
+    hairstyles[i].displayHair();
+  hairstyles[i].drag();
+  }
+
+  // 2 times mouseIsPressed is acting up
+  if (mouseIsPressed) {
+      brush()
+    }
+}
+
+/**
+Description of draw()
+*/
+function draw() {
+  background(0);
+
+  if (state === `start`) {
+    start();
+  }
+  else if (state === `game`) {
+    game();
+  }
+  else if (state === `next`) {
+    next();
+    end();
+  }
+} //end draw

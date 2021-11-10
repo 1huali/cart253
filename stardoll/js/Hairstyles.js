@@ -22,7 +22,7 @@ drag(){
   if(mouseIsPressed && (hairClicked=== false || this.monoClick === true)) {
     let d= dist(mouseX, mouseY, this.x,this.y)
     console.log("mouse is being pressed")
-    if (d < this.w){
+    if (d < this.h){
       hairClicked = true;
       this.monoClick = true;
     console.log("hair is being pressed")
