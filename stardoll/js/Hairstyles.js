@@ -8,12 +8,6 @@ class Hairstyles
     this.h=this.img.height/3;
     console.log(this.img.width)
     this.monoClick = false;
-    // this.width=150;
-    // this.height=50;
-    // this.fill ={
-    //   this.r=r;
-    //   this.g=g;
-    //   this.b=b;
     }
 
 
@@ -22,7 +16,7 @@ drag(){
   if(mouseIsPressed && (hairClicked=== false || this.monoClick === true)) {
     let d= dist(mouseX, mouseY, this.x,this.y)
     console.log("mouse is being pressed")
-    if (d < this.h){
+    if (d < this.h/2){
       hairClicked = true;
       this.monoClick = true;
     console.log("hair is being pressed")
