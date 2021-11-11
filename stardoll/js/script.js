@@ -19,8 +19,8 @@ let visageImg= [];
 let faceZone = {
   x: 600,
   y: 200,
-  width: 100,
-  height: 50
+  width: 200,
+  height: 75
 }
 
 let doll = {
@@ -29,6 +29,13 @@ let doll = {
   size: 200,
 }
 
+let msgZone = {
+  x: 300,
+  y: 720,
+  width:880,
+  height: 50,
+  // fill: 0
+}
 
 let nextButton = {
   x: 1150,
@@ -157,6 +164,14 @@ function mouseReleased() {
   muClicked = false;
 }
 
+function displayMsgZone(){
+  push();
+  fill(msgZone.fill);
+  // rectMode(CENTER);
+  rect(msgZone.x, msgZone.y, msgZone.width, msgZone.height);
+  pop();
+}
+
 function reset() {
   hairstyles = [];
   hairstyles.push(new Hairstyles(600, 100, hairImg[0]));
@@ -185,12 +200,23 @@ function brush() {
   line(mouseX, mouseY, pmouseX, pmouseY)
 }
 
-function displayFaceZone() {
+// create randomMsgArray and display randomly or hover over msg or song display
+
+function randomMsg(message){
   push();
-  ellipse(faceZone.x, faceZone.y, faceZone.size);
-  stroke(0);
+  fill(250, 142, 193);
+  textSize(24);
+  text(message, msgZone.x+40, msgZone.y+30)
+  pop();
+}
+
+function displayMsgZone() {
+  push();
   noFill();
-  strokeWeight(1);
+  stroke(250, 142, 193);
+  // strokeWeight(1);
+  rect(msgZone.x, msgZone.y, msgZone.width,msgZone.height);
+  randomMsg(`hey U, when U r done jump on the outfit!`)
   pop();
 }
 
@@ -265,7 +291,7 @@ function checkOverlap() {
     function hoverOver() {
 
     }
-    // 
+    //
     // function displayHoverMsg(message) {
     //   push();
     //   fill(250, 142, 193);
@@ -331,6 +357,7 @@ function checkOverlap() {
     function game() {
       displayModel();
       displayFaceZone();
+      displayMsgZone();
       displayMusicButt()
       console.log(`game state`)
       for (let j = 0; j < makeups.length; j++) {
