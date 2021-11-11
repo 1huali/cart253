@@ -3,6 +3,8 @@ class Hairstyles
   constructor(x,y,img) {
     this.x=x;
     this.y=y;
+// + name in the constructor (x,y,img, name)
+    // this.name = name;
     this.img=img;
     this.w=this.img.width/2;
     this.h=this.img.height/2;

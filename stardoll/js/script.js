@@ -36,7 +36,6 @@ let msgZone = {
   y: 650,
   width: 880,
   height: 50,
-  // fill: 0
 }
 
 let nextButton = {
@@ -62,7 +61,6 @@ let muImg = [];
 let muClicked = false;
 
 let song;
-// let isPlaying =false;
 
 /**
 loading make-up icons, hair and made-up face
@@ -96,6 +94,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   // calling the img
   hairstyles.push(new Hairstyles(900, 100, hairImg[0]));
+  // hairstyles.push(new Hairstyles(900, 100, hairImg[0], `red wig!`));
+  // to eventually add name to each haistyles
   hairstyles.push(new Hairstyles(900, 200, hairImg[1]));
   hairstyles.push(new Hairstyles(900, 300, hairImg[2]));
   hairstyles.push(new Hairstyles(900, 400, hairImg[3]));
@@ -119,11 +119,7 @@ function setup() {
 
 function displayModel() {
   push();
-  // fill(255);
-  //img of doll face
-  // ellipse(doll.x, doll.y, doll.size);
   image(dollFaceImg, doll.x, doll.y);
-  // resize(width/6,height/6)
   pop();
 }
 
@@ -157,7 +153,6 @@ function goToNext() {
 }
 
 function mouseReleased() {
-  console.log(this.monoClick);
   for (let i = 0; i < hairstyles.length; i++) {
     console.log(i, hairstyles[i].monoClick);
     hairstyles[i].monoClick = false;
@@ -174,7 +169,6 @@ function mouseReleased() {
 function displayMsgZone() {
   push();
   fill(msgZone.fill);
-  // rectMode(CENTER);
   rect(msgZone.x, msgZone.y, msgZone.width, msgZone.height);
   pop();
 }
@@ -208,7 +202,6 @@ function brush() {
 }
 
 // create randomMsgArray and display randomly or hover over msg or song display
-
 function randomMsg(message) {
   push();
   fill(250, 142, 193);
@@ -221,19 +214,11 @@ function displayMsgZone() {
   push();
   noFill();
   stroke(250, 142, 193);
-  // strokeWeight(1);
   rect(msgZone.x, msgZone.y, msgZone.width, msgZone.height);
   randomMsg(`hey U, when U r done jump on the outfit!`)
   pop();
 }
 
-function checkOverlap() {
-  if (mouseX > faceZone.x - faceZone.width / 2 &&
-    mouseX < faceZone.x + faceZone.width / 2 &&
-    mouseY > faceZone.y - faceZone.height / 2 &&
-    mouseY < faceZone.y + faceZone.height / 2)
-    switchVisage();
-}
 
 function displayVisage() {
   push();
@@ -241,18 +226,12 @@ function displayVisage() {
   pop();
 }
 
-// function switchVisage() {
-// this would be when visages will be an array
-// for (let i = 0; i < visageImg; i++) {
-//     visages[i].switchMuImg();
-//   }
-
 // this function was locking all my other faces
 function mouseReleased() {
   for (let i = 0; i < makeups.length; i++){
   let d = dist(makeups[i].x, makeups[i].y, doll.x, doll.y);
   if (d < dollFaceImg.width / 2) {
-    dollFaceImg = visageImg
+    dollFaceImg = visageImg;
     makeups[i].makeUpReturns();
   }
 }
@@ -266,39 +245,7 @@ function displayFaceZone() {
   pop();
 }
 
-// https://editor.p5js.org/pippinbarr/sketches/fVWa_F6j2 as inspo for check zone
-// function checkFaceZoneOverlap(){
-//   let d=dist(mouseX,mouseY,faceZone.x,faceZone.y)
-//   if (d > faceZone.size/2) {
-//     checkMakeupChoice();
-//     changesMakeUp();
-//   }
-// }
-//
-// function checkMakeupChoice(){ this might nove to class
-//   if (user goes there){
-//     choice1.chosen=true
-//   }
-//   if (user goes there){
-//     choice2.chosen=true
-//   }
-// }
-// chosen boolean version of things
-//  // checkMakeupChoice(){
-//   let d = dist(mouseX,mouseY,this.x,this.y)
-//    if (d > faceZone.size/2) {
-//      this.chosen = true
-//    }
-// }
-// change mu+checkzone in the same
-// function changesMakeUp(){
-//   // img will change depending of the chosen makeup
-//   // if (chosen=true) && in the zone){
-//   //
-// // }
-// // }
-//   // makeup
-// }
+
 
 function hoverZones() {
   push();
@@ -340,7 +287,7 @@ function intro() {
 }
 
 function start() {
-  displayText("Dont cry princess, u get the best of both world while he is away. PRESS SPACE TO START");
+  displayText("Dont cry princess, he'll be back blabla hannah montana. PRESS SPACE TO START");
 }
 
 function keyPressed() {
@@ -353,15 +300,6 @@ function keyPressed() {
     createNextButt();
   }
 }
-
-// function mouseMoved(){
-//   if(millis()>500 && isPlaying ===false){
-//     console.log(`mouse moved`)
-//       song.play();
-//     isPlaying = true;
-//
-// }
-// }
 
 function end() {
   displayText(`Sorry princess, low funding. Come back after few gigs`);
@@ -399,9 +337,7 @@ displayModel();
   }
 }
 
-/**
-Description of draw()
-*/
+
 function draw() {
   background(0);
   // cursor not working

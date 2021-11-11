@@ -1,14 +1,13 @@
-class MakeUps
+class Visages
 {
   constructor(x,y,img, visageImg) {
     this.x=x;
     this.startX=x;
     this.startY=y;
     this.y=y;
-    this.img=img;
     this.visageImg= visageImg;
-    this.w=this.img.width/2;
-    this.h=this.img.height/2;
+    this.w=this.visageImg.width/2;
+    this.h=this.visageImg.height/2;
     console.log(this.img.width)
     this.monoClick = false;
     this.chosen = false;
@@ -40,10 +39,5 @@ drag(){
   image(this.visageImg, 600, 200,this.vw,this.vh);
   imageMode(CENTER);
   }
-
-  displayMakeups (){
-image(this.img, this.x,this.y,this.w,this.h);
-imageMode(CENTER);
-}
 
 } //end class
