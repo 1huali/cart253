@@ -4,8 +4,8 @@ class Hairstyles
     this.x=x;
     this.y=y;
     this.img=img;
-    this.w=this.img.width/3;
-    this.h=this.img.height/3;
+    this.w=this.img.width/2;
+    this.h=this.img.height/2;
     console.log(this.img.width)
     this.monoClick = false;
     }

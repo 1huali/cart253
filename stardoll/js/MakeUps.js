@@ -5,10 +5,8 @@ class MakeUps
     this.y=y;
     this.img=img;
     this.visageImg= visageImg;
-    // this.vw=this.visageImg.width/3;
-    // this.vh=this.visageImg.height/3;
-    this.w=this.img.width/3;
-    this.h=this.img.height/3;
+    this.w=this.img.width/2;
+    this.h=this.img.height/2;
     console.log(this.img.width)
     this.monoClick = false;
     this.chosen = false;
@@ -30,11 +28,15 @@ drag(){
   }
 }
 
-switchMuImg (){
-let d= dist (img.x, img.y, this.x, this.y)
-if (d < this.size/2) {
-displayVisage();
-}
+// switchMuImg (){
+// let d= dist (img.x, img.y, this.x, this.y)
+// if (d < this.size/2) {
+// displayVisage();
+// }
+// }
+
+ makeUpReturns(){
+   image(this.img, this.x,this.y,this.w,this.h);
 }
 
   displayVisage(){
