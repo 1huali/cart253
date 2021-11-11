@@ -2,6 +2,8 @@ class MakeUps
 {
   constructor(x,y,img, visageImg) {
     this.x=x;
+    this.startX=x;
+    this.startY=y;
     this.y=y;
     this.img=img;
     this.visageImg= visageImg;
@@ -36,7 +38,8 @@ drag(){
 // }
 
  makeUpReturns(){
-   image(this.img, this.x,this.y,this.w,this.h);
+   this.x=this.startX;
+   this.y=this.startY;
 }
 
   displayVisage(){

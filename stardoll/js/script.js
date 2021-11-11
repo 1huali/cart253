@@ -10,7 +10,7 @@ Best of both world:  帝女花, the 2021 Remix
 let state = 'intro';
 
 // let allHoverOverMsg=[];
-// let hoverMessages =;
+// let hoverMessages =[];
 // let showInfo = false;
 
 let visages = [];
@@ -247,17 +247,16 @@ function displayVisage() {
 //     visages[i].switchMuImg();
 //   }
 
-// this function was locking all my other faces 
-// function mouseReleased() {
-//   for (let i = 0; i < makeups.lenght; i++){
-//   let d = dist(muImg.x, muImg.y, faceZone.x, faceZone.y);
-//   if (d < faceZone.y / 2) {
-//     displayVisage();
-//     !displayModel();
-//     makeup[i].makeUpReturns();
-//   }
-// }
-// }
+// this function was locking all my other faces
+function mouseReleased() {
+  for (let i = 0; i < makeups.length; i++){
+  let d = dist(makeups[i].x, makeups[i].y, doll.x, doll.y);
+  if (d < dollFaceImg.width / 2) {
+    dollFaceImg = visageImg
+    makeups[i].makeUpReturns();
+  }
+}
+}
 
 function displayFaceZone() {
   push();
