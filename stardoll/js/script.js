@@ -164,7 +164,15 @@ function mouseReleased() {
     makeups[j].monoClick = false;
   }
   muClicked = false;
+
+  for (let i = 0; i < makeups.length; i++){
+  let d = dist(makeups[i].x, makeups[i].y, doll.x, doll.y);
+  if (d < dollFaceImg.width / 2) {
+    dollFaceImg = visageImg;
+    makeups[i].makeUpReturns();
+  }
 }
+} //end mouseReleased
 
 function displayMsgZone() {
   push();
@@ -226,16 +234,6 @@ function displayVisage() {
   pop();
 }
 
-// this function was locking all my other faces
-function mouseReleased() {
-  for (let i = 0; i < makeups.length; i++){
-  let d = dist(makeups[i].x, makeups[i].y, doll.x, doll.y);
-  if (d < dollFaceImg.width / 2) {
-    dollFaceImg = visageImg;
-    makeups[i].makeUpReturns();
-  }
-}
-}
 
 function displayFaceZone() {
   push();
