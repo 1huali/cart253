@@ -66,6 +66,14 @@ let musicButton = {
   button: undefined
 }
 
+let replayButton = {
+  x: 100,
+  y: 90,
+  w: 65,
+  button: undefined
+}
+
+
 let hideButt = {
   x: 100,
   y: 100,
@@ -174,21 +182,38 @@ function createBgButt() {
   // changeBgButton.button.mousePressed(save to create);
 }
 
+function createReplayButt() {
+  replayButton.button = createButton('Replay');
+  replayButton.button.position(replayButton.x, replayButton.y, replayButton.w);
+  replayButton.button.mousePressed(replayGame);
+}
+
+// function replayGame (){
+//   state === `game`
+// }
+
 function playMusic() {
   if (song.playing = true) {
     song.play();
   }
 }
 
+// restart music?
 function stopMusic() {
   if (song.playing = true) {
     song.stop();
+  }
+  if (song.playing= false) {
+    song.play();
   }
 }
 
 function goToNext() {
   state = `next`
   nextButton.button.remove();
+  changeBgButton.button.remove();
+  takePictureButton.button.remove();
+  // createReplayButt();
 }
 
 function takeScreenshot (){
@@ -352,13 +377,16 @@ createBgButt();
 }
 
 function end() {
-  displayText(`Sorry princess, low funding. Come back after few gigs`);
+  // displayText(`Sorry princess, low funding. Come back after few gigs`);
+  displayText(`Credits : Wawa + Dyamond`);
+  //change to credits, thank u take care
   push();
   fill(255, 0, 0);
   pop();
   if (keyCode === 32) {
     state = `next`;
   }
+  createReplayButt();
 }
 
 function game() {
@@ -366,7 +394,7 @@ function game() {
 displayModel();
   displayFaceZone();
   displayMusicButt()
-  console.log(`game state`)
+  // console.log(`game state`)
   for (let j = 0; j < makeups.length; j++) {
     makeups[j].displayMakeups();
     makeups[j].drag();
@@ -413,5 +441,4 @@ function draw() {
   } else if (state === `next`) {
     end();
 }
-}
-//end draw
+}//end draw
