@@ -66,6 +66,8 @@ let musicButton = {
   button: undefined
 }
 
+// let musicPlaying = true;
+
 let replayButton = {
   x: 100,
   y: 90,
@@ -188,23 +190,26 @@ function createReplayButt() {
   replayButton.button.mousePressed(replayGame);
 }
 
-// function replayGame (){
-//   state === `game`
-// }
+function replayGame (){
+  state = `game`;
+  // song replay
+}
 
 function playMusic() {
   if (song.playing = true) {
     song.play();
+    musicPlaying = true;
   }
 }
 
-// restart music?
+// call music control
+// https://editor.p5js.org/Ruyi_Chen/sketches/S1fIxzCn7
 function stopMusic() {
-  if (song.playing = true) {
-    song.stop();
-  }
-  if (song.playing= false) {
+  if (!song.isPlaying()) {
     song.play();
+    song.setVolume(0.3);
+  } else {
+    song.pause();
   }
 }
 
