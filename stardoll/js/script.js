@@ -45,9 +45,30 @@ let nextButton = {
   button: undefined
 }
 
+let takePictureButton = {
+  x: 1150,
+  y: 400,
+  w: 80,
+  button: undefined
+}
+
+let changeBgButton = {
+  x: 1150,
+  y: 450,
+  w: 80,
+  button: undefined
+}
+
 let musicButton = {
   x: 100,
   y: 50,
+  w: 65,
+  button: undefined
+}
+
+let hideButt = {
+  x: 100,
+  y: 100,
   w: 65,
   button: undefined
 }
@@ -129,10 +150,28 @@ function displayMusicButt() {
   musicButton.button.mousePressed(stopMusic);
 }
 
+function hideObjectsButt() {
+  hideButt.button = createButton('Hide material');
+  hideButt.button.position(hideButt.x, hideButt.y, hideButt.w);
+  hideButt.button.mousePressed(hide);
+}
+
 function createNextButt() {
   nextButton.button = createButton('Next : The fit');
   nextButton.button.position(nextButton.x, nextButton.y, nextButton.w);
   nextButton.button.mousePressed(goToNext);
+}
+
+function createPhotoButt() {
+  takePictureButton.button = createButton('Save look');
+  takePictureButton.button.position(takePictureButton.x, takePictureButton.y, takePictureButton.w);
+  takePictureButton.button.mousePressed(takeScreenshot);
+}
+
+function createBgButt() {
+  changeBgButton.button = createButton('Change background');
+  changeBgButton.button.position(changeBgButton.x, changeBgButton.y, changeBgButton.w);
+  // changeBgButton.button.mousePressed(save to create);
 }
 
 function playMusic() {
@@ -150,6 +189,14 @@ function stopMusic() {
 function goToNext() {
   state = `next`
   nextButton.button.remove();
+}
+
+function takeScreenshot (){
+  saveCanvas('new_opera.png')
+}
+
+function hide(){
+
 }
 
 function mouseReleased() {
@@ -189,6 +236,7 @@ function reset() {
   hairstyles.push(new Hairstyles(600, 400, hairImg[3]));
   hairstyles.push(new Hairstyles(600, 500, hairImg[4]));
 }
+
 
 function resetButton() {
   push();
@@ -296,6 +344,10 @@ function keyPressed() {
   if (keyCode === 32) {
     state = `game`;
     createNextButt();
+createBgButt();
+// hideObjectsButt();
+// waiting til the end to add hide options
+    createPhotoButt();
   }
 }
 
@@ -329,12 +381,15 @@ displayModel();
   // }
 
 
-  // 2 times mouseIsPressed is acting up
-  if (mouseIsPressed) {
-    brush()
-  }
+  // // 2 times mouseIsPressed is acting up
+  // if (mouseIsPressed) {
+  //   brush()
+  // }
 }
 
+function photo(){
+  // saves the canvas as image
+}
 
 function draw() {
   background(0);
@@ -355,9 +410,8 @@ function draw() {
     // mouseMoved();
   } else if (state === `game`) {
     game();
-
   } else if (state === `next`) {
     end();
-  }
+}
 }
 //end draw
