@@ -17,6 +17,8 @@ let visages = [];
 // let visageImg= [];
 let visageImg = undefined;
 
+// let oscillator = undefined;
+
 let faceZone = {
   x: 600,
   y: 200,
@@ -36,6 +38,7 @@ let msgZone = {
   y: 650,
   width: 880,
   height: 50,
+  message: ``
 }
 
 let nextButton = {
@@ -124,18 +127,18 @@ Description of setup
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // calling the img
-  hairstyles.push(new Hairstyles(900, 100, hairImg[0]));
+  hairstyles.push(new Hairstyles(900, 100, hairImg[0]), 'red wig');
   // hairstyles.push(new Hairstyles(900, 100, hairImg[0], `red wig!`));
   // to eventually add name to each haistyles
-  hairstyles.push(new Hairstyles(900, 200, hairImg[1]));
-  hairstyles.push(new Hairstyles(900, 300, hairImg[2]));
-  hairstyles.push(new Hairstyles(900, 400, hairImg[3]));
-  hairstyles.push(new Hairstyles(900, 500, hairImg[4]));
+  hairstyles.push(new Hairstyles(900, 200, hairImg[1]), 'pink wig');
+  hairstyles.push(new Hairstyles(900, 300, hairImg[2]), 'blonde wig');
+  hairstyles.push(new Hairstyles(900, 400, hairImg[3]), 'spike wig');
+  hairstyles.push(new Hairstyles(900, 500, hairImg[4]), 'long wig');
 
-  makeups.push(new MakeUps(300, 200, muImg[0]));
-  makeups.push(new MakeUps(300, 300, muImg[1]));
-  makeups.push(new MakeUps(300, 400, muImg[2]));
-  makeups.push(new MakeUps(300, 500, muImg[3]));
+  makeups.push(new MakeUps(300, 200, muImg[0]), 'mu 1');
+  makeups.push(new MakeUps(300, 300, muImg[1]), 'mu 2');
+  makeups.push(new MakeUps(300, 400, muImg[2]), 'mu 3');
+  makeups.push(new MakeUps(300, 500, muImg[3]), 'mu 4');
 
   // changer de position x et y; pour array visages
   // visages.push(new MakeUps(300, 200, ?? [0]));
@@ -190,7 +193,7 @@ function createReplayButt() {
   replayButton.button.mousePressed(replayGame);
 }
 
-function replayGame (){
+function replayGame() {
   state = `game`;
   // song replay
 }
@@ -221,11 +224,11 @@ function goToNext() {
   // createReplayButt();
 }
 
-function takeScreenshot (){
+function takeScreenshot() {
   saveCanvas('new_opera.png')
 }
 
-function hide(){
+function hide() {
 
 }
 
@@ -242,13 +245,13 @@ function mouseReleased() {
   }
   muClicked = false;
 
-  for (let i = 0; i < makeups.length; i++){
-  let d = dist(makeups[i].x, makeups[i].y, doll.x, doll.y);
-  if (d < dollFaceImg.width / 2) {
-    dollFaceImg = visageImg;
-    makeups[i].makeUpReturns();
+  for (let i = 0; i < makeups.length; i++) {
+    let d = dist(makeups[i].x, makeups[i].y, doll.x, doll.y);
+    if (d < dollFaceImg.width / 2) {
+      dollFaceImg = visageImg;
+      makeups[i].makeUpReturns();
+    }
   }
-}
 } //end mouseReleased
 
 function displayMsgZone() {
@@ -287,21 +290,18 @@ function brush() {
   line(mouseX, mouseY, pmouseX, pmouseY)
 }
 
-// create randomMsgArray and display randomly or hover over msg or song display
-function randomMsg(message) {
-  push();
-  fill(250, 142, 193);
-  textSize(24);
-  text(message, msgZone.x + 40, msgZone.y + 30)
-  pop();
-}
 
 function displayMsgZone() {
   push();
   noFill();
   stroke(250, 142, 193);
   rect(msgZone.x, msgZone.y, msgZone.width, msgZone.height);
-  randomMsg(`hey U, when U r done jump on the outfit!`)
+  pop();
+
+  push();
+  fill(250, 142, 193);
+  textSize(24);
+  text(msgZone.message, msgZone.x + 40, msgZone.y + 30)
   pop();
 }
 
@@ -374,9 +374,9 @@ function keyPressed() {
   if (keyCode === 32) {
     state = `game`;
     createNextButt();
-createBgButt();
-// hideObjectsButt();
-// waiting til the end to add hide options
+    createBgButt();
+    // hideObjectsButt();
+    // waiting til the end to add hide options
     createPhotoButt();
   }
 }
@@ -394,56 +394,75 @@ function end() {
   createReplayButt();
 }
 
+// function mouseHover() {
+//   hover = false;
+//   // for (let i = 0; i < makeups.length; i++ || let j = 0; j < makeups.length; j++) {
+//   //   let d = dist(mouseX, mouseY, makeups[i].x, makeups[i].y);
+//   //     let e = dist(mouseX, mouseY, makeups[j].x, makeups[j].y);
+//
+// // OR
+//
+// for (let i = 0; i < makeups.length; i++) {
+//   let d = dist(mouseX, mouseY, makeups[i].x, makeups[i].y)
+// }
+//     for (let j = 0; j < makeups.length; j++) {
+//         let e = dist(mouseX, mouseY, hairstyles[j].x, hairstyles[j].y);
+// }
+//           if (e < muImg[j].width / 2 || d < hairImg[i].width / 2) {
+//             hover = true;
+//           }
+//   }
+
 function game() {
   displayMsgZone();
-displayModel();
+  displayModel();
   displayFaceZone();
   displayMusicButt()
   // console.log(`game state`)
+  msgZone.message = ``;
   for (let j = 0; j < makeups.length; j++) {
     makeups[j].displayMakeups();
     makeups[j].drag();
+    // if (makeups[j].mouseHover()) {
+    if (makeups[j].hover = true()) {
+      msgZone.message = makeup[j].name;
+    }
   }
 
   for (let i = 0; i < hairstyles.length; i++) {
     hairstyles[i].displayHair();
     hairstyles[i].drag();
+    if (hairstyles[i].mouseHover()) {
+      msgZone.message = hairstyles[i].name;
+    }
+
   }
-  // for (let k = 0; k < visageImg.length; k++) {
-  //   visages[k].displayVisage();
-  // }
-
-
-  // // 2 times mouseIsPressed is acting up
-  // if (mouseIsPressed) {
-  //   brush()
-  // }
 }
 
-function photo(){
-  // saves the canvas as image
-}
+      // function photo() {
+      //   // saves the canvas as image
+      // }
 
-function draw() {
-  background(0);
-  // cursor not working
-  cursor('assets/images/flower (25).png');
-  // checkOverlap();
-  displayFaceZone();
+      function draw() {
+        background(0);
+        // cursor not working
+        cursor('assets/images/flower (25).png');
+        // checkOverlap();
+        displayFaceZone();
 
-  //  if (showInfo) {
-  //   textSize(40);
-  //   text("I'm info text", width / 2, height/2);
-  // }
+        //  if (showInfo) {
+        //   textSize(40);
+        //   text("I'm info text", width / 2, height/2);
+        // }
 
-  if (state === `intro`) {
-    intro();
-  } else if (state === `start`) {
-    start();
-    // mouseMoved();
-  } else if (state === `game`) {
-    game();
-  } else if (state === `next`) {
-    end();
-}
-}//end draw
+        if (state === `intro`) {
+          intro();
+        } else if (state === `start`) {
+          start();
+          // mouseMoved();
+        } else if (state === `game`) {
+          game();
+        } else if (state === `next`) {
+          end();
+        }
+      } //end draw

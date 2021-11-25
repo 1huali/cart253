@@ -1,17 +1,19 @@
 class MakeUps
 {
-  constructor(x,y,img, visageImg) {
+  constructor(x,y,img, visageImg,name) {
     this.x=x;
     this.startX=x;
     this.startY=y;
     this.y=y;
     this.img=img;
+    this.name=name;
     this.visageImg= visageImg;
     this.w=this.img.width/2;
     this.h=this.img.height/2;
     console.log(this.img.width)
     this.monoClick = false;
     this.chosen = false;
+    this.hover= false;
     }
 
 
@@ -30,6 +32,13 @@ drag(){
   }
 }
 
+mouseHover(){
+    let d = dist(mouseX, mouseY, this.x, this.y)
+
+    if (d < this.width / 2){
+      hover=true;
+    }
+}
 
  makeUpReturns(){
    this.x=this.startX;
