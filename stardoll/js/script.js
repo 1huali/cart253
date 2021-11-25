@@ -127,18 +127,17 @@ Description of setup
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // calling the img
-  hairstyles.push(new Hairstyles(900, 100, hairImg[0]), 'red wig');
-  // hairstyles.push(new Hairstyles(900, 100, hairImg[0], `red wig!`));
-  // to eventually add name to each haistyles
-  hairstyles.push(new Hairstyles(900, 200, hairImg[1]), 'pink wig');
-  hairstyles.push(new Hairstyles(900, 300, hairImg[2]), 'blonde wig');
-  hairstyles.push(new Hairstyles(900, 400, hairImg[3]), 'spike wig');
-  hairstyles.push(new Hairstyles(900, 500, hairImg[4]), 'long wig');
+  hairstyles.push(new Hairstyles(900, 100, hairImg[0], 'red wig'));
+  hairstyles.push(new Hairstyles(900, 200, hairImg[1], 'pink wig'));
+  hairstyles.push(new Hairstyles(900, 300, hairImg[2], 'blonde wig'));
+  hairstyles.push(new Hairstyles(900, 400, hairImg[3], 'spike wig'));
+  hairstyles.push(new Hairstyles(900, 500, hairImg[4], 'long wig'));
 
-  makeups.push(new MakeUps(300, 200, muImg[0]), 'mu 1');
-  makeups.push(new MakeUps(300, 300, muImg[1]), 'mu 2');
-  makeups.push(new MakeUps(300, 400, muImg[2]), 'mu 3');
-  makeups.push(new MakeUps(300, 500, muImg[3]), 'mu 4');
+// Q: Why MakeUps are not displaying?
+  makeups.push(new MakeUps(300, 200, muImg[0], 'mu 1'));
+  makeups.push(new MakeUps(300, 300, muImg[1], 'mu 2'));
+  makeups.push(new MakeUps(300, 400, muImg[2], 'mu 3'));
+  makeups.push(new MakeUps(300, 500, muImg[3], 'mu 4'));
 
   // changer de position x et y; pour array visages
   // visages.push(new MakeUps(300, 200, ?? [0]));
@@ -146,9 +145,6 @@ function setup() {
   // visages.push(new MakeUps(300, 400, ?? [2]));
   // visages.push(new MakeUps(300, 500, ?? [3]));
 
-  // hoverOverMe = createElement("allo");
-  //  hoverOverMe.mouseOver(() => showInfo = true);
-  //  hoverOverMe.mouseOut(() => showInfo = false);
 }
 
 function displayModel() {
@@ -263,11 +259,11 @@ function displayMsgZone() {
 
 function reset() {
   hairstyles = [];
-  hairstyles.push(new Hairstyles(600, 100, hairImg[0]));
-  hairstyles.push(new Hairstyles(600, 200, hairImg[1]));
-  hairstyles.push(new Hairstyles(600, 300, hairImg[2]));
-  hairstyles.push(new Hairstyles(600, 400, hairImg[3]));
-  hairstyles.push(new Hairstyles(600, 500, hairImg[4]));
+  hairstyles.push(new Hairstyles(600, 100, hairImg[0], 'red wig'));
+  hairstyles.push(new Hairstyles(600, 200, hairImg[1], 'pink wig'));
+  hairstyles.push(new Hairstyles(600, 300, hairImg[2], 'blonde wig'));
+  hairstyles.push(new Hairstyles(600, 400, hairImg[3], 'spike wig'));
+  hairstyles.push(new Hairstyles(600, 500, hairImg[4], 'long wig'));
 }
 
 
@@ -322,7 +318,7 @@ function displayFaceZone() {
 }
 
 
-
+// think this is useless
 function hoverZones() {
   push();
   ellipse(200, 600, 100);
@@ -330,20 +326,7 @@ function hoverZones() {
   pop();
 }
 
-function hoverOver() {
 
-}
-//
-// function displayHoverMsg(message) {
-//   push();
-//   fill(250, 142, 193);
-//   textSize(15);
-//   textAlign(CENTER, CENTER);
-//   textSize(24);
-//   text(message, mouseX, mouseY);
-//   stroke(2);
-//   pop();
-// }
 
 function displayText(message) {
   push();
@@ -394,24 +377,6 @@ function end() {
   createReplayButt();
 }
 
-// function mouseHover() {
-//   hover = false;
-//   // for (let i = 0; i < makeups.length; i++ || let j = 0; j < makeups.length; j++) {
-//   //   let d = dist(mouseX, mouseY, makeups[i].x, makeups[i].y);
-//   //     let e = dist(mouseX, mouseY, makeups[j].x, makeups[j].y);
-//
-// // OR
-//
-// for (let i = 0; i < makeups.length; i++) {
-//   let d = dist(mouseX, mouseY, makeups[i].x, makeups[i].y)
-// }
-//     for (let j = 0; j < makeups.length; j++) {
-//         let e = dist(mouseX, mouseY, hairstyles[j].x, hairstyles[j].y);
-// }
-//           if (e < muImg[j].width / 2 || d < hairImg[i].width / 2) {
-//             hover = true;
-//           }
-//   }
 
 function game() {
   displayMsgZone();
@@ -420,49 +385,51 @@ function game() {
   displayMusicButt()
   // console.log(`game state`)
   msgZone.message = ``;
-  for (let j = 0; j < makeups.length; j++) {
-    makeups[j].displayMakeups();
-    makeups[j].drag();
-    // if (makeups[j].mouseHover()) {
-    if (makeups[j].hover = true()) {
-      msgZone.message = makeup[j].name;
+
+    for (let j = 0; j < makeups.length; j++) {
+      makeups[j].displayMakeups();
+      makeups[j].drag();
+      makeups[j].mouseHover();
+        if (makeups[j].hover) {
+        msgZone.message = makeups[j].name;
+      }
     }
-  }
 
   for (let i = 0; i < hairstyles.length; i++) {
     hairstyles[i].displayHair();
     hairstyles[i].drag();
-    if (hairstyles[i].mouseHover()) {
+    hairstyles[i].mouseHover();
+    if (hairstyles[i].hover) {
       msgZone.message = hairstyles[i].name;
     }
-
   }
+
 }
 
-      // function photo() {
-      //   // saves the canvas as image
-      // }
+// function photo() {
+//   // saves the canvas as image
+// }
 
-      function draw() {
-        background(0);
-        // cursor not working
-        cursor('assets/images/flower (25).png');
-        // checkOverlap();
-        displayFaceZone();
+function draw() {
+  background(0);
+  // cursor not working
+  cursor('assets/images/flower (25).png');
+  // checkOverlap();
+  displayFaceZone();
 
-        //  if (showInfo) {
-        //   textSize(40);
-        //   text("I'm info text", width / 2, height/2);
-        // }
+  //  if (showInfo) {
+  //   textSize(40);
+  //   text("I'm info text", width / 2, height/2);
+  // }
 
-        if (state === `intro`) {
-          intro();
-        } else if (state === `start`) {
-          start();
-          // mouseMoved();
-        } else if (state === `game`) {
-          game();
-        } else if (state === `next`) {
-          end();
-        }
-      } //end draw
+  if (state === `intro`) {
+    intro();
+  } else if (state === `start`) {
+    start();
+    // mouseMoved();
+  } else if (state === `game`) {
+    game();
+  } else if (state === `next`) {
+    end();
+  }
+} //end draw

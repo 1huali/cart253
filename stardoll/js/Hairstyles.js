@@ -3,7 +3,6 @@ class Hairstyles
   constructor(x,y,img,name) {
     this.x=x;
     this.y=y;
-// + name in the constructor (x,y,img, name)
     this.name = name;
     this.img=img;
     this.w=this.img.width/2;
@@ -30,12 +29,15 @@ drag(){
 }
 
 mouseHover(){
-    let d = dist(mouseX, mouseY, this.x, this.y)
-
-    if (d < this.width / 2){
-      hover=true;
+    let d = dist(mouseX, mouseY, this.x, this.y);
+    if (d < this.w / 2){
+      this.hover=true;
     }
+    else {
+    this.hover = false;
+  }
 }
+
   displayHipBox(){
   // tbd
   }

@@ -33,11 +33,13 @@ drag(){
 }
 
 mouseHover(){
-    let d = dist(mouseX, mouseY, this.x, this.y)
-
-    if (d < this.width / 2){
-      hover=true;
+    let d = dist(mouseX, mouseY, this.x, this.y);
+    if (d < this.w / 2){
+      this.hover=true;
     }
+    else {
+    this.hover = false;
+  }
 }
 
  makeUpReturns(){
