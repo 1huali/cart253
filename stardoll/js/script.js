@@ -133,11 +133,10 @@ function setup() {
   hairstyles.push(new Hairstyles(900, 400, hairImg[3], 'spike wig'));
   hairstyles.push(new Hairstyles(900, 500, hairImg[4], 'long wig'));
 
-// Q: Why MakeUps are not displaying?
-  makeups.push(new MakeUps(300, 200, muImg[0], 'mu 1'));
-  makeups.push(new MakeUps(300, 300, muImg[1], 'mu 2'));
-  makeups.push(new MakeUps(300, 400, muImg[2], 'mu 3'));
-  makeups.push(new MakeUps(300, 500, muImg[3], 'mu 4'));
+  makeups.push(new MakeUps(300, 200, muImg[0], 'mu 1','mu 1'));
+  makeups.push(new MakeUps(300, 300, muImg[1], 'mu 2','mu 2'));
+  makeups.push(new MakeUps(300, 400, muImg[2], 'mu 3','mu 3'));
+  makeups.push(new MakeUps(300, 500, muImg[3], 'mu 4','mu 4'));
 
   // changer de position x et y; pour array visages
   // visages.push(new MakeUps(300, 200, ?? [0]));
@@ -391,6 +390,7 @@ function game() {
       makeups[j].drag();
       makeups[j].mouseHover();
         if (makeups[j].hover) {
+          console.log(makeups[j]);
         msgZone.message = makeups[j].name;
       }
     }
