@@ -109,22 +109,22 @@ loading make-up icons, hair and made-up face
 */
 function preload() {
   // for (let i=0; i< hairstylesNum; i++){
-  hairImg.push(loadImage('assets/images/dinuhua_look2-hair.png'));
-  hairImg.push(loadImage('assets/images/dinuhua_look1-hair.png'));
-  hairImg.push(loadImage('assets/images/dinuhau_look3-hair.png'));
+  hairImg.push(loadImage('assets/images/dinuhua_hair1.png'));
+  hairImg.push(loadImage('assets/images/dinuhua_hair2.png'));
+  hairImg.push(loadImage('assets/images/dinuhua_hair3.png'));
   // hairImg.push(loadImage('assets/images/hair4.png'));
   // hairImg.push(loadImage('assets/images/hair5.png'));
   song = loadSound('assets/sounds/Nightcore - Angel With A Shotgun.mp3');
 
+  muImg.push(loadImage('assets/images/dinuhua_look1-muIcon.png'));
   muImg.push(loadImage('assets/images/dinuhua_look2-muIcon.png'));
   muImg.push(loadImage('assets/images/dinuhua_look3-muIcon.png'));
-  // muImg.push(loadImage('assets/images/mu3.png'));
   // muImg.push(loadImage('assets/images/mu4.png'));
 
-  dollFaceImg = loadImage('assets/images/dinuhua_blank.png');
-  visageImg.push(loadImage('assets/images/dinuhau_look2-face.png'));
-  visageImg.push(loadImage('assets/images/dinuhau_look3-face.png'));
-  // visageImg.push(loadImage('assets/images/??.png'));
+  dollFaceImg = loadImage('assets/images/dinuhua_base.png');
+  visageImg.push(loadImage('assets/images/dinuhua_mu1.png'));
+  visageImg.push(loadImage('assets/images/dinuhua_mu2.png'));
+  visageImg.push(loadImage('assets/images/dinuhua_mu3.png'));
   // visageImg.push(loadImage('assets/images/??.png'));
 }
 
@@ -144,14 +144,14 @@ function setup() {
   // hairstyles.push(new Hairstyles(900, 500, hairImg[4], 'long wig'));
 
   makeups.push(new MakeUps(150, 200, muImg[0], visageImg[0],'mu 1'));
-  makeups.push(new MakeUps(300, 300, muImg[1], visageImg[1],'mu 2'));
-  // makeups.push(new MakeUps(300, 400, muImg[2], 'mu 3','mu 3'));
+  makeups.push(new MakeUps(150, 300, muImg[1], visageImg[1],'mu 2'));
+  makeups.push(new MakeUps(150, 400, muImg[2], visageImg[2],'mu 3'));
   // makeups.push(new MakeUps(300, 500, muImg[3], 'mu 4','mu 4'));
 
   // pour array visages
   visages.push(new MakeUps(150, 200, muImg[0], visageImg[0],'look1'));
   visages.push(new MakeUps(150, 300, muImg[1], visageImg[1],'look2'));
-  // visages.push(new MakeUps(300, 300, visageImg[1]));
+  visages.push(new MakeUps(150, 400, muImg[2], visageImg[2],'look3'));
   // visages.push(new MakeUps(300, 400, visageImg[2]));
   // visages.push(new MakeUps(300, 500, ?? [3]));
 
