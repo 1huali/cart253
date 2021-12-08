@@ -13,21 +13,22 @@ let state = 'intro';
 // let hoverMessages =[];
 // let showInfo = false;
 
-let visages = [];
-// let visageImg= [];
-let visageImg = undefined;
+
 
 // let oscillator = undefined;
 
-let faceZone = {
-  x: 600,
-  y: 200,
-}
-
 // maybe change cos its not a doll its human being
 let doll = {
-  x: 600,
-  y: 350
+  x: 500,
+  y:350,
+
+}
+
+let hitBox = {
+  x: 500,
+  y:300,
+  w:200,
+  h:200
 }
 
 // eventually call Plain face
@@ -86,6 +87,10 @@ let hideButt = {
   button: undefined
 }
 
+let visages = [];
+let visageImg= [];
+// let visageImg = undefined;
+
 let hairstyles = [];
 let hairImg = [];
 let hairClicked = false;
@@ -94,29 +99,31 @@ let makeups = [];
 let muImg = [];
 let muClicked = false;
 
+let mouseIsPressed = false;
+
 let song;
+let currentVisage = '';
 
 /**
 loading make-up icons, hair and made-up face
 */
 function preload() {
   // for (let i=0; i< hairstylesNum; i++){
-  hairImg.push(loadImage('assets/images/hair1.png'));
-  hairImg.push(loadImage('assets/images/hair2.png'));
-  hairImg.push(loadImage('assets/images/hair3.png'));
-  hairImg.push(loadImage('assets/images/hair4.png'));
-  hairImg.push(loadImage('assets/images/hair5.png'));
+  hairImg.push(loadImage('assets/images/dinuhua_look2-hair.png'));
+  hairImg.push(loadImage('assets/images/dinuhua_look1-hair.png'));
+  hairImg.push(loadImage('assets/images/dinuhau_look3-hair.png'));
+  // hairImg.push(loadImage('assets/images/hair4.png'));
+  // hairImg.push(loadImage('assets/images/hair5.png'));
   song = loadSound('assets/sounds/Nightcore - Angel With A Shotgun.mp3');
 
-  muImg.push(loadImage('assets/images/mu1.png'));
-  muImg.push(loadImage('assets/images/mu2.png'));
-  muImg.push(loadImage('assets/images/mu3.png'));
-  muImg.push(loadImage('assets/images/mu4.png'));
+  muImg.push(loadImage('assets/images/dinuhua_look2-muIcon.png'));
+  muImg.push(loadImage('assets/images/dinuhua_look3-muIcon.png'));
+  // muImg.push(loadImage('assets/images/mu3.png'));
+  // muImg.push(loadImage('assets/images/mu4.png'));
 
-  dollFaceImg = loadImage('assets/images/gandalf.jpeg');
-  visageImg = loadImage('assets/images/visageImg1.jpeg');
-  // dollFaceImg.push(loadImage('assets/images/gandalf.jpeg'));
-  // visageImg.push(loadImage('assets/images/??.png'));
+  dollFaceImg = loadImage('assets/images/dinuhua_blank.png');
+  visageImg.push(loadImage('assets/images/dinuhau_look2-face.png'));
+  visageImg.push(loadImage('assets/images/dinuhau_look3-face.png'));
   // visageImg.push(loadImage('assets/images/??.png'));
   // visageImg.push(loadImage('assets/images/??.png'));
 }
@@ -125,30 +132,39 @@ function preload() {
 Description of setup
 */
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  push();
+  createCanvas(1000, 600);
+  // fill(255,0,0);
+  pop();
   // calling the img
-  hairstyles.push(new Hairstyles(900, 100, hairImg[0], 'red wig'));
-  hairstyles.push(new Hairstyles(900, 200, hairImg[1], 'pink wig'));
-  hairstyles.push(new Hairstyles(900, 300, hairImg[2], 'blonde wig'));
-  hairstyles.push(new Hairstyles(900, 400, hairImg[3], 'spike wig'));
-  hairstyles.push(new Hairstyles(900, 500, hairImg[4], 'long wig'));
+  hairstyles.push(new Hairstyles(900, 200, hairImg[0], 'red wig'));
+  hairstyles.push(new Hairstyles(900, 300, hairImg[1], 'pink wig'));
+  hairstyles.push(new Hairstyles(900, 400, hairImg[2], 'blonde wig'));
+  // hairstyles.push(new Hairstyles(900, 400, hairImg[3], 'spike wig'));
+  // hairstyles.push(new Hairstyles(900, 500, hairImg[4], 'long wig'));
 
-  makeups.push(new MakeUps(300, 200, muImg[0], 'mu 1','mu 1'));
-  makeups.push(new MakeUps(300, 300, muImg[1], 'mu 2','mu 2'));
-  makeups.push(new MakeUps(300, 400, muImg[2], 'mu 3','mu 3'));
-  makeups.push(new MakeUps(300, 500, muImg[3], 'mu 4','mu 4'));
+  makeups.push(new MakeUps(150, 200, muImg[0], visageImg[0],'mu 1'));
+  makeups.push(new MakeUps(300, 300, muImg[1], visageImg[1],'mu 2'));
+  // makeups.push(new MakeUps(300, 400, muImg[2], 'mu 3','mu 3'));
+  // makeups.push(new MakeUps(300, 500, muImg[3], 'mu 4','mu 4'));
 
-  // changer de position x et y; pour array visages
-  // visages.push(new MakeUps(300, 200, ?? [0]));
-  // visages.push(new MakeUps(300, 300, ?? [1]));
-  // visages.push(new MakeUps(300, 400, ?? [2]));
+  // pour array visages
+  visages.push(new MakeUps(150, 200, muImg[0], visageImg[0],'look1'));
+  visages.push(new MakeUps(150, 300, muImg[1], visageImg[1],'look2'));
+  // visages.push(new MakeUps(300, 300, visageImg[1]));
+  // visages.push(new MakeUps(300, 400, visageImg[2]));
   // visages.push(new MakeUps(300, 500, ?? [3]));
 
+  currentVisage = dollFaceImg;
 }
 
 function displayModel() {
   push();
-  image(dollFaceImg, doll.x, doll.y);
+  image(currentVisage, doll.x, doll.y);
+  noFill();
+  noStroke();
+  rectMode(CENTER);
+  rect(hitBox.x,hitBox.y,hitBox.w,hitBox.h);
   pop();
 }
 
@@ -176,11 +192,17 @@ function createPhotoButt() {
   takePictureButton.button.mousePressed(takeScreenshot);
 }
 
+// Q: why the save look button disappears too?
 function createBgButt() {
-  changeBgButton.button = createButton('Change background');
+  changeBgButton.button = createButton('Hide/Show');
   changeBgButton.button.position(changeBgButton.x, changeBgButton.y, changeBgButton.w);
-  // changeBgButton.button.mousePressed(save to create);
+  // replayButton.button.mousePressed(hideShow);
 }
+
+// Q: help here
+// function hideShow{
+//
+// }
 
 function createReplayButt() {
   replayButton.button = createButton('Replay');
@@ -227,7 +249,13 @@ function hide() {
 
 }
 
+function mousePressed() {
+  mouseIsPressed= true;
+  console.log("mouse pressed");
+}
+
 function mouseReleased() {
+  mouseIsPressed =false;
   for (let i = 0; i < hairstyles.length; i++) {
     console.log(i, hairstyles[i].monoClick);
     hairstyles[i].monoClick = false;
@@ -241,9 +269,9 @@ function mouseReleased() {
   muClicked = false;
 
   for (let i = 0; i < makeups.length; i++) {
-    let d = dist(makeups[i].x, makeups[i].y, doll.x, doll.y);
-    if (d < dollFaceImg.width / 2) {
-      dollFaceImg = visageImg;
+    let d = dist(makeups[i].x, makeups[i].y, hitBox.x, hitBox.y);
+    if (d < hitBox.w / 2) {
+      currentVisage = makeups[i].visageImg;
       makeups[i].makeUpReturns();
     }
   }
@@ -303,18 +331,18 @@ function displayMsgZone() {
 
 function displayVisage() {
   push();
-  image(visageImg, doll.x, doll.y);
+  image(currentVisage, doll.x, doll.y);
   pop();
 }
 
 
-function displayFaceZone() {
-  push();
-  noFill()
-  rectMode(CENTER);
-  rect(faceZone.x, faceZone.y, faceZone.width, faceZone.height);
-  pop();
-}
+// function displayFaceZone() {
+//   push();
+//   noFill()
+//   rectMode(CENTER);
+//   rect(faceZone.x, faceZone.y, faceZone.width, faceZone.height);
+//   pop();
+// }
 
 
 // think this is useless
@@ -341,11 +369,11 @@ function displayText(message) {
 
 
 function intro() {
-  displayText("Di Nu Hua: The 2021 Remake. PRESS ENTER TO START");
+  displayText("NEW OPERA - Make-Up Game. PRESS ENTER TO START");
 }
 
 function start() {
-  displayText("Dont cry princess, he'll be back blabla hannah montana. PRESS SPACE TO START");
+  displayText("Drag and drop your fave make-up palette and hair.PRESS SPACE TO START");
 }
 
 function keyPressed() {
@@ -377,10 +405,11 @@ function end() {
 }
 
 
+
 function game() {
   displayMsgZone();
   displayModel();
-  displayFaceZone();
+  //displayFaceZone();
   displayMusicButt()
   // console.log(`game state`)
   msgZone.message = ``;
@@ -406,16 +435,13 @@ function game() {
 
 }
 
-// function photo() {
-//   // saves the canvas as image
-// }
 
 function draw() {
   background(0);
   // cursor not working
   cursor('assets/images/flower (25).png');
   // checkOverlap();
-  displayFaceZone();
+  // displayFaceZone();
 
   //  if (showInfo) {
   //   textSize(40);

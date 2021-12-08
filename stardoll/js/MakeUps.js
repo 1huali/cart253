@@ -22,10 +22,10 @@ drag(){
   if(mouseIsPressed && (muClicked=== false || this.monoClick === true)) {
     let d= dist(mouseX, mouseY, this.x,this.y)
     console.log("mouse is being pressed")
-    if (d < this.h/3){
+    if (d < this.w/3){
       muClicked = true;
       this.monoClick = true;
-    console.log("makeUp is being pressed")
+    // console.log("makeUp is being pressed")
       this.x= mouseX;
       this.y= mouseY;
     }
@@ -47,11 +47,13 @@ mouseHover(){
    this.y=this.startY;
 }
 
+// visage is the flower
   displayVisage(){
-  image(this.visageImg, 600, 200,this.vw,this.vh);
+ image(this.visageImg, 600, 200,this.vw,this.vh);
   imageMode(CENTER);
   }
 
+// makeUp is the full makeup face
   displayMakeups (){
 image(this.img, this.x,this.y,this.w,this.h);
 imageMode(CENTER);

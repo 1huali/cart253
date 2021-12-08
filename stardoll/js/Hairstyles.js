@@ -43,7 +43,7 @@ mouseHover(){
   }
 
   displayHair (){
-image(this.img, this.x,this.y,this.w,this.h);
+image(this.img, this.x,this.y);
 imageMode(CENTER);
 }
   //
