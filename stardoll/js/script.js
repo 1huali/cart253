@@ -89,7 +89,6 @@ let hideButt = {
 
 let visages = [];
 let visageImg= [];
-// let visageImg = undefined;
 
 let hairstyles = [];
 let hairImg = [];
@@ -103,6 +102,10 @@ let mouseIsPressed = false;
 
 let song;
 let currentVisage = '';
+
+let gameTitle = undefined;
+let gameCredits = undefined;
+let muteButton = undefined;
 
 /**
 loading make-up icons, hair and made-up face
@@ -126,6 +129,11 @@ function preload() {
   visageImg.push(loadImage('assets/images/dinuhua_mu2.png'));
   visageImg.push(loadImage('assets/images/dinuhua_mu3.png'));
   // visageImg.push(loadImage('assets/images/??.png'));
+
+  // load titles and graphix
+  gameTitle=(loadImage('assets/images/dinuhua_title.png'));
+  gameCredits =(loadImage('assets/images/dinuhua_credits-title.png'));
+  muteButton =(loadImage('assets/images/mute_button.png'));
 }
 
 /**
@@ -170,6 +178,10 @@ function displayModel() {
 
 function displayMusicButt() {
   musicButton.button = createButton('MUTE FOREVER');
+// push();
+//   rectMode(CENTER);
+//   rect(hitBox.x,hitBox.y,hitBox.w,hitBox.h);
+//   pop();
   musicButton.button.position(musicButton.x, musicButton.y, musicButton.w);
   musicButton.button.mousePressed(stopMusic);
 }
@@ -180,8 +192,9 @@ function hideObjectsButt() {
   hideButt.button.mousePressed(hide);
 }
 
+// becomes "done" button
 function createNextButt() {
-  nextButton.button = createButton('Next : The fit');
+  nextButton.button = createButton('Done');
   nextButton.button.position(nextButton.x, nextButton.y, nextButton.w);
   nextButton.button.mousePressed(goToNext);
 }
@@ -369,7 +382,10 @@ function displayText(message) {
 
 
 function intro() {
-  displayText("NEW OPERA - Make-Up Game. PRESS ENTER TO START");
+  push();
+  image(gameTitle, doll.x, doll.y);
+  imageMode(CENTER);
+  pop();
 }
 
 function start() {
@@ -392,9 +408,12 @@ function keyPressed() {
 }
 
 function end() {
+  push();
+  image(gameCredits, doll.x, doll.y);
+  imageMode(CENTER);
+pop();
   // displayText(`Sorry princess, low funding. Come back after few gigs`);
-  displayText(`Credits : Wawa + Dyamond`);
-  //change to credits, thank u take care
+  // displayText(`Credits : Wawa + Dyamond`);
   push();
   fill(255, 0, 0);
   pop();
@@ -447,6 +466,8 @@ function draw() {
   //   textSize(40);
   //   text("I'm info text", width / 2, height/2);
   // }
+
+// wanna delete the start title
 
   if (state === `intro`) {
     intro();
