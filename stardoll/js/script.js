@@ -20,15 +20,14 @@ let state = 'intro';
 // maybe change cos its not a doll its human being
 let doll = {
   x: 500,
-  y:350,
-
+  y: 300,
 }
 
 let hitBox = {
   x: 500,
-  y:300,
-  w:200,
-  h:200
+  y: 300,
+  w: 200,
+  h: 200
 }
 
 // eventually call Plain face
@@ -42,18 +41,18 @@ let msgZone = {
   message: ``
 }
 
-let nextButton = {
+let creditButton = {
   x: 1150,
-  y: 350,
-  w: 80,
+  y: 100,
+  // w: 80,
   button: undefined
 }
 
-let takePictureButton = {
+let saveButton = {
   x: 1150,
   y: 400,
   w: 80,
-  button: undefined
+  img: undefined
 }
 
 let changeBgButton = {
@@ -79,16 +78,16 @@ let replayButton = {
   button: undefined
 }
 
-
+let showMuHair = true;
 let hideButt = {
-  x: 100,
-  y: 100,
+  x: 0,
+  y: 500,
   w: 65,
   button: undefined
 }
 
 let visages = [];
-let visageImg= [];
+let visageImg = [];
 
 let hairstyles = [];
 let hairImg = [];
@@ -105,7 +104,13 @@ let currentVisage = '';
 
 let gameTitle = undefined;
 let gameCredits = undefined;
-let muteButton = undefined;
+
+let muteButton = {
+  x: 100,
+  y: 50,
+  w: 65,
+  img: undefined
+}
 
 /**
 loading make-up icons, hair and made-up face
@@ -131,9 +136,11 @@ function preload() {
   // visageImg.push(loadImage('assets/images/??.png'));
 
   // load titles and graphix
-  gameTitle=(loadImage('assets/images/dinuhua_title.png'));
-  gameCredits =(loadImage('assets/images/dinuhua_credits-title.png'));
-  muteButton =(loadImage('assets/images/mute_button.png'));
+  gameTitle = (loadImage('assets/images/dinuhua_title.png'));
+  gameCredits = (loadImage('assets/images/dinuhua_credits-title.png'));
+  muteButton.img = (loadImage('assets/images/mute_button.png'));
+  saveButton.img = (loadImage('assets/images/save_button.png'));
+
 }
 
 /**
@@ -141,7 +148,7 @@ Description of setup
 */
 function setup() {
   push();
-  createCanvas(1000, 600);
+  createCanvas(windowWidth, windowHeight);
   // fill(255,0,0);
   pop();
   // calling the img
@@ -151,15 +158,15 @@ function setup() {
   // hairstyles.push(new Hairstyles(900, 400, hairImg[3], 'spike wig'));
   // hairstyles.push(new Hairstyles(900, 500, hairImg[4], 'long wig'));
 
-  makeups.push(new MakeUps(150, 200, muImg[0], visageImg[0],'mu 1'));
-  makeups.push(new MakeUps(150, 300, muImg[1], visageImg[1],'mu 2'));
-  makeups.push(new MakeUps(150, 400, muImg[2], visageImg[2],'mu 3'));
+  makeups.push(new MakeUps(150, 200, muImg[0], visageImg[0], 'mu 1'));
+  makeups.push(new MakeUps(150, 300, muImg[1], visageImg[1], 'mu 2'));
+  makeups.push(new MakeUps(150, 400, muImg[2], visageImg[2], 'mu 3'));
   // makeups.push(new MakeUps(300, 500, muImg[3], 'mu 4','mu 4'));
 
   // pour array visages
-  visages.push(new MakeUps(150, 200, muImg[0], visageImg[0],'look1'));
-  visages.push(new MakeUps(150, 300, muImg[1], visageImg[1],'look2'));
-  visages.push(new MakeUps(150, 400, muImg[2], visageImg[2],'look3'));
+  visages.push(new MakeUps(150, 200, muImg[0], visageImg[0], 'look1'));
+  visages.push(new MakeUps(150, 300, muImg[1], visageImg[1], 'look2'));
+  visages.push(new MakeUps(150, 400, muImg[2], visageImg[2], 'look3'));
   // visages.push(new MakeUps(300, 400, visageImg[2]));
   // visages.push(new MakeUps(300, 500, ?? [3]));
 
@@ -168,22 +175,20 @@ function setup() {
 
 function displayModel() {
   push();
-  image(currentVisage, doll.x, doll.y);
+  rectMode(CENTER);
+  imageMode(CENTER);
+  image(currentVisage, doll.x, doll.y, 1000, 600);
   noFill();
   noStroke();
-  rectMode(CENTER);
-  rect(hitBox.x,hitBox.y,hitBox.w,hitBox.h);
+  rect(hitBox.x, hitBox.y, hitBox.w, hitBox.h);
   pop();
 }
 
 function displayMusicButt() {
-  musicButton.button = createButton('MUTE FOREVER');
-// push();
-//   rectMode(CENTER);
-//   rect(hitBox.x,hitBox.y,hitBox.w,hitBox.h);
-//   pop();
-  musicButton.button.position(musicButton.x, musicButton.y, musicButton.w);
-  musicButton.button.mousePressed(stopMusic);
+  push();
+  imageMode(CENTER);
+  image(muteButton.img, muteButton.x, muteButton.y);
+  pop();
 }
 
 function hideObjectsButt() {
@@ -193,24 +198,25 @@ function hideObjectsButt() {
 }
 
 // becomes "done" button
-function createNextButt() {
-  nextButton.button = createButton('Done');
-  nextButton.button.position(nextButton.x, nextButton.y, nextButton.w);
-  nextButton.button.mousePressed(goToNext);
+function displayCreditButton() {
+  creditButton.button = createButton('Done');
+  creditButton.button.position(creditButton.x, creditButton.y, creditButton.w);
+  creditButton.button.mousePressed(goToNext);
 }
 
-function createPhotoButt() {
-  takePictureButton.button = createButton('Save look');
-  takePictureButton.button.position(takePictureButton.x, takePictureButton.y, takePictureButton.w);
-  takePictureButton.button.mousePressed(takeScreenshot);
+function displaySaveButton() {
+  push();
+  imageMode(CENTER);
+  image(saveButton.img, saveButton.x, saveButton.y);
+  pop();
 }
 
 // Q: why the save look button disappears too?
-function createBgButt() {
-  changeBgButton.button = createButton('Hide/Show');
-  changeBgButton.button.position(changeBgButton.x, changeBgButton.y, changeBgButton.w);
-  // replayButton.button.mousePressed(hideShow);
-}
+// function createBgButt() {
+//   changeBgButton.button = createButton('Hide/Show');
+//   changeBgButton.button.position(changeBgButton.x, changeBgButton.y, changeBgButton.w);
+//   // replayButton.button.mousePressed(hideShow);
+// }
 
 // Q: help here
 // function hideShow{
@@ -248,35 +254,53 @@ function stopMusic() {
 
 function goToNext() {
   state = `next`
-  nextButton.button.remove();
-  changeBgButton.button.remove();
-  takePictureButton.button.remove();
-  // createReplayButt();
+  // creditButton.button.remove();
+  // changeBgButton.button.remove();
+  // saveButton.img.remove();
 }
 
-function takeScreenshot() {
-  saveCanvas('new_opera.png')
-}
 
 function hide() {
+  showMuHair = !showMuHair;
 
 }
 
 function mousePressed() {
-  mouseIsPressed= true;
-  console.log("mouse pressed");
+  let d = dist(mouseX, mouseY, muteButton.x, muteButton.y);
+  let e = dist(mouseX, mouseY, saveButton.x, saveButton.y);
+
+  if (d < muteButton.img.width / 2) {
+    stopMusic();
+    console.log("mute pressed");
+  } else if (e < saveButton.img.width / 2) {
+    saveCanvas('new_opera.png')
+    console.log("save pressed");
+  } else {
+    mouseIsPressed = true;
+    console.log("mouse pressed");
+  }
+
+
 }
 
 function mouseReleased() {
-  mouseIsPressed =false;
+  mouseIsPressed = false;
   for (let i = 0; i < hairstyles.length; i++) {
-    console.log(i, hairstyles[i].monoClick);
+    // console.log(i, hairstyles[i].monoClick);
     hairstyles[i].monoClick = false;
+    hairstyles[i].chosen = false;
   }
   hairClicked = false;
 
+  for (let i = 0; i < hairstyles.length; i++) {
+    let d = dist(hairstyles[i].x, hairstyles[i].y, hitBox.x, hitBox.y);
+    if (d < hitBox.w / 2) {
+      hairstyles[i].chosen = true;
+    }
+  }
+
   for (let j = 0; j < makeups.length; j++) {
-    console.log(j, makeups[j].monoClick);
+    // console.log(j, makeups[j].monoClick);
     makeups[j].monoClick = false;
   }
   muClicked = false;
@@ -383,7 +407,7 @@ function displayText(message) {
 
 function intro() {
   push();
-  image(gameTitle, doll.x, doll.y);
+  image(gameTitle, 0, 0);
   imageMode(CENTER);
   pop();
 }
@@ -399,19 +423,17 @@ function keyPressed() {
   }
   if (keyCode === 32) {
     state = `game`;
-    createNextButt();
-    createBgButt();
-    // hideObjectsButt();
+    displayCreditButton();
+    hideObjectsButt();
     // waiting til the end to add hide options
-    createPhotoButt();
   }
 }
 
 function end() {
   push();
-  image(gameCredits, doll.x, doll.y);
+  image(gameCredits, 0, 0);
   imageMode(CENTER);
-pop();
+  pop();
   // displayText(`Sorry princess, low funding. Come back after few gigs`);
   // displayText(`Credits : Wawa + Dyamond`);
   push();
@@ -428,35 +450,37 @@ pop();
 function game() {
   displayMsgZone();
   displayModel();
+  displaySaveButton();
   //displayFaceZone();
   displayMusicButt()
   // console.log(`game state`)
   msgZone.message = ``;
-
-    for (let j = 0; j < makeups.length; j++) {
-      makeups[j].displayMakeups();
-      makeups[j].drag();
-      makeups[j].mouseHover();
-        if (makeups[j].hover) {
-          console.log(makeups[j]);
-        msgZone.message = makeups[j].name;
-      }
-    }
-
-  for (let i = 0; i < hairstyles.length; i++) {
-    hairstyles[i].displayHair();
-    hairstyles[i].drag();
-    hairstyles[i].mouseHover();
-    if (hairstyles[i].hover) {
-      msgZone.message = hairstyles[i].name;
+  if (showMuHair === true){
+  for (let j = 0; j < makeups.length; j++) {
+    makeups[j].displayMakeups();
+    makeups[j].drag();
+    makeups[j].mouseHover();
+    if (makeups[j].hover) {
+      console.log(makeups[j]);
+      msgZone.message = makeups[j].name;
     }
   }
-
+}
+  for (let i = 0; i < hairstyles.length; i++) {
+    if (showMuHair === true || hairstyles[i].chosen === true) {
+      hairstyles[i].displayHair();
+      hairstyles[i].drag();
+      hairstyles[i].mouseHover();
+      if (hairstyles[i].hover) {
+        msgZone.message = hairstyles[i].name;
+      }
+    }
+  }
 }
 
 
 function draw() {
-  background(0);
+  background(255, 0, 0);
   // cursor not working
   cursor('assets/images/flower (25).png');
   // checkOverlap();
@@ -467,7 +491,7 @@ function draw() {
   //   text("I'm info text", width / 2, height/2);
   // }
 
-// wanna delete the start title
+  // wanna delete the start title
 
   if (state === `intro`) {
     intro();

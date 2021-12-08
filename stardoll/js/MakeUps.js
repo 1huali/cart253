@@ -49,14 +49,14 @@ mouseHover(){
 
 // visage is the flower
   displayVisage(){
+    imageMode(CENTER);
  image(this.visageImg, 600, 200,this.vw,this.vh);
-  imageMode(CENTER);
   }
 
 // makeUp is the full makeup face
   displayMakeups (){
+    imageMode(CENTER);
 image(this.img, this.x,this.y,this.w,this.h);
-imageMode(CENTER);
 }
 
 } //end class

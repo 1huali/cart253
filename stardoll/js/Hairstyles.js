@@ -10,6 +10,7 @@ class Hairstyles
     console.log(this.img.width)
     this.monoClick = false;
     this.hover = false;
+    this.chosen=false;
     }
 
 
@@ -43,8 +44,8 @@ mouseHover(){
   }
 
   displayHair (){
+    imageMode(CENTER);
 image(this.img, this.x,this.y);
-imageMode(CENTER);
 }
   //
   // checkDrag(){
