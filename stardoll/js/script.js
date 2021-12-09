@@ -82,9 +82,9 @@ let titleStatement = undefined;
 let gameEnding = undefined;
 let creditStatement = undefined;
 let hairInstructions = {
-x:1189,
-y:610,
-img:undefined
+  x: 1189,
+  y: 610,
+  img: undefined
 }
 let muInstructions = undefined;
 
@@ -162,18 +162,18 @@ function displayMusicButt() {
 }
 
 function hideObjectsButt() {
-push();
-imageMode(CENTER);
-image(hideButton.img,hideButton.x,hideButton.y);
-pop();
+  push();
+  imageMode(CENTER);
+  image(hideButton.img, hideButton.x, hideButton.y);
+  pop();
 }
 
 // becomes "done" button
 function displayDoneButton() {
-push();
-imageMode(CENTER);
-image(doneButton.img,doneButton.x,doneButton.y);
-pop();
+  push();
+  imageMode(CENTER);
+  image(doneButton.img, doneButton.x, doneButton.y);
+  pop();
 }
 
 function displaySaveButton() {
@@ -214,11 +214,12 @@ function goToNext() {
   state = `next`
 }
 
-
+// Sabine's input, as a switch function method
 function hide() {
   showMuHair = !showMuHair;
 }
 
+//sets interactivity for all buttons
 function mousePressed() {
   let d = dist(mouseX, mouseY, muteButton.x, muteButton.y);
   let e = dist(mouseX, mouseY, saveButton.x, saveButton.y);
@@ -231,26 +232,23 @@ function mousePressed() {
     stopMusic();
   } else if (e < saveButton.img.width / 2) {
     saveCanvas('new_opera.png')
-  }
-  else if (f < hideButton.img.width / 2) {
+  } else if (f < hideButton.img.width / 2) {
     hide();
-  }
-  else if (g < doneButton.img.width / 2) {
+  } else if (g < doneButton.img.width / 2) {
     state = `next`
-  }
-  else if (h < replayButton.img.width / 2) {
-      state = `game`;
+  } else if (h < replayButton.img.width / 2) {
+    state = `game`;
   } else {
     mouseIsPressed = true;
     console.log("mouse pressed");
   }
 
-  let i = dist(mouseX, mouseY, hairInstructions.x,hairInstructions.y);
+  let i = dist(mouseX, mouseY, hairInstructions.x, hairInstructions.y);
   for (let j = 0; j < hairstyles.length; j++) {
     if (i < hairInstructions.img.width / 2) {
-          hairstyles[j].hairReturns();
-      }
-      }
+      hairstyles[j].hairReturns();
+    }
+  }
 } //end mousePressed
 
 
@@ -285,23 +283,6 @@ function mouseReleased() {
   }
 } //end mouseReleased
 
-function displayMsgZone() {
-  push();
-  fill(msgZone.fill);
-  rect(msgZone.x, msgZone.y, msgZone.width, msgZone.height);
-  pop();
-}
-
-function reset() {
-  hairstyles = [];
-  hairstyles.push(new Hairstyles(600, 100, hairImg[0], 'red wig'));
-  hairstyles.push(new Hairstyles(600, 200, hairImg[1], 'pink wig'));
-  hairstyles.push(new Hairstyles(600, 300, hairImg[2], 'blonde wig'));
-  hairstyles.push(new Hairstyles(600, 400, hairImg[3], 'spike wig'));
-  hairstyles.push(new Hairstyles(600, 500, hairImg[4], 'long wig'));
-}
-
-
 function resetButton() {
   push();
   fill(0);
@@ -309,18 +290,6 @@ function resetButton() {
   ellipse()
   pop();
 }
-
-// https://library.superhi.com/posts/how-to-paint-with-code-creating-paintbrushes
-// why the line is not drawing
-function brush() {
-  // set the color and weight of the stroke
-  stroke(0, 0, 0, 255)
-  strokeWeight(2)
-
-  // draw a line from current mouse point to previous mouse point
-  line(mouseX, mouseY, pmouseX, pmouseY)
-}
-
 
 function displayMsgZone() {
   push();
@@ -336,13 +305,11 @@ function displayMsgZone() {
   pop();
 }
 
-
 function displayVisage() {
   push();
   image(currentVisage, currentBgImg.x, currentBgImg.y);
   pop();
 }
-
 
 function displayText(message) {
   push();
@@ -354,12 +321,11 @@ function displayText(message) {
   pop();
 }
 
-
 function intro() {
   push();
   imageMode(CENTER);
-  image(gameOpening, currentBgImg.x, currentBgImg.y,1000, 600);
-  image(titleStatement,currentBgImg.x, currentBgImg.y+90);
+  image(gameOpening, currentBgImg.x, currentBgImg.y, 1000, 600);
+  image(titleStatement, currentBgImg.x, currentBgImg.y + 90);
   pop();
 }
 
@@ -375,8 +341,8 @@ function end() {
   displayReplayButton();
   push();
   imageMode(CENTER);
-  image(gameEnding, currentBgImg.x, currentBgImg.y,1000, 600);
-  image(creditStatement,currentBgImg.x, currentBgImg.y+80);
+  image(gameEnding, currentBgImg.x, currentBgImg.y, 1000, 600);
+  image(creditStatement, currentBgImg.x, currentBgImg.y + 80);
   pop();
   push();
   fill(255, 0, 0);
@@ -384,7 +350,7 @@ function end() {
 }
 
 
-
+// game state, and sets hide/show interactivity
 function game() {
   displayMsgZone();
   displayModel();
@@ -393,25 +359,25 @@ function game() {
   displayMusicButt()
   displayDoneButton();
   msgZone.message = ``;
-  if (showMuHair === true){
+  if (showMuHair === true) {
     msgZone.message = `NEW OPERA : an interactive lookbook/make-up game-ish. ty4playing! `;
 
     push();
     image(hairInstructions.img, hairInstructions.x, hairInstructions.y);
-    image(muInstructions,100, 200);
+    image(muInstructions, 100, 200);
     pop();
 
-  for (let j = 0; j < makeups.length; j++) {
-    makeups[j].displayMakeups();
-    makeups[j].drag();
-    makeups[j].mouseHover();
-    if (makeups[j].hover) {
-      console.log(makeups[j]);
-      msgZone.message = makeups[j].name;
+    for (let j = 0; j < makeups.length; j++) {
+      makeups[j].displayMakeups();
+      makeups[j].drag();
+      makeups[j].mouseHover();
+      if (makeups[j].hover) {
+        console.log(makeups[j]);
+        msgZone.message = makeups[j].name;
+      }
     }
+    displayText(`ok so MUTE/PLAY music; HIDE elements then SAVE to .png when U done`, 360, 710);
   }
-  displayText(`ok so MUTE/PLAY music; HIDE elements then SAVE to .png when U done`, 360,710);
-}
   for (let i = 0; i < hairstyles.length; i++) {
     if (showMuHair === true || hairstyles[i].chosen === true) {
       hairstyles[i].displayHair();
@@ -431,8 +397,7 @@ function draw() {
 
   if (state === `intro`) {
     intro();
-  }
-  else if (state === `start`) {
+  } else if (state === `start`) {
     start();
   } else if (state === `game`) {
     game();
