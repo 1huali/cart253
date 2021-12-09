@@ -1,29 +1,25 @@
 /**
-Title of Project
+New Opera
 Wawa Li
-
-Best of both world:  帝女花, the 2021 Remix
-
+An interactive hair and make-up lookbook
+Hair/Make-Up : Dyamond
+Song: Angel With A Shutgun, Nightcore. I do not own the rights.
 */
 
 "use strict";
 let state = 'intro';
 
-// maybe change cos its not a doll its human being
-let doll = {
+let currentBgImg = {
   x: 720,
   y: 340
 }
 
 
 let hitBox = {
-  // x: 750,
-  // y: 400,
   w: 200,
   h: 200
 }
 
-// eventually call Plain face
 let dollFaceImg = undefined;
 
 let msgZone = {
@@ -34,8 +30,7 @@ let msgZone = {
   message: ``
 }
 
-// done
-let creditButton = {
+let doneButton = {
   x: 1180,
   y: 20,
   img: undefined
@@ -82,7 +77,6 @@ let mouseIsPressed = false;
 
 let song;
 let currentVisage = '';
-
 let gameOpening = undefined;
 let titleStatement = undefined;
 let gameEnding = undefined;
@@ -92,39 +86,33 @@ x:1189,
 y:610,
 img:undefined
 }
-
 let muInstructions = undefined;
 
-
 /**
-loading make-up icons, hair and made-up face
+loading make-up icons, hair and made-up face images.
 */
 function preload() {
-  // for (let i=0; i< hairstylesNum; i++){
   hairImg.push(loadImage('assets/images/dinuhua_hair1.png'));
   hairImg.push(loadImage('assets/images/dinuhua_hair2.png'));
   hairImg.push(loadImage('assets/images/dinuhua_hair3.png'));
-  // hairImg.push(loadImage('assets/images/hair4.png'));
-  // hairImg.push(loadImage('assets/images/hair5.png'));
+
   song = loadSound('assets/sounds/Nightcore - Angel With A Shotgun.mp3');
 
   muImg.push(loadImage('assets/images/dinuhua_look1-muIcon.png'));
   muImg.push(loadImage('assets/images/dinuhua_look2-muIcon.png'));
   muImg.push(loadImage('assets/images/dinuhua_look3-muIcon.png'));
-  // muImg.push(loadImage('assets/images/mu4.png'));
 
   dollFaceImg = loadImage('assets/images/dinuhua_whitebase.png');
   visageImg.push(loadImage('assets/images/dinuhua_mu1.png'));
   visageImg.push(loadImage('assets/images/dinuhua_mu2.png'));
   visageImg.push(loadImage('assets/images/dinuhua_mu3.png'));
-  // visageImg.push(loadImage('assets/images/??.png'));
 
   // load titles and graphix
   gameOpening = (loadImage('assets/images/dinuhua_title.png'));
   gameEnding = (loadImage('assets/images/dinuhua_credits-title.png'));
   muteButton.img = (loadImage('assets/images/mute_button.png'));
   saveButton.img = (loadImage('assets/images/save_button.png'));
-  creditButton.img = (loadImage('assets/images/done_button.png'));
+  doneButton.img = (loadImage('assets/images/done_button.png'));
   hideButton.img = (loadImage('assets/images/hide_button.png'));
   replayButton.img = (loadImage('assets/images/replay_button.png'));
   titleStatement = (loadImage('assets/images/title_graphix.png'));
@@ -132,49 +120,37 @@ function preload() {
   hairInstructions.img = (loadImage('assets/images/hair_details.png'));
   muInstructions = (loadImage('assets/images/mu_details.png'));
 
-
-
 }
 
 /**
-Description of setup
+Creates the make-up, faces and hair elements into their proper arrays
 */
 function setup() {
   push();
   createCanvas(windowWidth, windowHeight);
-  // fill(255,0,0);
   pop();
-  // calling the img
+
   hairstyles.push(new Hairstyles(1320, 200, hairImg[0], 'H1-#SPIKES-2'));
   hairstyles.push(new Hairstyles(1320, 300, hairImg[1], 'H2-#MIRROR-0'));
   hairstyles.push(new Hairstyles(1320, 400, hairImg[2], 'H3-#LOOP-1'));
-  // hairstyles.push(new Hairstyles(900, 400, hairImg[3], 'spike wig'));
-  // hairstyles.push(new Hairstyles(900, 500, hairImg[4], 'long wig'));
-
   makeups.push(new MakeUps(120, 500, muImg[0], visageImg[0], 'L1-#YELLOW'));
   makeups.push(new MakeUps(120, 300, muImg[1], visageImg[1], 'L2-#FLOWER'));
   makeups.push(new MakeUps(120, 400, muImg[2], visageImg[2], 'L3-#PURPLE'));
-  // makeups.push(new MakeUps(300, 500, muImg[3], 'mu 4','mu 4'));
-
-  // pour array visages
   visages.push(new MakeUps(150, 200, muImg[0], visageImg[0], 'look1'));
   visages.push(new MakeUps(150, 300, muImg[1], visageImg[1], 'look2'));
   visages.push(new MakeUps(150, 400, muImg[2], visageImg[2], 'look3'));
-  // visages.push(new MakeUps(300, 400, visageImg[2]));
-  // visages.push(new MakeUps(300, 500, ?? [3]));
 
   currentVisage = dollFaceImg;
-
 }
 
 function displayModel() {
   push();
   rectMode(CENTER);
   imageMode(CENTER);
-  image(currentVisage, doll.x, doll.y, 1000, 600);
+  image(currentVisage, currentBgImg.x, currentBgImg.y, 1000, 600);
   noFill();
   noStroke();
-  rect(doll.x, doll.y, hitBox.w, hitBox.h);
+  rect(currentBgImg.x, currentBgImg.y, hitBox.w, hitBox.h);
   pop();
 }
 
@@ -193,10 +169,10 @@ pop();
 }
 
 // becomes "done" button
-function displayCreditButton() {
+function displayDoneButton() {
 push();
 imageMode(CENTER);
-image(creditButton.img,creditButton.x,creditButton.y);
+image(doneButton.img,doneButton.x,doneButton.y);
 pop();
 }
 
@@ -233,6 +209,7 @@ function stopMusic() {
   }
 }
 
+
 function goToNext() {
   state = `next`
 }
@@ -240,14 +217,13 @@ function goToNext() {
 
 function hide() {
   showMuHair = !showMuHair;
-
 }
 
 function mousePressed() {
   let d = dist(mouseX, mouseY, muteButton.x, muteButton.y);
   let e = dist(mouseX, mouseY, saveButton.x, saveButton.y);
   let f = dist(mouseX, mouseY, hideButton.x, hideButton.y);
-  let g = dist(mouseX, mouseY, creditButton.x, creditButton.y);
+  let g = dist(mouseX, mouseY, doneButton.x, doneButton.y);
   let h = dist(mouseX, mouseY, replayButton.x, replayButton.y);
 
 
@@ -259,7 +235,7 @@ function mousePressed() {
   else if (f < hideButton.img.width / 2) {
     hide();
   }
-  else if (g < creditButton.img.width / 2) {
+  else if (g < doneButton.img.width / 2) {
     state = `next`
   }
   else if (h < replayButton.img.width / 2) {
@@ -288,7 +264,7 @@ function mouseReleased() {
   hairClicked = false;
 
   for (let i = 0; i < hairstyles.length; i++) {
-    let d = dist(hairstyles[i].x, hairstyles[i].y, doll.x, doll.y);
+    let d = dist(hairstyles[i].x, hairstyles[i].y, currentBgImg.x, currentBgImg.y);
     if (d < hitBox.w / 2) {
       hairstyles[i].chosen = true;
     }
@@ -301,7 +277,7 @@ function mouseReleased() {
   muClicked = false;
 
   for (let i = 0; i < makeups.length; i++) {
-    let d = dist(makeups[i].x, makeups[i].y, doll.x, doll.y);
+    let d = dist(makeups[i].x, makeups[i].y, currentBgImg.x, currentBgImg.y);
     if (d < hitBox.w / 2) {
       currentVisage = makeups[i].visageImg;
       makeups[i].makeUpReturns();
@@ -363,7 +339,7 @@ function displayMsgZone() {
 
 function displayVisage() {
   push();
-  image(currentVisage, doll.x, doll.y);
+  image(currentVisage, currentBgImg.x, currentBgImg.y);
   pop();
 }
 
@@ -382,40 +358,29 @@ function displayText(message) {
 function intro() {
   push();
   imageMode(CENTER);
-  image(gameOpening, doll.x, doll.y,1000, 600);
-  image(titleStatement,doll.x, doll.y+90);
+  image(gameOpening, currentBgImg.x, currentBgImg.y,1000, 600);
+  image(titleStatement,currentBgImg.x, currentBgImg.y+90);
   pop();
 }
 
-function start() {
-  displayText("Drag and drop your fave make-up palette and hair.PRESS SPACE TO START");
-}
-
+// To enter the game
 function keyPressed() {
   if (keyCode === 13) {
     song.play();
     state = `game`;
   }
-  // if (keyCode === 32) {
-  //   state = `game`;
-  //   // displayCreditButton();
-  //   // hideObjectsButt();
-  // }
 }
 
 function end() {
   displayReplayButton();
   push();
   imageMode(CENTER);
-  image(gameEnding, doll.x, doll.y,1000, 600);
-  image(creditStatement,doll.x, doll.y+80);
+  image(gameEnding, currentBgImg.x, currentBgImg.y,1000, 600);
+  image(creditStatement,currentBgImg.x, currentBgImg.y+80);
   pop();
   push();
   fill(255, 0, 0);
   pop();
-  if (keyCode === 32) {
-    state = `next`;
-  }
 }
 
 
@@ -426,7 +391,7 @@ function game() {
   hideObjectsButt();
   displaySaveButton();
   displayMusicButt()
-  displayCreditButton();
+  displayDoneButton();
   msgZone.message = `NEW OPERA : an interactive lookbook/make-up game-ish. ty4playing! `;
   if (showMuHair === true){
 
@@ -462,7 +427,6 @@ function game() {
 function draw() {
   background(255);
   cursor(CROSS);
-
 
   if (state === `intro`) {
     intro();

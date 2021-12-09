@@ -17,7 +17,6 @@ class MakeUps
     }
 
 
-
 drag(){
   if(mouseIsPressed && (muClicked=== false || this.monoClick === true)) {
     let d= dist(mouseX, mouseY, this.x,this.y)
@@ -58,5 +57,4 @@ mouseHover(){
     imageMode(CENTER);
 image(this.img, this.x,this.y,this.w,this.h);
 }
-
 } //end class

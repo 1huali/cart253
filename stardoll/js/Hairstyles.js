@@ -16,7 +16,6 @@ class Hairstyles
     }
 
 
-
 drag(){
   if(mouseIsPressed && (hairClicked=== false || this.monoClick === true)) {
     let d= dist(mouseX, mouseY, this.x,this.y)
@@ -50,7 +49,4 @@ hairReturns(){
     imageMode(CENTER);
 image(this.img, this.x,this.y);
 }
-  //
-  // checkDrag(){
-  //   }
 } //end class
