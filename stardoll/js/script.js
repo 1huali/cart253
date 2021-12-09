@@ -35,22 +35,21 @@ let msgZone = {
 
 // done
 let creditButton = {
-  x: 550,
-  y: 50,
-  // w: 80,
+  x: 1200,
+  y: 65,
   img: undefined
 }
 
 let saveButton = {
-  x: 1000,
-  y: 50,
+  x: 1200,
+  y: 730,
   w: 80,
   img: undefined
 }
 
 let replayButton = {
-  x: 350,
-  y: 730,
+  x: 290,
+  y: 720,
   w: 65,
   img: undefined
 }
@@ -64,8 +63,7 @@ let hideButton = {
 
 let muteButton = {
   x: 350,
-  y: 50,
-  w: 65,
+  y: 65,
   img: undefined
 }
 
@@ -176,7 +174,6 @@ function hideObjectsButt() {
 push();
 imageMode(CENTER);
 image(hideButton.img,hideButton.x,hideButton.y);
-console.log("hide button exist")
 pop();
 }
 
