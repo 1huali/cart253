@@ -86,7 +86,12 @@ let gameOpening = undefined;
 let titleStatement = undefined;
 let gameEnding = undefined;
 let creditStatement = undefined;
-let hairInstructions = undefined;
+let hairInstructions = {
+x:1189,
+y:670,
+img:undefined
+}
+
 let muInstructions = undefined;
 
 
@@ -123,7 +128,7 @@ function preload() {
   replayButton.img = (loadImage('assets/images/replay_button.png'));
   titleStatement = (loadImage('assets/images/title_graphix.png'));
   creditStatement = (loadImage('assets/images/credit_graphix.png'));
-  hairInstructions = (loadImage('assets/images/hair_details.png'));
+  hairInstructions.img = (loadImage('assets/images/hair_details.png'));
   muInstructions = (loadImage('assets/images/mu_details.png'));
 
 
@@ -263,8 +268,14 @@ function mousePressed() {
     console.log("mouse pressed");
   }
 
+  let i = dist(mouseX, mouseY, hairInstructions.x,hairInstructions.y);
+  for (let j = 0; j < hairstyles.length; j++) {
+    if (i < hairInstructions.img.width / 2) {
+          hairstyles[j].hairReturns();
+      }
+      }
+} //end mousePressed
 
-}
 
 function mouseReleased() {
   mouseIsPressed = false;
@@ -425,20 +436,22 @@ function game() {
   displayMsgZone();
   displayModel();
   // those who used to be in keyPressed
-  displaySaveButton();
-  displayCreditButton();
   hideObjectsButt();
-//
+  displaySaveButton();
   displayMusicButt()
-  push();
-  image(hairInstructions, 1189, 670);
-  // console.log(hairInstructions);
-  image(muInstructions,100, 200);
-  // console.log(muInstructions);
-  pop();
+  displayCreditButton();
+//
   // console.log(`game state`)
   msgZone.message = ``;
   if (showMuHair === true){
+
+    push();
+    image(hairInstructions.img, hairInstructions.x, hairInstructions.y);
+    // console.log(hairInstructions);
+    image(muInstructions,100, 200);
+    // console.log(muInstructions);
+    pop();
+
   for (let j = 0; j < makeups.length; j++) {
     makeups[j].displayMakeups();
     makeups[j].drag();

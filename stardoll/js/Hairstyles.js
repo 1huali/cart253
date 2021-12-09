@@ -3,6 +3,8 @@ class Hairstyles
   constructor(x,y,img,name) {
     this.x=x;
     this.y=y;
+    this.startX=x;
+    this.startY=y;
     this.name = name;
     this.img=img;
     this.w=this.img.width/2;
@@ -39,9 +41,10 @@ mouseHover(){
   }
 }
 
-  displayHipBox(){
-  // tbd
-  }
+hairReturns(){
+  this.x=this.startX;
+  this.y=this.startY;
+}
 
   displayHair (){
     imageMode(CENTER);
