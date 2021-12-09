@@ -11,13 +11,13 @@ let state = 'intro';
 
 // maybe change cos its not a doll its human being
 let doll = {
-  x: 750,
-  y: 400
+  x: 720,
+  y: 340
 }
 
 let hitBox = {
-  x: 750,
-  y: 400,
+  // x: 750,
+  // y: 400,
   w: 200,
   h: 200
 }
@@ -26,43 +26,43 @@ let hitBox = {
 let dollFaceImg = undefined;
 
 let msgZone = {
-  x: 500,
-  y: 710,
+  x: 320,
+  y: 650,
   width: 500,
   height: 50,
-  message: ``
+  message: `INTERACTIVE LOOKBOOK`
 }
 
 // done
 let creditButton = {
-  x: 1200,
-  y: 65,
+  x: 1180,
+  y: 20,
   img: undefined
 }
 
 let saveButton = {
-  x: 1200,
-  y: 730,
-  w: 80,
+  x: 1000,
+  y: 20,
+  // w: 80,
   img: undefined
 }
 
 let replayButton = {
-  x: 290,
-  y: 720,
+  x: 1160,
+  y: 20,
   img: undefined
 }
 
 let showMuHair = true;
 let hideButton = {
-  x: 350,
-  y: 730,
+  x: 620,
+  y: 20,
   img: undefined
 }
 
 let muteButton = {
-  x: 350,
-  y: 65,
+  x: 320,
+  y: 20,
   img: undefined
 }
 
@@ -82,8 +82,12 @@ let mouseIsPressed = false;
 let song;
 let currentVisage = '';
 
-let gameTitle = undefined;
-let gameCredits = undefined;
+let gameOpening = undefined;
+let titleStatement = undefined;
+let gameEnding = undefined;
+let creditStatement = undefined;
+let hairInstructions = undefined;
+let muInstructions = undefined;
 
 
 /**
@@ -103,20 +107,26 @@ function preload() {
   muImg.push(loadImage('assets/images/dinuhua_look3-muIcon.png'));
   // muImg.push(loadImage('assets/images/mu4.png'));
 
-  dollFaceImg = loadImage('assets/images/dinuhua_base.png');
+  dollFaceImg = loadImage('assets/images/dinuhua_whitebase.png');
   visageImg.push(loadImage('assets/images/dinuhua_mu1.png'));
   visageImg.push(loadImage('assets/images/dinuhua_mu2.png'));
   visageImg.push(loadImage('assets/images/dinuhua_mu3.png'));
   // visageImg.push(loadImage('assets/images/??.png'));
 
   // load titles and graphix
-  gameTitle = (loadImage('assets/images/dinuhua_title.png'));
-  gameCredits = (loadImage('assets/images/dinuhua_credits-title.png'));
+  gameOpening = (loadImage('assets/images/dinuhua_title.png'));
+  gameEnding = (loadImage('assets/images/dinuhua_credits-title.png'));
   muteButton.img = (loadImage('assets/images/mute_button.png'));
   saveButton.img = (loadImage('assets/images/save_button.png'));
   creditButton.img = (loadImage('assets/images/done_button.png'));
   hideButton.img = (loadImage('assets/images/hide_button.png'));
   replayButton.img = (loadImage('assets/images/replay_button.png'));
+  titleStatement = (loadImage('assets/images/title_graphix.png'));
+  creditStatement = (loadImage('assets/images/credit_graphix.png'));
+  hairInstructions = (loadImage('assets/images/hair_details.png'));
+  muInstructions = (loadImage('assets/images/mu_details.png'));
+
+
 
 }
 
@@ -135,9 +145,9 @@ function setup() {
   // hairstyles.push(new Hairstyles(900, 400, hairImg[3], 'spike wig'));
   // hairstyles.push(new Hairstyles(900, 500, hairImg[4], 'long wig'));
 
-  makeups.push(new MakeUps(150, 200, muImg[0], visageImg[0], 'L1-#YELLOW'));
-  makeups.push(new MakeUps(150, 300, muImg[1], visageImg[1], 'L2-#FLOWER'));
-  makeups.push(new MakeUps(150, 400, muImg[2], visageImg[2], 'L3-#PURPLE'));
+  makeups.push(new MakeUps(120, 500, muImg[0], visageImg[0], 'L1-#YELLOW'));
+  makeups.push(new MakeUps(120, 300, muImg[1], visageImg[1], 'L2-#FLOWER'));
+  makeups.push(new MakeUps(120, 400, muImg[2], visageImg[2], 'L3-#PURPLE'));
   // makeups.push(new MakeUps(300, 500, muImg[3], 'mu 4','mu 4'));
 
   // pour array visages
@@ -158,7 +168,7 @@ function displayModel() {
   image(currentVisage, doll.x, doll.y, 1000, 600);
   noFill();
   noStroke();
-  rect(hitBox.x, hitBox.y, hitBox.w, hitBox.h);
+  rect(doll.x, doll.y, hitBox.w, hitBox.h);
   pop();
 }
 
@@ -195,7 +205,6 @@ function displayReplayButton() {
   push();
   imageMode(CENTER);
   image(replayButton.img, replayButton.x, replayButton.y);
-  // console.log("replay exists");
   pop();
 }
 
@@ -267,7 +276,7 @@ function mouseReleased() {
   hairClicked = false;
 
   for (let i = 0; i < hairstyles.length; i++) {
-    let d = dist(hairstyles[i].x, hairstyles[i].y, hitBox.x, hitBox.y);
+    let d = dist(hairstyles[i].x, hairstyles[i].y, doll.x, doll.y);
     if (d < hitBox.w / 2) {
       hairstyles[i].chosen = true;
     }
@@ -280,7 +289,7 @@ function mouseReleased() {
   muClicked = false;
 
   for (let i = 0; i < makeups.length; i++) {
-    let d = dist(makeups[i].x, makeups[i].y, hitBox.x, hitBox.y);
+    let d = dist(makeups[i].x, makeups[i].y, doll.x, doll.y);
     if (d < hitBox.w / 2) {
       currentVisage = makeups[i].visageImg;
       makeups[i].makeUpReturns();
@@ -372,7 +381,8 @@ function displayText(message) {
 function intro() {
   push();
   imageMode(CENTER);
-  image(gameTitle, windowWidth/2, windowHeight/2,1000, 600);
+  image(gameOpening, doll.x, doll.y,1000, 600);
+  image(titleStatement,doll.x, doll.y+90);
   pop();
 }
 
@@ -396,7 +406,8 @@ function end() {
   displayReplayButton();
   push();
   imageMode(CENTER);
-  image(gameCredits, windowWidth/2, windowHeight/2,1000, 600);
+  image(gameEnding, doll.x, doll.y,1000, 600);
+  image(creditStatement,doll.x, doll.y+80);
   pop();
   // displayText(`Sorry princess, low funding. Come back after few gigs`);
   // displayText(`Credits : Wawa + Dyamond`);
@@ -419,6 +430,12 @@ function game() {
   hideObjectsButt();
 //
   displayMusicButt()
+  push();
+  image(hairInstructions, 1189, 670);
+  // console.log(hairInstructions);
+  image(muInstructions,100, 200);
+  // console.log(muInstructions);
+  pop();
   // console.log(`game state`)
   msgZone.message = ``;
   if (showMuHair === true){
