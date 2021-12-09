@@ -50,7 +50,6 @@ let saveButton = {
 let replayButton = {
   x: 290,
   y: 720,
-  w: 65,
   img: undefined
 }
 
@@ -198,12 +197,8 @@ function displayReplayButton() {
   image(replayButton.img, replayButton.x, replayButton.y);
   // console.log("replay exists");
   pop();
-  // replayButton.button.mousePressed(replayGame);
 }
 
-function replayGame() {
-  state = `game`;
-}
 
 function playMusic() {
   if (song.playing = true) {
@@ -250,11 +245,10 @@ function mousePressed() {
     hide();
   }
   else if (g < creditButton.img.width / 2) {
-    // gotToNext();
     state = `next`
   }
   else if (h < replayButton.img.width / 2) {
-    replayGame();
+      state = `game`;
   } else {
     mouseIsPressed = true;
     console.log("mouse pressed");
@@ -399,6 +393,7 @@ function keyPressed() {
 }
 
 function end() {
+  displayReplayButton();
   push();
   imageMode(CENTER);
   image(gameCredits, windowWidth/2, windowHeight/2,1000, 600);
@@ -411,7 +406,6 @@ function end() {
   if (keyCode === 32) {
     state = `next`;
   }
-  displayReplayButton();
 }
 
 
