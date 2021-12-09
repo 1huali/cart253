@@ -9,23 +9,15 @@ Best of both world:  帝女花, the 2021 Remix
 "use strict";
 let state = 'intro';
 
-// let allHoverOverMsg=[];
-// let hoverMessages =[];
-// let showInfo = false;
-
-
-
-// let oscillator = undefined;
-
 // maybe change cos its not a doll its human being
 let doll = {
-  x: 500,
-  y: 300,
+  x: 750,
+  y: 400
 }
 
 let hitBox = {
-  x: 500,
-  y: 300,
+  x: 750,
+  y: 400,
   w: 200,
   h: 200
 }
@@ -34,56 +26,47 @@ let hitBox = {
 let dollFaceImg = undefined;
 
 let msgZone = {
-  x: 300,
-  y: 650,
-  width: 880,
+  x: 500,
+  y: 710,
+  width: 500,
   height: 50,
   message: ``
 }
 
+// done
 let creditButton = {
-  x: 1150,
-  y: 100,
+  x: 550,
+  y: 50,
   // w: 80,
-  button: undefined
+  img: undefined
 }
 
 let saveButton = {
-  x: 1150,
-  y: 400,
+  x: 1000,
+  y: 50,
   w: 80,
   img: undefined
 }
 
-let changeBgButton = {
-  x: 1150,
-  y: 450,
-  w: 80,
-  button: undefined
-}
-
-let musicButton = {
-  x: 100,
-  y: 50,
-  w: 65,
-  button: undefined
-}
-
-// let musicPlaying = true;
-
 let replayButton = {
-  x: 100,
-  y: 90,
+  x: 350,
+  y: 730,
   w: 65,
-  button: undefined
+  img: undefined
 }
 
 let showMuHair = true;
-let hideButt = {
-  x: 0,
-  y: 500,
+let hideButton = {
+  x: 350,
+  y: 730,
+  img: undefined
+}
+
+let muteButton = {
+  x: 350,
+  y: 50,
   w: 65,
-  button: undefined
+  img: undefined
 }
 
 let visages = [];
@@ -105,12 +88,6 @@ let currentVisage = '';
 let gameTitle = undefined;
 let gameCredits = undefined;
 
-let muteButton = {
-  x: 100,
-  y: 50,
-  w: 65,
-  img: undefined
-}
 
 /**
 loading make-up icons, hair and made-up face
@@ -140,6 +117,9 @@ function preload() {
   gameCredits = (loadImage('assets/images/dinuhua_credits-title.png'));
   muteButton.img = (loadImage('assets/images/mute_button.png'));
   saveButton.img = (loadImage('assets/images/save_button.png'));
+  creditButton.img = (loadImage('assets/images/done_button.png'));
+  hideButton.img = (loadImage('assets/images/hide_button.png'));
+  replayButton.img = (loadImage('assets/images/replay_button.png'));
 
 }
 
@@ -152,15 +132,15 @@ function setup() {
   // fill(255,0,0);
   pop();
   // calling the img
-  hairstyles.push(new Hairstyles(900, 200, hairImg[0], 'red wig'));
-  hairstyles.push(new Hairstyles(900, 300, hairImg[1], 'pink wig'));
-  hairstyles.push(new Hairstyles(900, 400, hairImg[2], 'blonde wig'));
+  hairstyles.push(new Hairstyles(1320, 200, hairImg[0], 'H1-#SPIKES-2'));
+  hairstyles.push(new Hairstyles(1320, 300, hairImg[1], 'H2-#MIRROR-0'));
+  hairstyles.push(new Hairstyles(1320, 400, hairImg[2], 'H3-#LOOP-1'));
   // hairstyles.push(new Hairstyles(900, 400, hairImg[3], 'spike wig'));
   // hairstyles.push(new Hairstyles(900, 500, hairImg[4], 'long wig'));
 
-  makeups.push(new MakeUps(150, 200, muImg[0], visageImg[0], 'mu 1'));
-  makeups.push(new MakeUps(150, 300, muImg[1], visageImg[1], 'mu 2'));
-  makeups.push(new MakeUps(150, 400, muImg[2], visageImg[2], 'mu 3'));
+  makeups.push(new MakeUps(150, 200, muImg[0], visageImg[0], 'L1-#YELLOW'));
+  makeups.push(new MakeUps(150, 300, muImg[1], visageImg[1], 'L2-#FLOWER'));
+  makeups.push(new MakeUps(150, 400, muImg[2], visageImg[2], 'L3-#PURPLE'));
   // makeups.push(new MakeUps(300, 500, muImg[3], 'mu 4','mu 4'));
 
   // pour array visages
@@ -171,6 +151,7 @@ function setup() {
   // visages.push(new MakeUps(300, 500, ?? [3]));
 
   currentVisage = dollFaceImg;
+
 }
 
 function displayModel() {
@@ -192,16 +173,19 @@ function displayMusicButt() {
 }
 
 function hideObjectsButt() {
-  hideButt.button = createButton('Hide material');
-  hideButt.button.position(hideButt.x, hideButt.y, hideButt.w);
-  hideButt.button.mousePressed(hide);
+push();
+imageMode(CENTER);
+image(hideButton.img,hideButton.x,hideButton.y);
+console.log("hide button exist")
+pop();
 }
 
 // becomes "done" button
 function displayCreditButton() {
-  creditButton.button = createButton('Done');
-  creditButton.button.position(creditButton.x, creditButton.y, creditButton.w);
-  creditButton.button.mousePressed(goToNext);
+push();
+imageMode(CENTER);
+image(creditButton.img,creditButton.x,creditButton.y);
+pop();
 }
 
 function displaySaveButton() {
@@ -211,27 +195,17 @@ function displaySaveButton() {
   pop();
 }
 
-// Q: why the save look button disappears too?
-// function createBgButt() {
-//   changeBgButton.button = createButton('Hide/Show');
-//   changeBgButton.button.position(changeBgButton.x, changeBgButton.y, changeBgButton.w);
-//   // replayButton.button.mousePressed(hideShow);
-// }
-
-// Q: help here
-// function hideShow{
-//
-// }
-
-function createReplayButt() {
-  replayButton.button = createButton('Replay');
-  replayButton.button.position(replayButton.x, replayButton.y, replayButton.w);
-  replayButton.button.mousePressed(replayGame);
+function displayReplayButton() {
+  push();
+  imageMode(CENTER);
+  image(replayButton.img, replayButton.x, replayButton.y);
+  // console.log("replay exists");
+  pop();
+  // replayButton.button.mousePressed(replayGame);
 }
 
 function replayGame() {
   state = `game`;
-  // song replay
 }
 
 function playMusic() {
@@ -254,9 +228,6 @@ function stopMusic() {
 
 function goToNext() {
   state = `next`
-  // creditButton.button.remove();
-  // changeBgButton.button.remove();
-  // saveButton.img.remove();
 }
 
 
@@ -268,13 +239,25 @@ function hide() {
 function mousePressed() {
   let d = dist(mouseX, mouseY, muteButton.x, muteButton.y);
   let e = dist(mouseX, mouseY, saveButton.x, saveButton.y);
+  let f = dist(mouseX, mouseY, hideButton.x, hideButton.y);
+  let g = dist(mouseX, mouseY, creditButton.x, creditButton.y);
+  let h = dist(mouseX, mouseY, replayButton.x, replayButton.y);
+
 
   if (d < muteButton.img.width / 2) {
     stopMusic();
-    console.log("mute pressed");
   } else if (e < saveButton.img.width / 2) {
     saveCanvas('new_opera.png')
-    console.log("save pressed");
+  }
+  else if (f < hideButton.img.width / 2) {
+    hide();
+  }
+  else if (g < creditButton.img.width / 2) {
+    // gotToNext();
+    state = `next`
+  }
+  else if (h < replayButton.img.width / 2) {
+    replayGame();
   } else {
     mouseIsPressed = true;
     console.log("mouse pressed");
@@ -354,7 +337,7 @@ function brush() {
 function displayMsgZone() {
   push();
   noFill();
-  stroke(250, 142, 193);
+  noStroke();
   rect(msgZone.x, msgZone.y, msgZone.width, msgZone.height);
   pop();
 
@@ -371,16 +354,6 @@ function displayVisage() {
   image(currentVisage, doll.x, doll.y);
   pop();
 }
-
-
-// function displayFaceZone() {
-//   push();
-//   noFill()
-//   rectMode(CENTER);
-//   rect(faceZone.x, faceZone.y, faceZone.width, faceZone.height);
-//   pop();
-// }
-
 
 // think this is useless
 function hoverZones() {
@@ -407,8 +380,8 @@ function displayText(message) {
 
 function intro() {
   push();
-  image(gameTitle, 0, 0);
   imageMode(CENTER);
+  image(gameTitle, windowWidth/2, windowHeight/2,1000, 600);
   pop();
 }
 
@@ -419,20 +392,19 @@ function start() {
 function keyPressed() {
   if (keyCode === 13) {
     song.play();
-    state = `start`;
-  }
-  if (keyCode === 32) {
     state = `game`;
-    displayCreditButton();
-    hideObjectsButt();
-    // waiting til the end to add hide options
   }
+  // if (keyCode === 32) {
+  //   state = `game`;
+  //   // displayCreditButton();
+  //   // hideObjectsButt();
+  // }
 }
 
 function end() {
   push();
-  image(gameCredits, 0, 0);
   imageMode(CENTER);
+  image(gameCredits, windowWidth/2, windowHeight/2,1000, 600);
   pop();
   // displayText(`Sorry princess, low funding. Come back after few gigs`);
   // displayText(`Credits : Wawa + Dyamond`);
@@ -442,7 +414,7 @@ function end() {
   if (keyCode === 32) {
     state = `next`;
   }
-  createReplayButt();
+  displayReplayButton();
 }
 
 
@@ -450,8 +422,11 @@ function end() {
 function game() {
   displayMsgZone();
   displayModel();
+  // those who used to be in keyPressed
   displaySaveButton();
-  //displayFaceZone();
+  displayCreditButton();
+  hideObjectsButt();
+//
   displayMusicButt()
   // console.log(`game state`)
   msgZone.message = ``;
@@ -480,22 +455,15 @@ function game() {
 
 
 function draw() {
-  background(255, 0, 0);
+  background(255);
   // cursor not working
   cursor('assets/images/flower (25).png');
-  // checkOverlap();
-  // displayFaceZone();
 
-  //  if (showInfo) {
-  //   textSize(40);
-  //   text("I'm info text", width / 2, height/2);
-  // }
-
-  // wanna delete the start title
 
   if (state === `intro`) {
     intro();
-  } else if (state === `start`) {
+  }
+  else if (state === `start`) {
     start();
     // mouseMoved();
   } else if (state === `game`) {
