@@ -1,3 +1,8 @@
-# Template p5 project
+# New Opera - Hair/Make-Up Interactive look-book
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+
+In this aesthetically-realistic hair and make-up game, 3 different looks are available for the user to drag and drop on the doll's face and head. The user can mute the music playing (MUTE/PLAY), hide hair/make-up elements to have a minimalistic view of the result and save the look in .png (HIDE/SHOW),  saving the whole canvas (SAVE). The look-book is showing an experimental remake of cantonese opera make-up - more specifically "the flower daughter" opera, were the doll is living a fantasy to be made-up for their pop-rock concert, hence the DIY aesthetic.
+
+Art: This idea was to explore new ways of showcasing beauty looks (here we didn't focus on beauty look precisely but) rather than popular passive consumption ways as Instagram, for example. It also gives a sense to the user of a major step of an artist's conceptual process, which is the mix-and-match experimental moment; my most uncomfortable one, where, in my experience, innovative ideas emerge if we allow ourselves to surrender to cut and glue in the raw material, hence to the result. As there will be more components and as they complexifie - or even change shapes as they can, or should eventually be clothes or home decorations - the options will be exponential. The universe of an "artist" is so much more than just the product itself. For me, the final product is almost nothing but a symbol. For me, beauty is all about what happens in between.
+
+Techno: Drag and drop elements; 3 states game (title, hair/make-up game, the credit); music starts at the game state; the make-up and hair elements has names (displayed when the user hover over them) that are thought to remind the user they are product, short instructions at the bottom of the canvas. 

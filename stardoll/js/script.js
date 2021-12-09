@@ -392,8 +392,9 @@ function game() {
   displaySaveButton();
   displayMusicButt()
   displayDoneButton();
-  msgZone.message = `NEW OPERA : an interactive lookbook/make-up game-ish. ty4playing! `;
+  msgZone.message = ``;
   if (showMuHair === true){
+    msgZone.message = `NEW OPERA : an interactive lookbook/make-up game-ish. ty4playing! `;
 
     push();
     image(hairInstructions.img, hairInstructions.x, hairInstructions.y);
