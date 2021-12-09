@@ -15,6 +15,7 @@ let doll = {
   y: 340
 }
 
+
 let hitBox = {
   // x: 750,
   // y: 400,
@@ -30,7 +31,7 @@ let msgZone = {
   y: 650,
   width: 500,
   height: 50,
-  message: `INTERACTIVE LOOKBOOK`
+  message: ``
 }
 
 // done
@@ -49,7 +50,7 @@ let saveButton = {
 
 let replayButton = {
   x: 1160,
-  y: 20,
+  y: 670,
   img: undefined
 }
 
@@ -88,7 +89,7 @@ let gameEnding = undefined;
 let creditStatement = undefined;
 let hairInstructions = {
 x:1189,
-y:670,
+y:610,
 img:undefined
 }
 
@@ -366,27 +367,16 @@ function displayVisage() {
   pop();
 }
 
-// think this is useless
-function hoverZones() {
-  push();
-  ellipse(200, 600, 100);
-  noFill();
-  pop();
-}
-
-
 
 function displayText(message) {
   push();
   fill(250, 142, 193);
   textSize(24);
-  textAlign(CENTER, CENTER);
   textSize(24);
-  text(message, width / 2, height / 2);
+  text(message, 360, 710);
   stroke(2);
   pop();
 }
-
 
 
 function intro() {
@@ -420,8 +410,6 @@ function end() {
   image(gameEnding, doll.x, doll.y,1000, 600);
   image(creditStatement,doll.x, doll.y+80);
   pop();
-  // displayText(`Sorry princess, low funding. Come back after few gigs`);
-  // displayText(`Credits : Wawa + Dyamond`);
   push();
   fill(255, 0, 0);
   pop();
@@ -435,21 +423,16 @@ function end() {
 function game() {
   displayMsgZone();
   displayModel();
-  // those who used to be in keyPressed
   hideObjectsButt();
   displaySaveButton();
   displayMusicButt()
   displayCreditButton();
-//
-  // console.log(`game state`)
-  msgZone.message = ``;
+  msgZone.message = `NEW OPERA : an interactive lookbook/make-up game-ish. ty4playing! `;
   if (showMuHair === true){
 
     push();
     image(hairInstructions.img, hairInstructions.x, hairInstructions.y);
-    // console.log(hairInstructions);
     image(muInstructions,100, 200);
-    // console.log(muInstructions);
     pop();
 
   for (let j = 0; j < makeups.length; j++) {
@@ -461,6 +444,7 @@ function game() {
       msgZone.message = makeups[j].name;
     }
   }
+  displayText(`ok so MUTE/PLAY music; HIDE elements then SAVE to .png when U done`, 360,710);
 }
   for (let i = 0; i < hairstyles.length; i++) {
     if (showMuHair === true || hairstyles[i].chosen === true) {
@@ -477,8 +461,7 @@ function game() {
 
 function draw() {
   background(255);
-  // cursor not working
-  cursor('assets/images/flower (25).png');
+  cursor(CROSS);
 
 
   if (state === `intro`) {
@@ -486,7 +469,6 @@ function draw() {
   }
   else if (state === `start`) {
     start();
-    // mouseMoved();
   } else if (state === `game`) {
     game();
   } else if (state === `next`) {
