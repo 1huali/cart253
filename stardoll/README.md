@@ -7,4 +7,7 @@ Art: This idea was to explore new ways of showcasing beauty looks (here we didn'
 
 Techno: 3 arrays : make-up (which are flower icons that are to be dragged and dropped on the doll's face), visages (which are the faces with make-up and they appears only after the user dropped the make-up floral icon on the doll) and hairstyles. Mostly a drag-and-drop-element type of interactivity that triggers its result. Object-oriented programming with 2 classes : Hairstyles and Make-up. 3 states game (title, hair/make-up game, the credit); music starts at the game state. The make-up and hair elements has names (displayed when the user hover over them) that are thought to remind the user they compose the product of this game. Short instructions at the bottom of the canvas in a message box.  
 
-Attribution : except if stated otherwise, I had lot of help for Sabine (computation lab), but every time she would say that I figured it out on my own so I am guessing I didn't use her codes. The format of the classes and template of my program, such as for loops; preload(), setup(), functions then draw() template; arrays, etc, are predominantly inspired from the method learned in class (Source : Pippin Barr). 
+Attribution : except if stated otherwise, I had lot of help for Sabine (computation lab), but every time she would say that I figured it out on my own so I am guessing I didn't use her codes. The format of the classes and template of my program, such as for loops; preload(), setup(), functions then draw() template; arrays, etc, are predominantly inspired from the method learned in class (Source : Pippin Barr).
+
+Flower : https://dupontnursery.com/cajun-hibiscus/
+Hair and Make-Up : dyamond https://www.instagram.com/dyamond.dy/
